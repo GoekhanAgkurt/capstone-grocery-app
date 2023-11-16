@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Link from "next/link";
 
-const StyledProductListItem = styled.li`
+const StyledProductListItem = styled.div`
   width: 100%;
   background-color: var(--secondaryBackgroundColor);
   padding: 10px;
@@ -19,8 +19,10 @@ const StyledLink = styled(Link)`
 
 export default function ProductListItem({ product }) {
   return (
-    <StyledProductListItem>
-      <StyledLink href={`/products/${product._id}`}>{product.name}</StyledLink>
-    </StyledProductListItem>
+    <li>
+      <StyledLink href={`/products/${product._id}`}>
+        <StyledProductListItem>{product.name}</StyledProductListItem>
+      </StyledLink>
+    </li>
   );
 }
