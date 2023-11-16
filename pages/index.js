@@ -1,7 +1,8 @@
-export default function HomePage() {
+import ProductsList from "@/components/ProductsList";
+export default function HomePage({ products }) {
   return (
-    <div>
-      <h1>Hello from Next.js</h1>
-    </div>
+    <main>
+      <ProductsList products={products}></ProductsList>
+    </main>
   );
 }
