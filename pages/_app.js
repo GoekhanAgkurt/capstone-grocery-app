@@ -1,10 +1,18 @@
 import GlobalStyle from "../styles";
+import { initialProducts } from "@/lib/data";
+import useLocalStorageState from "use-local-storage-state";
+import Header from "@/components/Header";
 
 export default function App({ Component, pageProps }) {
+  const [products, setProducts] = useLocalStorageState("products", {
+    defaultValue: initialProducts,
+  });
+  console.log("products:", products);
   return (
     <>
       <GlobalStyle />
-      <Component {...pageProps} />
+      <Header />
+      <Component {...pageProps} products={products} />
     </>
   );
 }
