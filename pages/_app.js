@@ -7,12 +7,21 @@ export default function App({ Component, pageProps }) {
   const [products, setProducts] = useLocalStorageState("products", {
     defaultValue: initialProducts,
   });
+
+  function handleAddProduct(newProduct) {
+    setProducts([...products, newProduct]);
+  }
+
   console.log("products:", products);
   return (
     <>
       <GlobalStyle />
       <Header />
-      <Component {...pageProps} products={products} />
+      <Component
+        {...pageProps}
+        products={products}
+        handleAddProduct={handleAddProduct}
+      />
     </>
   );
 }
