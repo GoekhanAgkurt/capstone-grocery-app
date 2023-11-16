@@ -7,13 +7,20 @@ const StyledProductListItem = styled.li`
   padding: 10px;
   margin-block: 7px;
   border-radius: 5px;
-  box-shadow: 0px 1px 3px var(--primaryFontColor);
+  box-shadow: 0px 1px 3px var(--primaryDarkColor);
+  &:hover {
+    cursor: pointer;
+  }
+`;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: var(--primaryDarkColor);
 `;
 
 export default function ProductListItem({ product }) {
   return (
     <StyledProductListItem>
-      <Link href={`/products/${product._id}`}>{product.name}</Link>
+      <StyledLink href={`/products/${product._id}`}>{product.name}</StyledLink>
     </StyledProductListItem>
   );
 }

@@ -20,7 +20,7 @@ export default createGlobalStyle`
     --primaryBackgroundColor: #ECE8E8;
     --secondaryBackgroundColor: #D6D2D2;
 
-    --primaryFontColor: #474747;
+    --primaryDarkColor: #474747;
     --accentColor: #73A76A;
     --fontRegular: ${openSans.style.fontFamily};
     --fontBold: ${openSansBold.style.fontFamily};
@@ -59,7 +59,7 @@ export default createGlobalStyle`
     grid-area: main;
     overflow: auto;
     padding-inline: 15px;
-    color: var(--primaryFontColor);
+    color: var(--primaryDarkColor);
   }
   h1, h2, h3 {
     font-family: var(--fontBold);
