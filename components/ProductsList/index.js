@@ -1,4 +1,3 @@
-import { uid } from "uid";
 import ProductListItem from "../ProductListItem";
 export default function ProductsList({ products }) {
   return (
@@ -6,7 +5,7 @@ export default function ProductsList({ products }) {
       <h2>Product List</h2>
       <ul>
         {products.map((product) => (
-          <ProductListItem key={uid()} product={product}></ProductListItem>
+          <ProductListItem key={product._id} product={product} />
         ))}
       </ul>
     </>

@@ -8,9 +8,11 @@ export default function App({ Component, pageProps }) {
     defaultValue: initialProducts,
   });
 
+
   function handleAddProduct(newProduct) {
     setProducts([...products, newProduct]);
   }
+
 
   return (
     <>
