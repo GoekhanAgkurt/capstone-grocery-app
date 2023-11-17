@@ -26,10 +26,13 @@ const StyledCreateLink = styled(Link)`
   }
 `;
 
-export default function HomePage({ products }) {
+export default function HomePage({ products, handleDeleteProduct }) {
   return (
     <main>
-      <ProductsList products={products}></ProductsList>
+      <ProductsList
+        handleDeleteProduct={handleDeleteProduct}
+        products={products}
+      ></ProductsList>
       <StyledCreateLink href="/create">+</StyledCreateLink>
     </main>
   );

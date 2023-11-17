@@ -8,11 +8,13 @@ export default function App({ Component, pageProps }) {
     defaultValue: initialProducts,
   });
 
-
   function handleAddProduct(newProduct) {
     setProducts([...products, newProduct]);
   }
 
+  function handleDeleteProduct(_id) {
+    setProducts(products.filter((product) => product._id !== _id));
+  }
 
   return (
     <>
@@ -22,6 +24,7 @@ export default function App({ Component, pageProps }) {
         {...pageProps}
         products={products}
         handleAddProduct={handleAddProduct}
+        handleDeleteProduct={handleDeleteProduct}
       />
     </>
   );
