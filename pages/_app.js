@@ -7,7 +7,6 @@ export default function App({ Component, pageProps }) {
   const [products, setProducts] = useLocalStorageState("products", {
     defaultValue: initialProducts,
   });
-  console.log("products:", products);
   return (
     <>
       <GlobalStyle />
