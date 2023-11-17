@@ -6,8 +6,9 @@ const StyledCreateButton = styled.div`
   display: inline-block;
   background-color: var(--accentColor);
   position: fixed;
-  right: 50px;
   bottom: 50px;
+  left: 50%;
+  transform: translate(-50%);
   height: 60px;
   width: 60px;
   display: flex;
