@@ -2,18 +2,20 @@ import ProductsList from "@/components/ProductsList";
 import Link from "next/link";
 import styled from "styled-components";
 
-const StyledCreateButton = styled.div`
-  display: inline-block;
-  background-color: var(--accentColor);
+const StyledCreateLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   bottom: 50px;
   left: 50%;
   transform: translate(-50%);
   height: 60px;
   width: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-size: 1.4rem;
+  color: white;
+  text-decoration: none;
+  background-color: var(--accentColor);
   border-radius: 50px;
   box-shadow: 0px 1px 3px var(--primaryFontColor);
   &:hover {
@@ -24,18 +26,11 @@ const StyledCreateButton = styled.div`
   }
 `;
 
-const StyledLink = styled(Link)`
-  font-size: 1.4rem;
-  color: white;
-`;
-
 export default function HomePage({ products }) {
   return (
     <main>
       <ProductsList products={products}></ProductsList>
-      <StyledLink href="/create">
-        <StyledCreateButton>+</StyledCreateButton>
-      </StyledLink>
+      <StyledCreateLink href="/create">+</StyledCreateLink>
     </main>
   );
 }

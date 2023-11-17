@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { uid } from "uid";
 import styled from "styled-components";
+import { StyledCancelLink, StyledSubmitButton } from "@/components/Buttons";
 
 const StyledForm = styled.form`
   display: flex;
@@ -42,40 +43,6 @@ const StyledButtonContainer = styled.div`
   justify-content: space-between;
 `;
 
-const StyledSubmitButton = styled.button`
-  border: none;
-  border-radius: 5px;
-  width: 49%;
-  padding: 10px 40px;
-  margin-top: 20px;
-  background-color: var(--accentColor);
-  color: white;
-  font-size: 16px;
-  box-shadow: 0px 1px 3px var(--primaryFontColor);
-  &:hover {
-    background-color: #5d8a55;
-    cursor: pointer;
-  }
-`;
-
-const StyledCancelLink = styled(Link)`
-  border: none;
-  display: inline-block;
-  border-radius: 5px;
-  width: 49%;
-  padding: 10px 40px;
-  margin-top: 20px;
-  background-color: darkgrey;
-  color: var(--primaryBackgroundColor);
-  text-align: center;
-  text-decoration: none;
-  box-shadow: 0px 1px 3px var(--primaryFontColor);
-  &:hover {
-    background-color: grey;
-    cursor: pointer;
-  }
-`;
-
 export default function CreateProduct({ handleAddProduct }) {
   const router = useRouter();
   function createProduct(event) {
@@ -108,10 +75,12 @@ export default function CreateProduct({ handleAddProduct }) {
         <StyledTextArea
           id="productNote"
           name="productNote"
-          placeholder="Enter Notes"
+          placeholder="Enter Note"
         ></StyledTextArea>
         <StyledButtonContainer>
-          <StyledCancelLink href="/">Cancel</StyledCancelLink>
+          <StyledCancelLink as={Link} href="/">
+            Cancel
+          </StyledCancelLink>
           <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
         </StyledButtonContainer>
       </StyledForm>

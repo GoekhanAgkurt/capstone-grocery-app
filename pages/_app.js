@@ -12,7 +12,6 @@ export default function App({ Component, pageProps }) {
     setProducts([...products, newProduct]);
   }
 
-  console.log("products:", products);
   return (
     <>
       <GlobalStyle />
