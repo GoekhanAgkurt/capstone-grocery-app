@@ -27,8 +27,8 @@ export default function App({ Component, pageProps }) {
       <Component
         {...pageProps}
         products={products}
-        handleAddProduct={handleAddProduct}
-        handleEditProduct={handleEditProduct}
+        onAddProduct={handleAddProduct}
+        onEditProduct={handleEditProduct}
       />
     </>
   );

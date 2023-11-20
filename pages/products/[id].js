@@ -70,7 +70,7 @@ const StyledButtonContainer = styled.div`
   justify-content: space-between;
 `;
 
-export default function ProductDetailsPage({ products, handleEditProduct }) {
+export default function ProductDetailsPage({ products, onEditProduct }) {
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
@@ -92,7 +92,7 @@ export default function ProductDetailsPage({ products, handleEditProduct }) {
       _id: product._id,
     };
 
-    handleEditProduct(editedProduct);
+    onEditProduct(editedProduct);
     setIsEdit(false);
   }
 
@@ -124,7 +124,7 @@ export default function ProductDetailsPage({ products, handleEditProduct }) {
             defaultValue={product.name}
             required
             autoFocus
-          ></StlyedInput>
+          />
           <StyledLabel htmlFor="productNote">Note</StyledLabel>
           <StyledTextArea
             id="productNote"

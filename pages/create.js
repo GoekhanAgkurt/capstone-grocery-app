@@ -43,7 +43,7 @@ const StyledButtonContainer = styled.div`
   justify-content: space-between;
 `;
 
-export default function CreateProduct({ handleAddProduct }) {
+export default function CreateProduct({ onAddProduct }) {
   const router = useRouter();
   function createProduct(event) {
     event.preventDefault();
@@ -56,7 +56,7 @@ export default function CreateProduct({ handleAddProduct }) {
       note: data.productNote,
       _id: uid(),
     };
-    handleAddProduct(newProduct);
+    onAddProduct(newProduct);
     router.push("/");
   }
   return (
