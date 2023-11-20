@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
-import { StyledSubmitButton, StyledCancelLink } from "../Buttons";
+import { StyledSubmitButton, StyledCancelButton } from "../Buttons";
 
 const StyledListItem = styled.li`
   margin-block: 7px;
@@ -48,7 +48,7 @@ const StyledConfirmButton = styled(StyledSubmitButton)`
     background-color: darkred;
   }
 `;
-const StyledCancelButton = styled(StyledCancelLink)`
+const StyledSmallCancelButton = styled(StyledCancelButton)`
   width: auto;
   display: flex;
   justify-content: center;
@@ -71,12 +71,12 @@ export default function ProductListItem({ product, onDeleteProduct }) {
       </StyledDeleteIcon>
       {showConfirmButtons && (
         <StyledDeleteConfirmation>
-          <StyledCancelButton
+          <StyledSmallCancelButton
             type="button"
             onClick={() => setShowConfirmButtons(false)}
           >
             Cancel
-          </StyledCancelButton>{" "}
+          </StyledSmallCancelButton>{" "}
           <StyledConfirmButton
             type="button"
             onClick={() => onDeleteProduct(product._id)}
