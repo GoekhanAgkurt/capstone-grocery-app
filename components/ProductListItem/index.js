@@ -59,7 +59,6 @@ const StyledCancelButton = styled(StyledCancelLink)`
 
 export default function ProductListItem({ product, onDeleteProduct }) {
   const [showConfirmButtons, setShowConfirmButtons] = useState(false);
-  console.log("product id in product list:", product._id);
   return (
     <StyledListItem>
       <StyledLink href={`/products/${product._id}`}>{product.name} </StyledLink>

@@ -1,5 +1,14 @@
 import ProductListItem from "../ProductListItem";
 export default function ProductsList({ products, handleDeleteProduct }) {
+  if (products.length === 0) {
+    return (
+      <>
+        <h2>Product List</h2>
+        <p>Currently, your product list is empty. </p>
+        <p>You can add products to your list via the the green + button</p>
+      </>
+    );
+  }
   return (
     <>
       <h2>Product List</h2>
