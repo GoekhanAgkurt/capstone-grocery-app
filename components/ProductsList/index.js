@@ -17,7 +17,7 @@ export default function ProductsList({ products, onDeleteProduct }) {
           <ProductListItem
             key={product._id}
             product={product}
-            onDeleteProduct={handleDeleteProduct}
+            onDeleteProduct={onDeleteProduct}
           />
         ))}
       </ul>
