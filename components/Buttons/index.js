@@ -11,7 +11,7 @@ export const StyledButton = styled.button`
   margin-top: 20px;
   color: white;
   font-size: 16px;
-  box-shadow: 0px 1px 3px var(--primaryFontColor);
+  box-shadow: 0px 1px 3px var(--primaryDarkColor);
   &:hover {
     cursor: pointer;
   }
@@ -22,7 +22,7 @@ export const StyledSubmitButton = styled(StyledButton)`
     background-color: #5d8a55;
   }
 `;
-export const StyledCancelLink = styled(StyledButton)`
+export const StyledCancelButton = styled(StyledButton)`
   background-color: darkgrey;
   color: var(--primaryBackgroundColor);
   &:hover {

@@ -12,6 +12,14 @@ export default function App({ Component, pageProps }) {
     setProducts([...products, newProduct]);
   }
 
+  function handleEditProduct(editedProduct) {
+    setProducts(
+      products.map((product) =>
+        product._id === editedProduct._id ? editedProduct : product
+      )
+    );
+  }
+  
   function handleDeleteProduct(_id) {
     setProducts(products.filter((product) => product._id !== _id));
   }
@@ -23,7 +31,8 @@ export default function App({ Component, pageProps }) {
       <Component
         {...pageProps}
         products={products}
-        handleAddProduct={handleAddProduct}
+        onAddProduct={handleAddProduct}
+        onEditProduct={handleEditProduct}
         handleDeleteProduct={handleDeleteProduct}
       />
     </>

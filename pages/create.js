@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { uid } from "uid";
 import styled from "styled-components";
-import { StyledCancelLink, StyledSubmitButton } from "@/components/Buttons";
+import { StyledCancelButton, StyledSubmitButton } from "@/components/Buttons";
 
 const StyledForm = styled.form`
   display: flex;
@@ -43,7 +43,7 @@ const StyledButtonContainer = styled.div`
   justify-content: space-between;
 `;
 
-export default function CreateProduct({ handleAddProduct }) {
+export default function CreateProduct({ onAddProduct }) {
   const router = useRouter();
   function createProduct(event) {
     event.preventDefault();
@@ -54,9 +54,9 @@ export default function CreateProduct({ handleAddProduct }) {
     const newProduct = {
       name: data.productName,
       note: data.productNote,
-      id: uid(),
+      _id: uid(),
     };
-    handleAddProduct(newProduct);
+    onAddProduct(newProduct);
     router.push("/");
   }
   return (
@@ -78,9 +78,9 @@ export default function CreateProduct({ handleAddProduct }) {
           placeholder="Enter Note"
         ></StyledTextArea>
         <StyledButtonContainer>
-          <StyledCancelLink as={Link} href="/">
+          <StyledCancelButton as={Link} href="/">
             Cancel
-          </StyledCancelLink>
+          </StyledCancelButton>
           <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
         </StyledButtonContainer>
       </StyledForm>
