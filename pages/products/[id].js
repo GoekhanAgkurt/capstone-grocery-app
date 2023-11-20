@@ -8,12 +8,12 @@ const StyledDetailField = styled.p`
   width: 100%;
   background-color: var(--secondaryBackgroundColor);
   padding: 10px;
-  margin-block: 7px;
+  margin-block: 7px 20px;
   border-radius: 5px;
 `;
 
 const StyledDetailTitle = styled.h3`
-  margin-block: 20px 0px;
+  margin-block: 0px 0px;
 `;
 
 const StyledLinkButton = styled(Link)`
@@ -39,7 +39,8 @@ const StyledForm = styled.form`
 
 const StyledLabel = styled.label`
   font-family: var(--fontBold);
-  font-size: 18px;
+  font-size: 19px;
+  margin: 0;
 `;
 
 const StyledInput = styled.input`
@@ -51,6 +52,15 @@ const StyledInput = styled.input`
   border-radius: 5px;
   font-size: 16px;
   font-family: var(--fontRegular);
+`;
+
+const StyledTitleInput = styled(StyledInput)`
+  font-size: 1.5rem;
+  font-family: var(--fontBold);
+  color: var(--primaryDarkColor);
+  background-color: transparent;
+  padding: 10px 0px;
+  margin-block: 10px;
 `;
 
 const StyledTextArea = styled.textarea`
@@ -107,11 +117,11 @@ export default function ProductDetailsPage({
 
   return (
     <main>
-      <h2>Product Details</h2>
       {!isEdit ? (
         <>
-          <StyledDetailTitle>Name</StyledDetailTitle>
-          <StyledDetailField>{product.name}</StyledDetailField>
+          <h2>{product.name}</h2>
+          {/* <StyledDetailTitle>Name</StyledDetailTitle>
+          <StyledDetailField>{product.name}</StyledDetailField> */}
           <StyledDetailTitle>Store</StyledDetailTitle>
           <StyledDetailField>
             {linkedStore ? linkedStore.name : "No Store selected"}
@@ -131,15 +141,23 @@ export default function ProductDetailsPage({
         </>
       ) : (
         <StyledForm onSubmit={editProduct}>
-          <StyledLabel htmlFor="productName">Name</StyledLabel>
-          <StyledInput
+          <StyledTitleInput
             id="productName"
             name="productName"
             type="text"
             defaultValue={product.name}
             required
             autoFocus
+            aria-label="Input for product title"
           />
+          {/* <StyledLabel htmlFor="productName">Name</StyledLabel>
+          <StyledInput
+            id="productName"
+            name="productName"
+            type="text"
+            defaultValue={product.name}
+            required
+          /> */}
           <StyledLabel htmlFor="selectedStore">Store</StyledLabel>
           <StyledInput
             as={"select"}
