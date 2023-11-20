@@ -1,5 +1,5 @@
 import ProductListItem from "../ProductListItem";
-export default function ProductsList({ products, handleDeleteProduct }) {
+export default function ProductsList({ products, onDeleteProduct }) {
   if (products.length === 0) {
     return (
       <>
