@@ -42,7 +42,7 @@ const StyledLabel = styled.label`
   font-size: 18px;
 `;
 
-const StlyedInput = styled.input`
+const StyledInput = styled.input`
   width: 100%;
   background-color: white;
   padding: 10px;
@@ -70,7 +70,11 @@ const StyledButtonContainer = styled.div`
   justify-content: space-between;
 `;
 
-export default function ProductDetailsPage({ products, onEditProduct }) {
+export default function ProductDetailsPage({
+  products,
+  stores,
+  onEditProduct,
+}) {
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
@@ -79,6 +83,10 @@ export default function ProductDetailsPage({ products, onEditProduct }) {
 
   const product = products.find((product) => product._id === id);
   if (!isReady) return <h2>is Loading</h2>;
+
+  const linkedStore = stores.find(
+    (store) => store._id === product.selectedStore
+  );
 
   function editProduct(event) {
     event.preventDefault();
@@ -89,6 +97,7 @@ export default function ProductDetailsPage({ products, onEditProduct }) {
     const editedProduct = {
       name: data.productName,
       note: data.productNote,
+      selectedStore: data.selectedStore,
       _id: product._id,
     };
 
@@ -103,8 +112,14 @@ export default function ProductDetailsPage({ products, onEditProduct }) {
         <>
           <StyledDetailTitle>Name</StyledDetailTitle>
           <StyledDetailField>{product.name}</StyledDetailField>
+          <StyledDetailTitle>Store</StyledDetailTitle>
+          <StyledDetailField>
+            {linkedStore ? linkedStore.name : "No Store selected"}
+          </StyledDetailField>
           <StyledDetailTitle>Note</StyledDetailTitle>
-          <StyledDetailField>{product.note}</StyledDetailField>
+          <StyledDetailField>
+            {product.note ? product.note : "No note"}
+          </StyledDetailField>
           <StyledButtonContainer>
             <StyledCancelButton as={Link} href="/">
               Back to List
@@ -117,7 +132,7 @@ export default function ProductDetailsPage({ products, onEditProduct }) {
       ) : (
         <StyledForm onSubmit={editProduct}>
           <StyledLabel htmlFor="productName">Name</StyledLabel>
-          <StlyedInput
+          <StyledInput
             id="productName"
             name="productName"
             type="text"
@@ -125,6 +140,20 @@ export default function ProductDetailsPage({ products, onEditProduct }) {
             required
             autoFocus
           />
+          <StyledLabel htmlFor="selectedStore">Store</StyledLabel>
+          <StyledInput
+            as={"select"}
+            id="selectedStore"
+            name="selectedStore"
+            defaultValue={linkedStore ? linkedStore._id : ""}
+          >
+            <option value="">--Select a store--</option>
+            {stores.map((store) => (
+              <option key={store._id} value={store._id}>
+                {store.name}
+              </option>
+            ))}
+          </StyledInput>
           <StyledLabel htmlFor="productNote">Note</StyledLabel>
           <StyledTextArea
             id="productNote"
