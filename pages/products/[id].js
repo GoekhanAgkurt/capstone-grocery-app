@@ -135,7 +135,7 @@ export default function ProductDetailsPage({ products, onEditProduct }) {
             <StyledCancelButton onClick={() => setIsEdit(false)}>
               Cancel
             </StyledCancelButton>
-            <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
+            <StyledSubmitButton type="submit">Save</StyledSubmitButton>
           </StyledButtonContainer>
         </StyledForm>
       )}
