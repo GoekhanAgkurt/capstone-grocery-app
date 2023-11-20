@@ -18,6 +18,8 @@ export default function App({ Component, pageProps }) {
         product._id === editedProduct._id ? editedProduct : product
       )
     );
+  }
+  
   function handleDeleteProduct(_id) {
     setProducts(products.filter((product) => product._id !== _id));
   }
