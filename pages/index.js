@@ -30,7 +30,7 @@ export default function HomePage({ products, handleDeleteProduct }) {
   return (
     <main>
       <ProductsList
-        handleDeleteProduct={handleDeleteProduct}
+        onDeleteProduct={handleDeleteProduct}
         products={products}
       ></ProductsList>
       <StyledCreateLink href="/create">+</StyledCreateLink>
