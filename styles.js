@@ -22,6 +22,7 @@ export default createGlobalStyle`
 
     --primaryDarkColor: #474747;
     --accentColor: #73A76A;
+    --deleteColor: red;
     --fontRegular: ${openSans.style.fontFamily};
     --fontBold: ${openSansBold.style.fontFamily};
   }
