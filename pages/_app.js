@@ -13,7 +13,6 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleEditProduct(editedProduct) {
-    console.log("In Handle Edit Product", editedProduct);
     setProducts(
       products.map((product) =>
         product._id === editedProduct._id ? editedProduct : product
