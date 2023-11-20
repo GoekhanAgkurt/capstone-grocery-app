@@ -123,6 +123,7 @@ export default function ProductDetailsPage({ products, handleEditProduct }) {
             type="text"
             defaultValue={product.name}
             required
+            autoFocus
           ></StlyedInput>
           <StyledLabel htmlFor="productNote">Note</StyledLabel>
           <StyledTextArea
