@@ -120,8 +120,6 @@ export default function ProductDetailsPage({
       {!isEdit ? (
         <>
           <h2>{product.name}</h2>
-          {/* <StyledDetailTitle>Name</StyledDetailTitle>
-          <StyledDetailField>{product.name}</StyledDetailField> */}
           <StyledDetailTitle>Store</StyledDetailTitle>
           <StyledDetailField>
             {linkedStore ? linkedStore.name : "No Store selected"}
@@ -150,14 +148,6 @@ export default function ProductDetailsPage({
             autoFocus
             aria-label="Input for product title"
           />
-          {/* <StyledLabel htmlFor="productName">Name</StyledLabel>
-          <StyledInput
-            id="productName"
-            name="productName"
-            type="text"
-            defaultValue={product.name}
-            required
-          /> */}
           <StyledLabel htmlFor="selectedStore">Store</StyledLabel>
           <StyledInput
             as={"select"}
