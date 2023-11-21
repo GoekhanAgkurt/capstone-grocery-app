@@ -5,7 +5,6 @@ import Router, { useRouter } from "next/router";
 
 const StyledDeleteIcon = styled.button`
   width: 15%;
-  padding-block: 10px;
   border: none;
   background-color: transparent;
   &:hover {

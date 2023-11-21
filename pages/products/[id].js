@@ -5,6 +5,18 @@ import styled from "styled-components";
 import { StyledCancelButton, StyledSubmitButton } from "@/components/Buttons";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
 
+const StyledTitleContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-block: 20px;
+`;
+
+const StyledTitle = styled.h2`
+  width: 85%;
+  margin: 0px;
+`;
+
 const StyledDetailField = styled.p`
   width: 100%;
   background-color: var(--secondaryBackgroundColor);
@@ -17,21 +29,21 @@ const StyledDetailTitle = styled.h3`
   margin-block: 0px 0px;
 `;
 
-const StyledLinkButton = styled(Link)`
-  display: inline-block;
-  padding: 10px 40px;
-  background-color: var(--primaryDarkColor);
-  color: white;
-  text-decoration: none;
-  margin-top: 40px;
-  border-radius: 5px;
-  box-shadow: 0px 1px 3px var(--primaryDarkColor);
-  &:hover {
-    color: var(--accentColor);
-    background-color: black;
-    cursor: pointer;
-  }
-`;
+// const StyledLinkButton = styled(Link)`
+//   display: inline-block;
+//   padding: 10px 40px;
+//   background-color: var(--primaryDarkColor);
+//   color: white;
+//   text-decoration: none;
+//   margin-top: 40px;
+//   border-radius: 5px;
+//   box-shadow: 0px 1px 3px var(--primaryDarkColor);
+//   &:hover {
+//     color: var(--accentColor);
+//     background-color: black;
+//     cursor: pointer;
+//   }
+// `;
 
 const StyledForm = styled.form`
   display: flex;
@@ -122,12 +134,14 @@ export default function ProductDetailsPage({
     <main>
       {!isEdit ? (
         <>
-          <h2>{product.name}</h2>
-          <DeleteConfirmation
-            product={product}
-            onDeleteProduct={onDeleteProduct}
-            backToList
-          />
+          <StyledTitleContainer>
+            <StyledTitle>{product.name}</StyledTitle>
+            <DeleteConfirmation
+              product={product}
+              onDeleteProduct={onDeleteProduct}
+              backToList
+            />
+          </StyledTitleContainer>
           <StyledDetailTitle>Store</StyledDetailTitle>
           <StyledDetailField>
             {linkedStore ? linkedStore.name : "No Store selected"}
