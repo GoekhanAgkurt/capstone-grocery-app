@@ -29,22 +29,6 @@ const StyledDetailTitle = styled.h3`
   margin-block: 0px 0px;
 `;
 
-// const StyledLinkButton = styled(Link)`
-//   display: inline-block;
-//   padding: 10px 40px;
-//   background-color: var(--primaryDarkColor);
-//   color: white;
-//   text-decoration: none;
-//   margin-top: 40px;
-//   border-radius: 5px;
-//   box-shadow: 0px 1px 3px var(--primaryDarkColor);
-//   &:hover {
-//     color: var(--accentColor);
-//     background-color: black;
-//     cursor: pointer;
-//   }
-// `;
-
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -191,7 +175,7 @@ export default function ProductDetailsPage({
             defaultValue={product.note}
           ></StyledTextArea>
           <StyledButtonContainer>
-            <StyledCancelButton onClick={() => setIsEdit(false)}>
+            <StyledCancelButton type="button" onClick={() => setIsEdit(false)}>
               Cancel
             </StyledCancelButton>
             <StyledSubmitButton type="submit">Save</StyledSubmitButton>
