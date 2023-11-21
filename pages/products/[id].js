@@ -8,12 +8,12 @@ const StyledDetailField = styled.p`
   width: 100%;
   background-color: var(--secondaryBackgroundColor);
   padding: 10px;
-  margin-block: 7px;
+  margin-block: 7px 20px;
   border-radius: 5px;
 `;
 
 const StyledDetailTitle = styled.h3`
-  margin-block: 20px 0px;
+  margin-block: 0px 0px;
 `;
 
 const StyledLinkButton = styled(Link)`
@@ -39,10 +39,11 @@ const StyledForm = styled.form`
 
 const StyledLabel = styled.label`
   font-family: var(--fontBold);
-  font-size: 18px;
+  font-size: 19px;
+  margin: 0;
 `;
 
-const StlyedInput = styled.input`
+const StyledInput = styled.input`
   width: 100%;
   background-color: white;
   padding: 10px;
@@ -51,6 +52,15 @@ const StlyedInput = styled.input`
   border-radius: 5px;
   font-size: 16px;
   font-family: var(--fontRegular);
+`;
+
+const StyledTitleInput = styled(StyledInput)`
+  font-size: 1.5rem;
+  font-family: var(--fontBold);
+  color: var(--primaryDarkColor);
+  background-color: transparent;
+  padding: 10px 0px;
+  margin-block: 10px;
 `;
 
 const StyledTextArea = styled.textarea`
@@ -70,7 +80,11 @@ const StyledButtonContainer = styled.div`
   justify-content: space-between;
 `;
 
-export default function ProductDetailsPage({ products, onEditProduct }) {
+export default function ProductDetailsPage({
+  products,
+  stores,
+  onEditProduct,
+}) {
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
@@ -79,6 +93,10 @@ export default function ProductDetailsPage({ products, onEditProduct }) {
 
   const product = products.find((product) => product._id === id);
   if (!isReady) return <h2>is Loading</h2>;
+
+  const linkedStore = stores.find(
+    (store) => store._id === product.selectedStore
+  );
 
   function editProduct(event) {
     event.preventDefault();
@@ -89,6 +107,7 @@ export default function ProductDetailsPage({ products, onEditProduct }) {
     const editedProduct = {
       name: data.productName,
       note: data.productNote,
+      selectedStore: data.selectedStore,
       _id: product._id,
     };
 
@@ -98,13 +117,17 @@ export default function ProductDetailsPage({ products, onEditProduct }) {
 
   return (
     <main>
-      <h2>Product Details</h2>
       {!isEdit ? (
         <>
-          <StyledDetailTitle>Name</StyledDetailTitle>
-          <StyledDetailField>{product.name}</StyledDetailField>
+          <h2>{product.name}</h2>
+          <StyledDetailTitle>Store</StyledDetailTitle>
+          <StyledDetailField>
+            {linkedStore ? linkedStore.name : "No Store selected"}
+          </StyledDetailField>
           <StyledDetailTitle>Note</StyledDetailTitle>
-          <StyledDetailField>{product.note}</StyledDetailField>
+          <StyledDetailField>
+            {product.note ? product.note : "No note"}
+          </StyledDetailField>
           <StyledButtonContainer>
             <StyledCancelButton as={Link} href="/">
               Back to List
@@ -116,15 +139,29 @@ export default function ProductDetailsPage({ products, onEditProduct }) {
         </>
       ) : (
         <StyledForm onSubmit={editProduct}>
-          <StyledLabel htmlFor="productName">Name</StyledLabel>
-          <StlyedInput
+          <StyledTitleInput
             id="productName"
             name="productName"
             type="text"
             defaultValue={product.name}
             required
             autoFocus
+            aria-label="Input for product title"
           />
+          <StyledLabel htmlFor="selectedStore">Store</StyledLabel>
+          <StyledInput
+            as={"select"}
+            id="selectedStore"
+            name="selectedStore"
+            defaultValue={linkedStore ? linkedStore._id : ""}
+          >
+            <option value="">--Select a store--</option>
+            {stores.map((store) => (
+              <option key={store._id} value={store._id}>
+                {store.name}
+              </option>
+            ))}
+          </StyledInput>
           <StyledLabel htmlFor="productNote">Note</StyledLabel>
           <StyledTextArea
             id="productNote"

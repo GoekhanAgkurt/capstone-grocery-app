@@ -1,11 +1,15 @@
 import GlobalStyle from "../styles";
-import { initialProducts } from "@/lib/data";
+import { initialProducts, initialStores } from "@/lib/data";
 import useLocalStorageState from "use-local-storage-state";
 import Header from "@/components/Header";
 
 export default function App({ Component, pageProps }) {
   const [products, setProducts] = useLocalStorageState("products", {
     defaultValue: initialProducts,
+  });
+
+  const [stores, setStores] = useLocalStorageState("stores", {
+    defaultValue: initialStores,
   });
 
   function handleAddProduct(newProduct) {
@@ -19,11 +23,10 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
-  
+
   function handleDeleteProduct(_id) {
     setProducts(products.filter((product) => product._id !== _id));
   }
-
   return (
     <>
       <GlobalStyle />
@@ -31,6 +34,7 @@ export default function App({ Component, pageProps }) {
       <Component
         {...pageProps}
         products={products}
+        stores={stores}
         onAddProduct={handleAddProduct}
         onEditProduct={handleEditProduct}
         handleDeleteProduct={handleDeleteProduct}

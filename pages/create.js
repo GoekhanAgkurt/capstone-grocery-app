@@ -15,7 +15,7 @@ const StyledLabel = styled.label`
   font-size: 18px;
 `;
 
-const StlyedInput = styled.input`
+const StyledInput = styled.input`
   width: 100%;
   background-color: white;
   padding: 10px;
@@ -43,7 +43,7 @@ const StyledButtonContainer = styled.div`
   justify-content: space-between;
 `;
 
-export default function CreateProduct({ onAddProduct }) {
+export default function CreateProduct({ onAddProduct, stores }) {
   const router = useRouter();
   function createProduct(event) {
     event.preventDefault();
@@ -54,6 +54,7 @@ export default function CreateProduct({ onAddProduct }) {
     const newProduct = {
       name: data.productName,
       note: data.productNote,
+      selectedStore: data.selectedStore,
       _id: uid(),
     };
     onAddProduct(newProduct);
@@ -64,19 +65,28 @@ export default function CreateProduct({ onAddProduct }) {
       <h2>New Product</h2>
       <StyledForm onSubmit={createProduct}>
         <StyledLabel htmlFor="productName">Name</StyledLabel>
-        <StlyedInput
+        <StyledInput
           id="productName"
           name="productName"
           type="text"
           placeholder="Enter product name"
           required
-        ></StlyedInput>
+        />
+        <StyledLabel htmlFor="selectedStore">Store</StyledLabel>
+        <StyledInput as="select" id="selectedStore" name="selectedStore">
+          <option value="">--Select a store--</option>
+          {stores.map((store) => (
+            <option key={store._id} value={store._id}>
+              {store.name}
+            </option>
+          ))}
+        </StyledInput>
         <StyledLabel htmlFor="productNote">Note</StyledLabel>
         <StyledTextArea
           id="productNote"
           name="productNote"
           placeholder="Enter Note"
-        ></StyledTextArea>
+        />
         <StyledButtonContainer>
           <StyledCancelButton as={Link} href="/">
             Cancel
