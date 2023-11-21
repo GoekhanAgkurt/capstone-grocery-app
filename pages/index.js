@@ -26,11 +26,11 @@ const StyledCreateLink = styled(Link)`
   }
 `;
 
-export default function HomePage({ products, handleDeleteProduct }) {
+export default function HomePage({ products, onDeleteProduct }) {
   return (
     <main>
       <ProductsList
-        onDeleteProduct={handleDeleteProduct}
+        onDeleteProduct={onDeleteProduct}
         products={products}
       ></ProductsList>
       <StyledCreateLink href="/create">+</StyledCreateLink>

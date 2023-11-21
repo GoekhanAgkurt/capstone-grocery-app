@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import { StyledCancelButton, StyledSubmitButton } from "@/components/Buttons";
+import DeleteConfirmation from "@/components/DeleteConfirmation";
 
 const StyledDetailField = styled.p`
   width: 100%;
@@ -84,6 +85,7 @@ export default function ProductDetailsPage({
   products,
   stores,
   onEditProduct,
+  onDeleteProduct,
 }) {
   const router = useRouter();
   const { isReady } = router;
@@ -92,6 +94,7 @@ export default function ProductDetailsPage({
   const [isEdit, setIsEdit] = useState(false);
 
   const product = products.find((product) => product._id === id);
+  if (!product) return <h2>product not found</h2>;
   if (!isReady) return <h2>is Loading</h2>;
 
   const linkedStore = stores.find(
@@ -120,6 +123,11 @@ export default function ProductDetailsPage({
       {!isEdit ? (
         <>
           <h2>{product.name}</h2>
+          <DeleteConfirmation
+            product={product}
+            onDeleteProduct={onDeleteProduct}
+            backToList
+          />
           <StyledDetailTitle>Store</StyledDetailTitle>
           <StyledDetailField>
             {linkedStore ? linkedStore.name : "No Store selected"}
