@@ -17,7 +17,7 @@ const StyledCreateLink = styled(Link)`
   text-decoration: none;
   background-color: var(--accentColor);
   border-radius: 50px;
-  box-shadow: 0px 1px 3px var(--primaryFontColor);
+  box-shadow: 0px 1px 3px var(--primaryDarkColor);
   &:hover {
     bottom: 47.5px;
     right: 47.5px;
@@ -26,11 +26,11 @@ const StyledCreateLink = styled(Link)`
   }
 `;
 
-export default function HomePage({ products, handleDeleteProduct }) {
+export default function HomePage({ products, onDeleteProduct }) {
   return (
     <main>
       <ProductsList
-        onDeleteProduct={handleDeleteProduct}
+        onDeleteProduct={onDeleteProduct}
         products={products}
       ></ProductsList>
       <StyledCreateLink href="/create">+</StyledCreateLink>

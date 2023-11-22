@@ -37,7 +37,7 @@ export default function App({ Component, pageProps }) {
         stores={stores}
         onAddProduct={handleAddProduct}
         onEditProduct={handleEditProduct}
-        handleDeleteProduct={handleDeleteProduct}
+        onDeleteProduct={handleDeleteProduct}
       />
     </>
   );
