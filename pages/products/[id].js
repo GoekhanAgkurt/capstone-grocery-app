@@ -13,7 +13,7 @@ const StyledTitleContainer = styled.div`
 `;
 
 const StyledTitle = styled.h2`
-  width: 85%;
+  width: 75%;
   margin: 0px;
 `;
 
@@ -123,7 +123,7 @@ export default function ProductDetailsPage({
             <DeleteConfirmation
               product={product}
               onDeleteProduct={onDeleteProduct}
-              backToList
+              onDetailsPage
             />
           </StyledTitleContainer>
           <StyledDetailTitle>Store</StyledDetailTitle>

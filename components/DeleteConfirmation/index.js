@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { StyledSubmitButton, StyledCancelButton } from "../Buttons";
-import { useReducer, useState } from "react";
-import Router, { useRouter } from "next/router";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 const StyledDeleteIcon = styled.button`
-  width: 15%;
+  width: ${({ $onDetailsPage }) => ($onDetailsPage ? "25%" : "15%")};
   border: none;
   background-color: transparent;
   &:hover {
@@ -37,25 +37,31 @@ const StyledSmallCancelButton = styled(StyledCancelButton)`
   font-size: 14px;
   padding: 5px 10px;
 `;
+const StyledDeleteMessage = styled.span`
+  font-size: 18px;
+  color: var(--primaryDarkColor);
+`;
 
 export default function DeleteConfirmation({
   product,
   onDeleteProduct,
-  backToList,
+  onDetailsPage,
 }) {
   const [showConfirmButtons, setShowConfirmButtons] = useState(false);
   const router = useRouter();
   return (
     <>
       <StyledDeleteIcon
+        $onDetailsPage={onDetailsPage}
         type="button"
         onClick={() => setShowConfirmButtons(true)}
         disabled={showConfirmButtons}
       >
-        ✖️
+        {onDetailsPage && <StyledDeleteMessage>Delete </StyledDeleteMessage>}🗑️
       </StyledDeleteIcon>
       {showConfirmButtons && (
         <StyledDeleteConfirmation>
+          <span>Are you sure to delete?</span>
           <StyledSmallCancelButton
             type="button"
             onClick={() => setShowConfirmButtons(false)}
@@ -65,7 +71,7 @@ export default function DeleteConfirmation({
           <StyledConfirmButton
             type="button"
             onClick={() => {
-              backToList && router.push("/");
+              onDetailsPage && router.push("/");
               onDeleteProduct(product._id);
             }}
           >
