@@ -2,6 +2,7 @@ import GlobalStyle from "../styles";
 import { initialProducts, initialStores } from "@/lib/data";
 import useLocalStorageState from "use-local-storage-state";
 import Header from "@/components/Header";
+import Navigation from "@/components/Navigation";
 
 export default function App({ Component, pageProps }) {
   const [products, setProducts] = useLocalStorageState("products", {
@@ -39,6 +40,7 @@ export default function App({ Component, pageProps }) {
         onEditProduct={handleEditProduct}
         onDeleteProduct={handleDeleteProduct}
       />
+      <Navigation />
     </>
   );
 }

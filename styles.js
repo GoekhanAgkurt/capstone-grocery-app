@@ -41,9 +41,10 @@ export default createGlobalStyle`
     display: grid;
     grid-template-areas:
     "header"
-    "main";
+    "main"
+    "nav";
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto 1fr auto;
     width: 100%;
     max-width: 600px;
     background-color: var(--primaryBackgroundColor);
@@ -56,6 +57,14 @@ export default createGlobalStyle`
     background-color: var(--secondaryBackgroundColor);
     width: 100%;
      }
+
+     nav {
+      grid-area: nav;
+      background-color: var(--secondaryBackgroundColor);
+      width: 100%;
+      padding: 0;
+     }
+
   main {
     grid-area: main;
     overflow: auto;

@@ -7,7 +7,7 @@ const StyledCreateLink = styled(Link)`
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: 50px;
+  bottom: 80px;
   left: 50%;
   transform: translate(-50%);
   height: 60px;
