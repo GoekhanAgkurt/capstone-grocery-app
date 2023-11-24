@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { StyledSubmitButton, StyledCancelButton } from "../Buttons";
+import { StyledSubmitButton, StyledCancelButton } from "@/components/Buttons";
 import { useState } from "react";
 import { useRouter } from "next/router";
 

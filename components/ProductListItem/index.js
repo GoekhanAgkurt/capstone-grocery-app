@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
-import DeleteConfirmation from "../DeleteConfirmation";
+import DeleteConfirmation from "@/components/DeleteConfirmation";
 
 const StyledListItem = styled.li`
   margin-block: 7px;

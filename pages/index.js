@@ -19,7 +19,7 @@ const StyledCreateLink = styled(Link)`
   border-radius: 50px;
   box-shadow: 0px 1px 3px var(--primaryDarkColor);
   &:hover {
-    bottom: 47.5px;
+    bottom: 77.5px;
     right: 47.5px;
     height: 65px;
     width: 65px;

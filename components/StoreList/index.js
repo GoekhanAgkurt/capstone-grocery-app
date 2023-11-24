@@ -1,4 +1,4 @@
-import StoreListItem from "../StoreListItem";
+import StoreListItem from "@/components/StoreListItem";
 
 export default function StoresList({ stores }) {
   if (stores.length === 0) {

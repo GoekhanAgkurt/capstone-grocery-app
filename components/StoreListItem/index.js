@@ -8,7 +8,7 @@ const StyledListItem = styled.li`
   box-shadow: 0px 1px 3px var(--primaryDarkColor);
 `;
 
-const StyledCard = styled.span`
+const StyledCard = styled.section`
   display: inline-block;
 
   width: 85%;

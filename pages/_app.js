@@ -1,4 +1,4 @@
-import GlobalStyle from "../styles";
+import GlobalStyle from "@/styles";
 import { initialProducts, initialStores } from "@/lib/data";
 import useLocalStorageState from "use-local-storage-state";
 import Header from "@/components/Header";
