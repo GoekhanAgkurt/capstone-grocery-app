@@ -1,0 +1,60 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
+import styled from "styled-components";
+import { StyledCancelButton } from "@/components/Buttons";
+
+const StyledTitleContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-block: 20px;
+`;
+
+const StyledTitle = styled.h2`
+  width: 75%;
+  margin: 0px;
+`;
+
+const StyledDetailField = styled.p`
+  width: 100%;
+  background-color: var(--secondaryBackgroundColor);
+  padding: 10px;
+  margin-block: 7px 20px;
+  border-radius: 5px;
+`;
+
+const StyledDetailTitle = styled.h3`
+  margin-block: 0px 0px;
+`;
+
+const StyledButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export default function StoreDetailsPage({ stores }) {
+  const router = useRouter();
+  const { isReady } = router;
+  const { id } = router.query;
+
+  const store = stores.find((store) => store._id === id);
+  if (!store) return <h2>store not found</h2>;
+  if (!isReady) return <h2>is Loading</h2>;
+
+  return (
+    <main>
+      <StyledTitleContainer>
+        <StyledTitle>{store.name}</StyledTitle>
+      </StyledTitleContainer>
+      <StyledDetailTitle>Note</StyledDetailTitle>
+      <StyledDetailField>
+        {store.note ? store.note : "No note"}
+      </StyledDetailField>
+      <StyledButtonContainer>
+        <StyledCancelButton as={Link} href="/stores">
+          Back to all stores
+        </StyledCancelButton>
+      </StyledButtonContainer>
+    </main>
+  );
+}

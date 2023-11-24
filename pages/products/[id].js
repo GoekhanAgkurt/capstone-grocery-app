@@ -136,7 +136,7 @@ export default function ProductDetailsPage({
           </StyledDetailField>
           <StyledButtonContainer>
             <StyledCancelButton as={Link} href="/">
-              Back to List
+              Back to all products
             </StyledCancelButton>
             <StyledSubmitButton onClick={() => setIsEdit(true)}>
               Edit
