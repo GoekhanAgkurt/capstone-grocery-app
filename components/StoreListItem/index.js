@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import Link from "next/link";
-import DeleteConfirmation from "@/components/DeleteConfirmation";
 
 const StyledListItem = styled.li`
   margin-block: 7px;
@@ -10,22 +8,19 @@ const StyledListItem = styled.li`
   box-shadow: 0px 1px 3px var(--primaryDarkColor);
 `;
 
-const StyledLink = styled(Link)`
+const StyledCard = styled.section`
   display: inline-block;
+
   width: 85%;
   padding: 10px;
   text-decoration: none;
   color: var(--primaryDarkColor);
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
-export default function ProductListItem({ product, onDeleteProduct }) {
+export default function StoreListItem({ store }) {
   return (
     <StyledListItem>
-      <StyledLink href={`/products/${product._id}`}>{product.name} </StyledLink>
-      <DeleteConfirmation product={product} onDeleteProduct={onDeleteProduct} />
+      <StyledCard>{store.name}</StyledCard>
     </StyledListItem>
   );
 }

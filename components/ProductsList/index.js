@@ -1,4 +1,4 @@
-import ProductListItem from "../ProductListItem";
+import ProductListItem from "@/components/ProductListItem";
 export default function ProductsList({ products, onDeleteProduct }) {
   if (products.length === 0) {
     return (

@@ -7,7 +7,7 @@ const StyledCreateLink = styled(Link)`
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: 50px;
+  bottom: 80px;
   left: 50%;
   transform: translate(-50%);
   height: 60px;
@@ -19,7 +19,7 @@ const StyledCreateLink = styled(Link)`
   border-radius: 50px;
   box-shadow: 0px 1px 3px var(--primaryDarkColor);
   &:hover {
-    bottom: 47.5px;
+    bottom: 77.5px;
     right: 47.5px;
     height: 65px;
     width: 65px;
