@@ -55,13 +55,15 @@ export default function Navigation() {
         <StyledListItem>
           <StyledNavLink
             href="/"
-            $currentPage={router.pathname === ("/" || "/products")}
+            $currentPage={
+              router.pathname === "/" || router.pathname === "/products/[id]"
+            }
           >
             <Icon
               variant="products"
               size="40"
               color={
-                router.pathname === ("/" || "/products")
+                router.pathname === "/" || router.pathname === "/products/[id]"
                   ? "var(--accentColor)"
                   : "var(--primaryDarkColor)"
               }
@@ -71,13 +73,17 @@ export default function Navigation() {
         <StyledListItem>
           <StyledNavLink
             href="/stores"
-            $currentPage={router.pathname === "/stores"}
+            $currentPage={
+              router.pathname === "/stores" ||
+              router.pathname === "/stores/[id]"
+            }
           >
             <Icon
               variant="store"
               size="40"
               color={
-                router.pathname === "/stores"
+                router.pathname === "/stores" ||
+                router.pathname === "/stores/[id]"
                   ? "var(--accentColor)"
                   : "var(--primaryDarkColor)"
               }

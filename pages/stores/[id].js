@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { StyledCancelButton } from "@/components/Buttons";
+import Icon from "@/components/Icons";
 
 const StyledTitleContainer = styled.div`
   display: flex;
@@ -52,6 +53,7 @@ export default function StoreDetailsPage({ stores }) {
       </StyledDetailField>
       <StyledButtonContainer>
         <StyledCancelButton as={Link} href="/stores">
+          <Icon variant="arrowBack" color="var(--primaryBackgroundColor" />
           Back to all stores
         </StyledCancelButton>
       </StyledButtonContainer>

@@ -97,7 +97,6 @@ export default function ProductDetailsPage({
   const linkedStore = stores.find(
     (store) => store._id === product.selectedStore
   );
-
   function editProduct(event) {
     event.preventDefault();
 
