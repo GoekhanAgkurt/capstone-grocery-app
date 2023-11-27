@@ -2,6 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import ProductSvg from "@/public/images/products_icon.svg";
 import StoreSvg from "@/public/images/stores_icon.svg";
+import Icon from "@/components/Icons";
 
 import { useRouter } from "next/router";
 
@@ -52,8 +53,19 @@ export default function Navigation() {
     <nav>
       <StyledNavBar>
         <StyledListItem>
-          <StyledNavLink href="/" $currentPage={router.pathname === "/"}>
-            <StyledProductSvg $currentPage={router.pathname === "/"} />
+          <StyledNavLink
+            href="/"
+            $currentPage={router.pathname === ("/" || "/products")}
+          >
+            <Icon
+              variant="products"
+              size="40"
+              color={
+                router.pathname === ("/" || "/products")
+                  ? "var(--accentColor)"
+                  : "var(--primaryDarkColor)"
+              }
+            />
           </StyledNavLink>
         </StyledListItem>
         <StyledListItem>
@@ -61,7 +73,15 @@ export default function Navigation() {
             href="/stores"
             $currentPage={router.pathname === "/stores"}
           >
-            <StyledStoreSvg $currentPage={router.pathname === "/stores"} />
+            <Icon
+              variant="store"
+              size="40"
+              color={
+                router.pathname === "/stores"
+                  ? "var(--accentColor)"
+                  : "var(--primaryDarkColor)"
+              }
+            />
           </StyledNavLink>
         </StyledListItem>
       </StyledNavBar>

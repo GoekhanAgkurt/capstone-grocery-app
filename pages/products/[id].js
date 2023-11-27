@@ -4,11 +4,12 @@ import { useState } from "react";
 import styled from "styled-components";
 import { StyledCancelButton, StyledSubmitButton } from "@/components/Buttons";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
+import Icon from "@/components/Icons";
 
 const StyledTitleContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-block: 20px;
 `;
 
@@ -136,9 +137,11 @@ export default function ProductDetailsPage({
           </StyledDetailField>
           <StyledButtonContainer>
             <StyledCancelButton as={Link} href="/">
+              <Icon variant="arrowBack" color="var(--primaryBackgroundColor" />
               Back to all products
             </StyledCancelButton>
             <StyledSubmitButton onClick={() => setIsEdit(true)}>
+              <Icon variant="edit" color="var(--primaryBackgroundColor" />
               Edit
             </StyledSubmitButton>
           </StyledButtonContainer>
@@ -176,9 +179,13 @@ export default function ProductDetailsPage({
           ></StyledTextArea>
           <StyledButtonContainer>
             <StyledCancelButton type="button" onClick={() => setIsEdit(false)}>
+              <Icon variant="cancel" color="var(--primaryBackgroundColor)" />
               Cancel
             </StyledCancelButton>
-            <StyledSubmitButton type="submit">Save</StyledSubmitButton>
+            <StyledSubmitButton type="submit">
+              <Icon variant="check" color="var(--primaryBackgroundColor)" />
+              Save
+            </StyledSubmitButton>
           </StyledButtonContainer>
         </StyledForm>
       )}

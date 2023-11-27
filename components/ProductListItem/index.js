@@ -8,11 +8,15 @@ const StyledListItem = styled.li`
   background-color: var(--secondaryBackgroundColor);
   border-radius: 5px;
   box-shadow: 0px 1px 3px var(--primaryDarkColor);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 `;
 
 const StyledLink = styled(Link)`
   display: inline-block;
-  width: 85%;
+  flex-grow: 1;
+  width: auto;
   padding: 10px;
   text-decoration: none;
   color: var(--primaryDarkColor);

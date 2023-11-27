@@ -22,6 +22,7 @@ export default createGlobalStyle`
 
     --primaryDarkColor: #474747;
     --accentColor: #73A76A;
+    --disabledColor: #aaaaaa;
     --deleteColor: red;
     --fontRegular: ${openSans.style.fontFamily};
     --fontBold: ${openSansBold.style.fontFamily};
@@ -70,9 +71,13 @@ export default createGlobalStyle`
     overflow: auto;
     padding-inline: 15px;
     color: var(--primaryDarkColor);
+  
   }
   h1, h2, h3 {
     font-family: var(--fontBold);
+  }
+  button {
+    font-family: var(--fontRegular);
   }
   ul {
     list-style-type: none;

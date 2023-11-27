@@ -1,6 +1,7 @@
 import ProductsList from "@/components/ProductsList";
 import Link from "next/link";
 import styled from "styled-components";
+import Icon from "@/components/Icons";
 
 const StyledCreateLink = styled(Link)`
   display: flex;
@@ -33,7 +34,9 @@ export default function HomePage({ products, onDeleteProduct }) {
         onDeleteProduct={onDeleteProduct}
         products={products}
       ></ProductsList>
-      <StyledCreateLink href="/create">+</StyledCreateLink>
+      <StyledCreateLink href="/create">
+        <Icon variant="plus" color="var(--primaryBackgroundColor)" size="30" />
+      </StyledCreateLink>
     </main>
   );
 }
