@@ -10,12 +10,16 @@ const StyledHeadline = styled.h1`
   text-shadow: 1px 1px 4px var(--primaryDarkColor);
 `;
 
-export default function Header() {
+export default function Header({ isEdit }) {
   return (
     <header>
-      <Link href="/">
+      {!isEdit ? (
+        <Link href="/">
+          <StyledHeadline>Grocery App </StyledHeadline>
+        </Link>
+      ) : (
         <StyledHeadline>Grocery App </StyledHeadline>
-      </Link>
+      )}
     </header>
   );
 }

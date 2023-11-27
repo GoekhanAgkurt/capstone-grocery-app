@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Header />
+      <Header isEdit={isEdit} />
       <Component
         {...pageProps}
         products={products}
