@@ -3,6 +3,7 @@ import { initialProducts, initialStores } from "@/lib/data";
 import useLocalStorageState from "use-local-storage-state";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
+import { useState } from "react";
 
 export default function App({ Component, pageProps }) {
   const [products, setProducts] = useLocalStorageState("products", {
@@ -12,6 +13,8 @@ export default function App({ Component, pageProps }) {
   const [stores, setStores] = useLocalStorageState("stores", {
     defaultValue: initialStores,
   });
+
+  const [isEdit, setIsEdit] = useState(false);
 
   function handleAddProduct(newProduct) {
     setProducts([...products, newProduct]);
@@ -24,7 +27,9 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
-
+  function handleSetIsEdit() {
+    setIsEdit(!isEdit);
+  }
   function handleDeleteProduct(_id) {
     setProducts(products.filter((product) => product._id !== _id));
   }
@@ -36,11 +41,13 @@ export default function App({ Component, pageProps }) {
         {...pageProps}
         products={products}
         stores={stores}
+        isEdit={isEdit}
         onAddProduct={handleAddProduct}
         onEditProduct={handleEditProduct}
         onDeleteProduct={handleDeleteProduct}
+        onSetIsEdit={handleSetIsEdit}
       />
-      <Navigation />
+      <Navigation isEdit={isEdit} />
     </>
   );
 }

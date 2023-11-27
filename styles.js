@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
-import { Open_Sans } from "next/font/google";
+import { Open_Sans, Kalam } from "next/font/google";
+
 const openSans = Open_Sans({
   subsets: ["latin"],
   weight: "400",
@@ -10,6 +11,11 @@ const openSansBold = Open_Sans({
   weight: "600",
   style: "normal",
 });
+const kalam = Kalam({
+  subsets: ["latin"],
+  weight: "400",
+  style: "normal",
+});
 export default createGlobalStyle`
   *,
   *::before,
@@ -17,18 +23,21 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
   :root{
-    --primaryBackgroundColor: #ECE8E8;
-    --secondaryBackgroundColor: #D6D2D2;
-
+    --primaryBackgroundColor:  #edecec;
+    --secondaryBackgroundColor: #eae6e6;
+    --shadowColor: #929090;
     --primaryDarkColor: #474747;
     --accentColor: #73A76A;
     --disabledColor: #aaaaaa;
-    --deleteColor: red;
+    --primaryButtonColor: #edecec;
+    --cancelHoverColor: #8e8d8d;
+    --dangerColor: #F1554E;
+    --dangerHoverColor: #ba3e37;
     --fontRegular: ${openSans.style.fontFamily};
     --fontBold: ${openSansBold.style.fontFamily};
+    --fontTitle: ${kalam.style.fontFamily};
   }
-
-
+  
   body {
     margin: 0;
     font-family: var(--fontRegular);
@@ -53,10 +62,10 @@ export default createGlobalStyle`
   header {
     grid-area: header;
     padding-inline: 15px;
-    color: var(--accentColor);
-    
-    background-color: var(--secondaryBackgroundColor);
+    color: var(--primaryBackgroundColor);
+    background-color: var(--accentColor);
     width: 100%;
+    box-shadow: 0px 1px 2px var(--primaryDarkColor);
      }
 
      nav {

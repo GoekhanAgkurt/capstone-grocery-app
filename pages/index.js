@@ -8,7 +8,7 @@ const StyledCreateLink = styled(Link)`
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: 80px;
+  bottom: 100px;
   left: 50%;
   transform: translate(-50%);
   height: 60px;
@@ -20,7 +20,7 @@ const StyledCreateLink = styled(Link)`
   border-radius: 50px;
   box-shadow: 0px 1px 3px var(--primaryDarkColor);
   &:hover {
-    bottom: 77.5px;
+    bottom: 97.5px;
     right: 47.5px;
     height: 65px;
     width: 65px;
@@ -35,7 +35,7 @@ export default function HomePage({ products, onDeleteProduct }) {
         products={products}
       ></ProductsList>
       <StyledCreateLink href="/create">
-        <Icon variant="plus" color="var(--primaryBackgroundColor)" size="30" />
+        <Icon variant="plus" color="var(--primaryButtonColor)" size="30" />
       </StyledCreateLink>
     </main>
   );

@@ -32,9 +32,9 @@ const StyledConfirmButton = styled(StyledSubmitButton)`
   margin: 0px;
   font-size: 14px;
   padding: 5px 20px;
-  background-color: var(--deleteColor);
+  background-color: var(--dangerColor);
   &:hover {
-    background-color: darkred;
+    background-color: var(--dangerHoverColor);
   }
 `;
 const StyledSmallCancelButton = styled(StyledCancelButton)`
@@ -89,7 +89,7 @@ export default function DeleteConfirmation({
             type="button"
             onClick={() => setShowConfirmButtons(false)}
           >
-            <Icon variant="cancel" color="var(--primaryBackgroundColor)" />
+            <Icon variant="cancel" color="var(--primaryButtonColor)" />
             {/* Cancel */}
           </StyledSmallCancelButton>{" "}
           <StyledConfirmButton
@@ -99,7 +99,7 @@ export default function DeleteConfirmation({
               onDeleteProduct(product._id);
             }}
           >
-            <Icon variant="delete" color="var(--primaryBackgroundColor)" />
+            <Icon variant="delete" color="var(--primaryButtonColor)" />
             {/* Confirm */}
           </StyledConfirmButton>
         </StyledDeleteConfirmation>

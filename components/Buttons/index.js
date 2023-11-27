@@ -32,8 +32,20 @@ export const StyledCancelButton = styled(StyledButton)`
   align-items: center;
   justify-content: center;
   gap: 5px;
-  color: var(--primaryBackgroundColor);
+  color: var(--primaryButtonColor);
   &:hover {
-    background-color: grey;
+    background-color: var(--cancelHoverColor);
   }
+`;
+
+export const StyledButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  padding-inline: 15px;
+  width: 100%;
+  max-width: 600px;
+  bottom: 100px;
+  left: 50%;
+  transform: translate(-50%);
 `;

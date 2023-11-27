@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { StyledCancelButton } from "@/components/Buttons";
+import {
+  StyledCancelButton,
+  StyledButtonContainer,
+} from "@/components/Buttons";
 import Icon from "@/components/Icons";
 
 const StyledTitleContainer = styled.div`
@@ -28,11 +31,6 @@ const StyledDetailTitle = styled.h3`
   margin-block: 0px 0px;
 `;
 
-const StyledButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 export default function StoreDetailsPage({ stores }) {
   const router = useRouter();
   const { isReady } = router;
@@ -53,8 +51,8 @@ export default function StoreDetailsPage({ stores }) {
       </StyledDetailField>
       <StyledButtonContainer>
         <StyledCancelButton as={Link} href="/stores">
-          <Icon variant="arrowBack" color="var(--primaryBackgroundColor" />
-          Back to all stores
+          <Icon variant="arrowBack" color="var(--primaryButtonColor" />
+          All stores
         </StyledCancelButton>
       </StyledButtonContainer>
     </main>

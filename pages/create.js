@@ -90,11 +90,11 @@ export default function CreateProduct({ onAddProduct, stores }) {
         />
         <StyledButtonContainer>
           <StyledCancelButton as={Link} href="/">
-            <Icon variant="cancel" color="var(--primaryBackgroundColor)" />
+            <Icon variant="cancel" color="var(--primaryButtonColor)" />
             Cancel
           </StyledCancelButton>
           <StyledSubmitButton type="submit">
-            <Icon variant="check" color="var(--primaryBackgroundColor)" />
+            <Icon variant="check" color="var(--primaryButtonColor)" />
             Submit
           </StyledSubmitButton>
         </StyledButtonContainer>
