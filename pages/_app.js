@@ -20,6 +20,10 @@ export default function App({ Component, pageProps }) {
     setProducts([...products, newProduct]);
   }
 
+  function handleAddStore(newStore) {
+    setStores([...stores, newStore]);
+  }
+
   function handleEditProduct(editedProduct) {
     setProducts(
       products.map((product) =>
@@ -33,6 +37,7 @@ export default function App({ Component, pageProps }) {
   function handleDeleteProduct(_id) {
     setProducts(products.filter((product) => product._id !== _id));
   }
+
   return (
     <>
       <GlobalStyle />
@@ -43,6 +48,7 @@ export default function App({ Component, pageProps }) {
         stores={stores}
         isEdit={isEdit}
         onAddProduct={handleAddProduct}
+        onAddStore={handleAddStore}
         onEditProduct={handleEditProduct}
         onDeleteProduct={handleDeleteProduct}
         onSetIsEdit={handleSetIsEdit}

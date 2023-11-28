@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Link from "next/link";
 
 export const StyledButton = styled.button`
   display: inline-block;
@@ -48,4 +49,28 @@ export const StyledButtonContainer = styled.div`
   bottom: 100px;
   left: 50%;
   transform: translate(-50%);
+`;
+
+export const StyledCreateLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translate(-50%);
+  height: 60px;
+  width: 60px;
+  font-size: 1.4rem;
+  color: white;
+  text-decoration: none;
+  background-color: var(--accentColor);
+  border-radius: 50px;
+  box-shadow: 0px 1px 3px var(--primaryDarkColor);
+  &:hover {
+    bottom: 97.5px;
+    right: 47.5px;
+    height: 65px;
+    width: 65px;
+  }
 `;

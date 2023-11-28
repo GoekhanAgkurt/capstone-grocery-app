@@ -11,52 +11,42 @@ import {
   StyledButtonContainer,
 } from "@/components/Forms";
 
-export default function CreateProduct({ onAddProduct, stores }) {
+export default function CreateStore({ onAddStore }) {
   const router = useRouter();
-  function createProduct(event) {
+  function createStore(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    const newProduct = {
-      name: data.productName,
-      note: data.productNote,
-      selectedStore: data.selectedStore,
+    const newStore = {
+      name: data.storeName,
+      note: data.storeNote,
       _id: uid(),
     };
-    onAddProduct(newProduct);
-    router.push("/");
+    onAddStore(newStore);
+    router.push("/stores");
   }
   return (
     <main>
-      <h2>New Product</h2>
-      <StyledForm onSubmit={createProduct}>
-        <StyledLabel htmlFor="productName">Name</StyledLabel>
+      <h2>New Store</h2>
+      <StyledForm onSubmit={createStore}>
+        <StyledLabel htmlFor="storeName">Name</StyledLabel>
         <StyledInput
-          id="productName"
-          name="productName"
+          id="storeName"
+          name="storeName"
           type="text"
-          placeholder="Enter product name"
+          placeholder="Enter store name"
           required
         />
-        <StyledLabel htmlFor="selectedStore">Store</StyledLabel>
-        <StyledInput as="select" id="selectedStore" name="selectedStore">
-          <option value="">--Select a store--</option>
-          {stores.map((store) => (
-            <option key={store._id} value={store._id}>
-              {store.name}
-            </option>
-          ))}
-        </StyledInput>
-        <StyledLabel htmlFor="productNote">Note</StyledLabel>
+        <StyledLabel htmlFor="storeNote">Note</StyledLabel>
         <StyledTextArea
-          id="productNote"
-          name="productNote"
+          id="storeNote"
+          name="storeNote"
           placeholder="Enter Note"
         />
         <StyledButtonContainer>
-          <StyledCancelButton as={Link} href="/">
+          <StyledCancelButton as={Link} href="/stores">
             <Icon variant="cancel" color="var(--primaryButtonColor)" />
             Cancel
           </StyledCancelButton>
