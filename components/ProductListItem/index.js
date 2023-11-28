@@ -1,18 +1,12 @@
 import styled from "styled-components";
 import Link from "next/link";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
-
-const StyledListItem = styled.li`
-  margin-block: 7px;
-  width: 100%;
-  background-color: var(--secondaryBackgroundColor);
-  border-radius: 5px;
-  box-shadow: 0px 1px 3px var(--primaryDarkColor);
-`;
+import { StyledListItem } from "@/components/ListItems";
 
 const StyledLink = styled(Link)`
   display: inline-block;
-  width: 85%;
+  flex-grow: 1;
+  width: auto;
   padding: 10px;
   text-decoration: none;
   color: var(--primaryDarkColor);

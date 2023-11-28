@@ -7,7 +7,7 @@ export const StyledButton = styled.button`
   border: none;
   border-radius: 5px;
   width: 49%;
-  padding: 10px 40px;
+  padding-block: 10px;
   margin-top: 20px;
   color: white;
   font-size: 16px;
@@ -18,14 +18,34 @@ export const StyledButton = styled.button`
 `;
 export const StyledSubmitButton = styled(StyledButton)`
   background-color: var(--accentColor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   &:hover {
     background-color: #5d8a55;
   }
 `;
 export const StyledCancelButton = styled(StyledButton)`
   background-color: darkgrey;
-  color: var(--primaryBackgroundColor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: var(--primaryButtonColor);
   &:hover {
-    background-color: grey;
+    background-color: var(--cancelHoverColor);
   }
+`;
+
+export const StyledButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  padding-inline: 15px;
+  width: 100%;
+  max-width: 600px;
+  bottom: 100px;
+  left: 50%;
+  transform: translate(-50%);
 `;

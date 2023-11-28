@@ -1,14 +1,18 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import styled from "styled-components";
-import { StyledCancelButton, StyledSubmitButton } from "@/components/Buttons";
+import {
+  StyledCancelButton,
+  StyledSubmitButton,
+  StyledButtonContainer,
+} from "@/components/Buttons";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
+import Icon from "@/components/Icons";
 
 const StyledTitleContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-block: 20px;
 `;
 
@@ -19,10 +23,12 @@ const StyledTitle = styled.h2`
 
 const StyledDetailField = styled.p`
   width: 100%;
-  background-color: var(--secondaryBackgroundColor);
-  padding: 10px;
+  background-color: transparent;
+  padding: 10px 0;
   margin-block: 7px 20px;
   border-radius: 5px;
+  font-family: var(--fontHandwriting);
+  /* border: solid 1px var(--shadowColor); */
 `;
 
 const StyledDetailTitle = styled.h3`
@@ -72,22 +78,17 @@ const StyledTextArea = styled.textarea`
   font-family: var(--fontRegular);
 `;
 
-const StyledButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 export default function ProductDetailsPage({
   products,
   stores,
+  isEdit,
   onEditProduct,
   onDeleteProduct,
+  onSetIsEdit,
 }) {
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
-
-  const [isEdit, setIsEdit] = useState(false);
 
   const product = products.find((product) => product._id === id);
   if (!product) return <h2>product not found</h2>;
@@ -96,7 +97,6 @@ export default function ProductDetailsPage({
   const linkedStore = stores.find(
     (store) => store._id === product.selectedStore
   );
-
   function editProduct(event) {
     event.preventDefault();
 
@@ -111,7 +111,7 @@ export default function ProductDetailsPage({
     };
 
     onEditProduct(editedProduct);
-    setIsEdit(false);
+    onSetIsEdit();
   }
 
   return (
@@ -136,9 +136,11 @@ export default function ProductDetailsPage({
           </StyledDetailField>
           <StyledButtonContainer>
             <StyledCancelButton as={Link} href="/">
-              Back to all products
+              <Icon variant="arrowBack" color="var(--primaryButtonColor" />
+              All products
             </StyledCancelButton>
-            <StyledSubmitButton onClick={() => setIsEdit(true)}>
+            <StyledSubmitButton onClick={() => onSetIsEdit()}>
+              <Icon variant="edit" color="var(--primaryButtonColor" />
               Edit
             </StyledSubmitButton>
           </StyledButtonContainer>
@@ -175,10 +177,14 @@ export default function ProductDetailsPage({
             defaultValue={product.note}
           ></StyledTextArea>
           <StyledButtonContainer>
-            <StyledCancelButton type="button" onClick={() => setIsEdit(false)}>
+            <StyledCancelButton type="button" onClick={() => onSetIsEdit()}>
+              <Icon variant="cancel" color="var(--primaryButtonColor)" />
               Cancel
             </StyledCancelButton>
-            <StyledSubmitButton type="submit">Save</StyledSubmitButton>
+            <StyledSubmitButton type="submit">
+              <Icon variant="check" color="var(--primaryButtonColor)" />
+              Save
+            </StyledSubmitButton>
           </StyledButtonContainer>
         </StyledForm>
       )}

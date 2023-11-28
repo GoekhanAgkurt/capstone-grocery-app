@@ -1,8 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
-import ProductSvg from "@/public/images/products_icon.svg";
-import StoreSvg from "@/public/images/stores_icon.svg";
-
+import Icon from "@/components/Icons";
 import { useRouter } from "next/router";
 
 const StyledNavBar = styled.ul`
@@ -25,43 +23,52 @@ const StyledNavLink = styled(Link)`
     border-color: ${({ $currentPage }) => !$currentPage && "gray"};
   }
 `;
-
 const StyledListItem = styled.li`
   width: 50%;
   text-align: center;
 `;
-
-const StyledProductSvg = styled(ProductSvg)`
-  path {
-    fill: ${({ $currentPage }) =>
-      $currentPage ? "var(--accentColor)" : "var(--primaryDarkColor)"};
-  }
-`;
-
-const StyledStoreSvg = styled(StoreSvg)`
-  path {
-    fill: ${({ $currentPage }) =>
-      $currentPage ? "var(--accentColor)" : "var(--primaryDarkColor)"};
-  }
-`;
-
-export default function Navigation() {
+export default function Navigation({ isEdit }) {
   const router = useRouter();
-
+  if (router.pathname === "/create" || isEdit) return;
   return (
     <nav>
       <StyledNavBar>
         <StyledListItem>
-          <StyledNavLink href="/" $currentPage={router.pathname === "/"}>
-            <StyledProductSvg $currentPage={router.pathname === "/"} />
+          <StyledNavLink
+            href="/"
+            $currentPage={
+              router.pathname === "/" || router.pathname === "/products/[id]"
+            }
+          >
+            <Icon
+              variant="products"
+              size="40"
+              color={
+                router.pathname === "/" || router.pathname === "/products/[id]"
+                  ? "var(--accentColor)"
+                  : "var(--primaryDarkColor)"
+              }
+            />
           </StyledNavLink>
         </StyledListItem>
         <StyledListItem>
           <StyledNavLink
             href="/stores"
-            $currentPage={router.pathname === "/stores"}
+            $currentPage={
+              router.pathname === "/stores" ||
+              router.pathname === "/stores/[id]"
+            }
           >
-            <StyledStoreSvg $currentPage={router.pathname === "/stores"} />
+            <Icon
+              variant="store"
+              size="40"
+              color={
+                router.pathname === "/stores" ||
+                router.pathname === "/stores/[id]"
+                  ? "var(--accentColor)"
+                  : "var(--primaryDarkColor)"
+              }
+            />
           </StyledNavLink>
         </StyledListItem>
       </StyledNavBar>

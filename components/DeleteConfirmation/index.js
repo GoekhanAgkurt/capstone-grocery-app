@@ -2,20 +2,28 @@ import styled from "styled-components";
 import { StyledSubmitButton, StyledCancelButton } from "@/components/Buttons";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Icon from "@/components/Icons";
 
 const StyledDeleteIcon = styled.button`
-  width: ${({ $onDetailsPage }) => ($onDetailsPage ? "25%" : "15%")};
   border: none;
   background-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 5px;
   &:hover {
     cursor: pointer;
+  }
+  &:disabled {
+    cursor: default;
   }
 `;
 const StyledDeleteConfirmation = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   column-gap: 5px;
   padding: 5px;
+  width: 100%;
 `;
 const StyledConfirmButton = styled(StyledSubmitButton)`
   width: auto;
@@ -23,10 +31,10 @@ const StyledConfirmButton = styled(StyledSubmitButton)`
   justify-content: center;
   margin: 0px;
   font-size: 14px;
-  padding: 5px 10px;
-  background-color: var(--deleteColor);
+  padding: 5px 20px;
+  background-color: var(--dangerColor);
   &:hover {
-    background-color: darkred;
+    background-color: var(--dangerHoverColor);
   }
 `;
 const StyledSmallCancelButton = styled(StyledCancelButton)`
@@ -35,11 +43,13 @@ const StyledSmallCancelButton = styled(StyledCancelButton)`
   justify-content: center;
   margin: 0px;
   font-size: 14px;
-  padding: 5px 10px;
+  padding: 5px 20px;
 `;
 const StyledDeleteMessage = styled.span`
   font-size: 18px;
-  color: var(--primaryDarkColor);
+
+  color: ${({ $disabled }) =>
+    $disabled ? "var(--disabledColor)" : "var(--primaryDarkColor)"};
 `;
 
 export default function DeleteConfirmation({
@@ -57,16 +67,30 @@ export default function DeleteConfirmation({
         onClick={() => setShowConfirmButtons(true)}
         disabled={showConfirmButtons}
       >
-        {onDetailsPage && <StyledDeleteMessage>Delete </StyledDeleteMessage>}🗑️
+        {onDetailsPage && (
+          <StyledDeleteMessage $disabled={showConfirmButtons}>
+            Delete{" "}
+          </StyledDeleteMessage>
+        )}
+        <Icon
+          variant="delete"
+          color={
+            showConfirmButtons
+              ? "var(--disabledColor)"
+              : "var(--primaryDarkColor"
+          }
+        />
       </StyledDeleteIcon>
+
       {showConfirmButtons && (
         <StyledDeleteConfirmation>
-          <span>Are you sure to delete?</span>
+          <span>Confirm Delete</span>
           <StyledSmallCancelButton
             type="button"
             onClick={() => setShowConfirmButtons(false)}
           >
-            Cancel
+            <Icon variant="cancel" color="var(--primaryButtonColor)" />
+            {/* Cancel */}
           </StyledSmallCancelButton>{" "}
           <StyledConfirmButton
             type="button"
@@ -75,7 +99,8 @@ export default function DeleteConfirmation({
               onDeleteProduct(product._id);
             }}
           >
-            Confirm
+            <Icon variant="delete" color="var(--primaryButtonColor)" />
+            {/* Confirm */}
           </StyledConfirmButton>
         </StyledDeleteConfirmation>
       )}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { uid } from "uid";
 import styled from "styled-components";
 import { StyledCancelButton, StyledSubmitButton } from "@/components/Buttons";
+import Icon from "@/components/Icons";
 
 const StyledForm = styled.form`
   display: flex;
@@ -89,9 +90,13 @@ export default function CreateProduct({ onAddProduct, stores }) {
         />
         <StyledButtonContainer>
           <StyledCancelButton as={Link} href="/">
+            <Icon variant="cancel" color="var(--primaryButtonColor)" />
             Cancel
           </StyledCancelButton>
-          <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
+          <StyledSubmitButton type="submit">
+            <Icon variant="check" color="var(--primaryButtonColor)" />
+            Submit
+          </StyledSubmitButton>
         </StyledButtonContainer>
       </StyledForm>
     </main>
