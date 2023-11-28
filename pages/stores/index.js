@@ -1,9 +1,9 @@
-import StoresList from "@/components/StoreList";
+import StoreList from "@/components/StoreList";
 
-export default function Stores({ stores }) {
+export default function Stores({ stores, onDeleteStore }) {
   return (
     <main>
-      <StoresList stores={stores} />
+      <StoreList stores={stores} onDeleteStore={onDeleteStore} />
     </main>
   );
 }

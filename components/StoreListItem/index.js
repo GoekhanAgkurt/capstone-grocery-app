@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { StyledListItem } from "@/components/ListItems";
+import DeleteConfirmation from "@/components/DeleteConfirmation";
 
 const StyledLink = styled(Link)`
   display: inline-block;
@@ -13,10 +14,11 @@ const StyledLink = styled(Link)`
   }
 `;
 
-export default function StoreListItem({ store }) {
+export default function StoreListItem({ store, onDeleteStore }) {
   return (
     <StyledListItem>
       <StyledLink href={`/stores/${store._id}`}>{store.name}</StyledLink>
+      <DeleteConfirmation store={store} onDeleteStore={onDeleteStore} />
     </StyledListItem>
   );
 }

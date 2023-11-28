@@ -28,7 +28,6 @@ const StyledDetailField = styled.p`
   margin-block: 7px 20px;
   border-radius: 5px;
   font-family: var(--fontHandwriting);
-  /* border: solid 1px var(--shadowColor); */
 `;
 
 const StyledDetailTitle = styled.h3`

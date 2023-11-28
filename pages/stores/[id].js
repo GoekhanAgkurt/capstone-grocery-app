@@ -6,11 +6,12 @@ import {
   StyledButtonContainer,
 } from "@/components/Buttons";
 import Icon from "@/components/Icons";
+import DeleteConfirmation from "@/components/DeleteConfirmation";
 
 const StyledTitleContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin-block: 20px;
 `;
 
@@ -31,7 +32,7 @@ const StyledDetailTitle = styled.h3`
   margin-block: 0px 0px;
 `;
 
-export default function StoreDetailsPage({ stores }) {
+export default function StoreDetailsPage({ stores, onDeleteStore }) {
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
@@ -44,6 +45,11 @@ export default function StoreDetailsPage({ stores }) {
     <main>
       <StyledTitleContainer>
         <StyledTitle>{store.name}</StyledTitle>
+        <DeleteConfirmation
+          store={store}
+          onDeleteStore={onDeleteStore}
+          onDetailsPage
+        />
       </StyledTitleContainer>
       <StyledDetailTitle>Note</StyledDetailTitle>
       <StyledDetailField>

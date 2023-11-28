@@ -25,6 +25,9 @@ const StyledDeleteConfirmation = styled.div`
   padding: 5px;
   width: 100%;
 `;
+const StyledDeleteWarningMessage = styled(StyledDeleteConfirmation)`
+  color: var(--dangerColor);
+`;
 const StyledConfirmButton = styled(StyledSubmitButton)`
   width: auto;
   display: flex;
@@ -54,7 +57,9 @@ const StyledDeleteMessage = styled.span`
 
 export default function DeleteConfirmation({
   product,
+  store,
   onDeleteProduct,
+  onDeleteStore,
   onDetailsPage,
 }) {
   const [showConfirmButtons, setShowConfirmButtons] = useState(false);
@@ -83,26 +88,35 @@ export default function DeleteConfirmation({
       </StyledDeleteIcon>
 
       {showConfirmButtons && (
-        <StyledDeleteConfirmation>
-          <span>Confirm Delete</span>
-          <StyledSmallCancelButton
-            type="button"
-            onClick={() => setShowConfirmButtons(false)}
-          >
-            <Icon variant="cancel" color="var(--primaryButtonColor)" />
-            {/* Cancel */}
-          </StyledSmallCancelButton>{" "}
-          <StyledConfirmButton
-            type="button"
-            onClick={() => {
-              onDetailsPage && router.push("/");
-              onDeleteProduct(product._id);
-            }}
-          >
-            <Icon variant="delete" color="var(--primaryButtonColor)" />
-            {/* Confirm */}
-          </StyledConfirmButton>
-        </StyledDeleteConfirmation>
+        <>
+          <StyledDeleteWarningMessage>
+            {store && (
+              <>
+                <Icon variant="warning" color="var(--dangerColor)" size="25" />
+                <span>Connected products will also lose this store</span>
+              </>
+            )}
+          </StyledDeleteWarningMessage>
+          <StyledDeleteConfirmation>
+            <span>Confirm Delete</span>
+            <StyledSmallCancelButton
+              type="button"
+              onClick={() => setShowConfirmButtons(false)}
+            >
+              <Icon variant="cancel" color="var(--primaryButtonColor)" />
+            </StyledSmallCancelButton>{" "}
+            <StyledConfirmButton
+              type="button"
+              onClick={() => {
+                onDetailsPage &&
+                  (store ? router.push("/stores") : router.push("/"));
+                store ? onDeleteStore(store._id) : onDeleteProduct(product._id);
+              }}
+            >
+              <Icon variant="delete" color="var(--primaryButtonColor)" />
+            </StyledConfirmButton>
+          </StyledDeleteConfirmation>
+        </>
       )}
     </>
   );
