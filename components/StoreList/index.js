@@ -1,6 +1,6 @@
 import StoreListItem from "@/components/StoreListItem";
 
-export default function StoresList({ stores }) {
+export default function StoreList({ stores, onDeleteStore }) {
   if (stores.length === 0) {
     return (
       <>
@@ -14,7 +14,11 @@ export default function StoresList({ stores }) {
       <h2>All Stores</h2>
       <ul>
         {stores.map((store) => (
-          <StoreListItem key={store._id} store={store} />
+          <StoreListItem
+            key={store._id}
+            store={store}
+            onDeleteStore={onDeleteStore}
+          />
         ))}
       </ul>
     </>
