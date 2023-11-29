@@ -29,7 +29,12 @@ const StyledListItem = styled.li`
 `;
 export default function Navigation({ isEdit }) {
   const router = useRouter();
-  if (router.pathname === "/create" || isEdit) return;
+  if (
+    router.pathname === "/create" ||
+    router.pathname === "/stores/create" ||
+    isEdit
+  )
+    return;
   return (
     <nav>
       <StyledNavBar>
