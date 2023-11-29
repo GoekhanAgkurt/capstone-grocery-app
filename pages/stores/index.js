@@ -1,4 +1,4 @@
-import StoresList from "@/components/StoreList";
+import StoreList from "@/components/StoreList";
 import { StyledCreateLink } from "@/components/Buttons";
 import Icon from "@/components/Icons";
 
