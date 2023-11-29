@@ -1,5 +1,10 @@
 import ProductListItem from "@/components/ProductListItem";
-export default function ProductsList({ products, onDeleteProduct }) {
+export default function ProductsList({
+  products,
+  shoppingListProducts,
+  onDeleteProduct,
+  onToggleShoppingList,
+}) {
   if (products.length === 0) {
     return (
       <>
@@ -17,7 +22,9 @@ export default function ProductsList({ products, onDeleteProduct }) {
           <ProductListItem
             key={product._id}
             product={product}
+            shoppingListProducts={shoppingListProducts}
             onDeleteProduct={onDeleteProduct}
+            onToggleShoppingList={onToggleShoppingList}
           />
         ))}
       </ul>

@@ -3,7 +3,8 @@ import { initialProducts, initialStores } from "@/lib/data";
 import useLocalStorageState from "use-local-storage-state";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
-import { useState } from "react";
+import { use, useState } from "react";
+import shoppingList from "./shoppingList";
 
 export default function App({ Component, pageProps }) {
   const [products, setProducts] = useLocalStorageState("products", {
@@ -13,7 +14,12 @@ export default function App({ Component, pageProps }) {
   const [stores, setStores] = useLocalStorageState("stores", {
     defaultValue: initialStores,
   });
-
+  const [shoppingListProducts, setShoppingListProducts] = useLocalStorageState(
+    "shoppingListProducts",
+    {
+      defaultValue: [],
+    }
+  );
   const [isEdit, setIsEdit] = useState(false);
 
   function handleAddProduct(newProduct) {
@@ -48,6 +54,21 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
+  function handleToggleShoppingList(newProduct) {
+    {
+      shoppingListProducts
+        .map((shoppingListProduct) => shoppingListProduct._id)
+        .includes(newProduct._id)
+        ? setShoppingListProducts(
+            shoppingListProducts.filter(
+              (shoppingListProduct) =>
+                shoppingListProduct._id !== newProduct._id
+            )
+          )
+        : setShoppingListProducts([...shoppingListProducts, newProduct]);
+    }
+    console.log("On the shopping list are:", shoppingListProducts);
+  }
 
   return (
     <>
@@ -57,6 +78,7 @@ export default function App({ Component, pageProps }) {
         {...pageProps}
         products={products}
         stores={stores}
+        shoppingListProducts={shoppingListProducts}
         isEdit={isEdit}
         onAddProduct={handleAddProduct}
         onAddStore={handleAddStore}
@@ -64,6 +86,7 @@ export default function App({ Component, pageProps }) {
         onDeleteProduct={handleDeleteProduct}
         onDeleteStore={handleDeleteStore}
         onSetIsEdit={handleSetIsEdit}
+        onToggleShoppingList={handleToggleShoppingList}
       />
       <Navigation isEdit={isEdit} />
     </>

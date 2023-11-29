@@ -74,3 +74,17 @@ export const StyledCreateLink = styled(Link)`
     width: 65px;
   }
 `;
+
+export const StyledIconButton = styled.button`
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  &:hover {
+    cursor: pointer;
+  }
+  &:disabled {
+    cursor: default;
+  }
+`;

@@ -76,6 +76,22 @@ export default function Navigation({ isEdit }) {
             />
           </StyledNavLink>
         </StyledListItem>
+        <StyledListItem>
+          <StyledNavLink
+            href="/shoppingList"
+            $currentPage={router.pathname === "/shoppingList"}
+          >
+            <Icon
+              variant="shoppingList"
+              size="40"
+              color={
+                router.pathname === "/shoppingList"
+                  ? "var(--accentColor)"
+                  : "var(--primaryDarkColor)"
+              }
+            />
+          </StyledNavLink>
+        </StyledListItem>
       </StyledNavBar>
     </nav>
   );

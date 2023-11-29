@@ -1,22 +1,13 @@
 import styled from "styled-components";
-import { StyledSubmitButton, StyledCancelButton } from "@/components/Buttons";
+import {
+  StyledSubmitButton,
+  StyledCancelButton,
+  StyledIconButton as StyledDeleteButton,
+} from "@/components/Buttons";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Icon from "@/components/Icons";
 
-const StyledDeleteIcon = styled.button`
-  border: none;
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  &:hover {
-    cursor: pointer;
-  }
-  &:disabled {
-    cursor: default;
-  }
-`;
 const StyledDeleteConfirmation = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -66,7 +57,7 @@ export default function DeleteConfirmation({
   const router = useRouter();
   return (
     <>
-      <StyledDeleteIcon
+      <StyledDeleteButton
         $onDetailsPage={onDetailsPage}
         type="button"
         onClick={() => setShowConfirmButtons(true)}
@@ -85,7 +76,7 @@ export default function DeleteConfirmation({
               : "var(--primaryDarkColor"
           }
         />
-      </StyledDeleteIcon>
+      </StyledDeleteButton>
 
       {showConfirmButtons && (
         <>
