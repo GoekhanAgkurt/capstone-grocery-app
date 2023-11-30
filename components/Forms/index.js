@@ -20,6 +20,14 @@ export const StyledInput = styled.input`
   font-size: 16px;
   font-family: var(--fontRegular);
 `;
+export const StyledTitleInput = styled(StyledInput)`
+  font-size: 1.5rem;
+  font-family: var(--fontBold);
+  color: var(--primaryDarkColor);
+  background-color: transparent;
+  padding: 10px 0px;
+  margin-block: 10px;
+`;
 
 export const StyledTextArea = styled.textarea`
   width: 100%;
