@@ -20,9 +20,7 @@ export default function ToggleShoppingList({ product, onToggleShoppingList }) {
       >
         <Icon
           variant={
-            product.onShoppingList
-              ? "removeFromShoppingList"
-              : "addToShoppingList"
+            product.onShoppingList ? "removeFromShoppingList" : "shoppingList"
           }
           color={
             product.onShoppingList

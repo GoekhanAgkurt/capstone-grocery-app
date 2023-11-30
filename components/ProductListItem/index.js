@@ -22,7 +22,7 @@ export default function ProductListItem({
   onToggleShoppingList,
 }) {
   return (
-    <StyledListItem>
+    <StyledListItem $onShoppingList={product.onShoppingList}>
       <StyledLink href={`/products/${product._id}`}>{product.name} </StyledLink>
       <ToggleShoppingList
         product={product}

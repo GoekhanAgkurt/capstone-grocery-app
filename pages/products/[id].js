@@ -8,18 +8,7 @@ import {
 } from "@/components/Buttons";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
 import Icon from "@/components/Icons";
-
-const StyledTitleContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-block: 20px;
-`;
-
-const StyledTitle = styled.h2`
-  width: 75%;
-  margin: 0px;
-`;
+import { StyledTitleContainer, StyledTitle } from "@/components/ListItems";
 
 const StyledDetailField = styled.p`
   width: 100%;

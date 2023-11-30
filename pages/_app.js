@@ -64,6 +64,13 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
+  function handleClearAllCheckedProducts(products) {
+    setProducts(
+      products.map((product) =>
+        product.isChecked ? { ...product, onShoppingList: false } : product
+      )
+    );
+  }
 
   return (
     <>
@@ -81,7 +88,6 @@ export default function App({ Component, pageProps }) {
         onDeleteStore={handleDeleteStore}
         onSetIsEdit={handleSetIsEdit}
         onToggleShoppingList={handleToggleShoppingList}
-        onCheckProduct={handleCheckProduct}
       />
       <Navigation isEdit={isEdit} />
     </>

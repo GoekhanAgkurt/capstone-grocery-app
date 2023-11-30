@@ -2,10 +2,7 @@ import { StyledListItem } from "@/components/ListItems";
 import { StyledListLink } from "@/components/Buttons";
 import CheckProductFromShoppingList from "@/components/CheckProductFromShoppingList";
 
-export default function ShoppingListItem({
-  shoppingListProduct,
-  checkProduct,
-}) {
+export default function ShoppingListItem({ shoppingListProduct }) {
   return (
     <StyledListItem>
       <StyledListLink
@@ -14,10 +11,7 @@ export default function ShoppingListItem({
       >
         {shoppingListProduct.name}
       </StyledListLink>
-      <CheckProductFromShoppingList
-        shoppingListProduct={shoppingListProduct}
-        checkProduct={checkProduct}
-      />
+      <CheckProductFromShoppingList shoppingListProduct={shoppingListProduct} />
     </StyledListItem>
   );
 }

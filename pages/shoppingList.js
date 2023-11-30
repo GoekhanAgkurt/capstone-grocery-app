@@ -1,21 +1,18 @@
 import ShoppingListItem from "@/components/ShoppingListItem";
-export default function shoppingList({ products, onCheckProduct }) {
-  function checkProduct(shoppingListProduct) {
-    const checkedProduct = {
-      name: shoppingListProduct.name,
-      note: shoppingListProduct.note,
-      selectedStore: shoppingListProduct.selectedStore,
-      _id: shoppingListProduct._id,
-      onShoppingList: shoppingListProduct.onShoppingList,
-      checkedProduct:
-        `${shoppingListProduct.checkedProduct}` === "true" ? false : true,
-    };
-    onCheckProduct(checkedProduct);
-  }
+import { StyledTitleContainer, StyledTitle } from "@/components/ListItems";
+import DeleteConfirmation from "@/components/DeleteConfirmation";
 
+export default function shoppingList({ products }) {
   return (
     <main>
-      <h2>Shopping List</h2>
+      <StyledTitleContainer>
+        <StyledTitle>Shopping List</StyledTitle>
+        <DeleteConfirmation
+          products={products}
+          onDeleteProduct={onDeleteProduct}
+          onDetailsPage
+        />
+      </StyledTitleContainer>
       <ul>
         {products
           .filter((product) => product.onShoppingList === true)
@@ -23,7 +20,6 @@ export default function shoppingList({ products, onCheckProduct }) {
             <ShoppingListItem
               key={shoppingListProduct._id}
               shoppingListProduct={shoppingListProduct}
-              checkProduct={checkProduct}
             />
           ))}
       </ul>

@@ -1,8 +1,5 @@
 import styled from "styled-components";
-export default function CheckProductFromShoppingList({
-  shoppingListProduct,
-  checkProduct,
-}) {
+export default function CheckProductFromShoppingList({ shoppingListProduct }) {
   const StyledInput = styled.div`
     padding: 0 15px;
     display: flex;
@@ -15,8 +12,11 @@ export default function CheckProductFromShoppingList({
         <input
           type="checkbox"
           id={shoppingListProduct._id}
-          checked={shoppingListProduct.checkedProduct ? true : false}
-          onChange={() => checkProduct(shoppingListProduct)}
+          checked={shoppingListProduct.checkedProduct}
+          onChange={() => ({
+            ...shoppingListProduct,
+            checkedProduct: !shoppingListProduct.checkedProduct,
+          })}
         />
       </StyledInput>
     </>

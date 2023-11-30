@@ -25,6 +25,7 @@ export default createGlobalStyle`
   :root{
     --primaryBackgroundColor:  #edecec;
     --secondaryBackgroundColor: #eae6e6;
+    --tertiaryBackgroundColor:  #dce2db;
     --shadowColor: #929090;
     --primaryDarkColor: #474747;
     --accentColor: #73A76A;
