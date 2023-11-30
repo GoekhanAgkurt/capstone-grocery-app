@@ -31,9 +31,19 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
+
+  function handleEditStore(editedStore) {
+    setStores(
+      stores.map((store) =>
+        store._id === editedStore._id ? editedStore : store
+      )
+    );
+  }
+
   function handleSetIsEdit() {
     setIsEdit(!isEdit);
   }
+
   function handleDeleteProduct(_id) {
     setProducts(products.filter((product) => product._id !== _id));
   }
@@ -61,6 +71,7 @@ export default function App({ Component, pageProps }) {
         onAddProduct={handleAddProduct}
         onAddStore={handleAddStore}
         onEditProduct={handleEditProduct}
+        onEditStore={handleEditStore}
         onDeleteProduct={handleDeleteProduct}
         onDeleteStore={handleDeleteStore}
         onSetIsEdit={handleSetIsEdit}

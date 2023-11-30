@@ -27,7 +27,6 @@ const StyledDetailField = styled.p`
   padding: 10px 0;
   margin-block: 7px 20px;
   border-radius: 5px;
-  font-family: var(--fontHandwriting);
 `;
 
 const StyledDetailTitle = styled.h3`
