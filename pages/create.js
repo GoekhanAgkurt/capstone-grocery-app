@@ -1,14 +1,17 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { uid } from "uid";
-import { StyledCancelButton, StyledSubmitButton } from "@/components/Buttons";
+import {
+  StyledCancelButton,
+  StyledSubmitButton,
+  StyledButtonContainer,
+} from "@/components/Buttons";
 import Icon from "@/components/Icons";
 import {
   StyledForm,
   StyledLabel,
   StyledInput,
   StyledTextArea,
-  StyledButtonContainer,
 } from "@/components/Forms";
 
 export default function CreateProduct({ onAddProduct, stores }) {

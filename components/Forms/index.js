@@ -40,8 +40,3 @@ export const StyledTextArea = styled.textarea`
   font-size: 16px;
   font-family: var(--fontRegular);
 `;
-
-export const StyledButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;

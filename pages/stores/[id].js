@@ -24,8 +24,8 @@ const StyledTitle = styled.h2`
 
 const StyledDetailField = styled.p`
   width: 100%;
-  background-color: var(--secondaryBackgroundColor);
-  padding: 10px;
+  background-color: transparent;
+  padding: 10px 0;
   margin-block: 7px 20px;
   border-radius: 5px;
 `;
