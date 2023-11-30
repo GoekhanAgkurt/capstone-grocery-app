@@ -6,31 +6,29 @@ import ToggleShoppingList from "@/components/ToggleShoppingList";
 
 const StyledLink = styled(Link)`
   display: inline-block;
-  flex-grow: 1;
-  width: auto;
-  padding: 10px;
   text-decoration: none;
+  padding: 10px;
   color: var(--primaryDarkColor);
   &:hover {
     cursor: pointer;
   }
+  width: auto;
+  flex-grow: 1;
 `;
 
 export default function ProductListItem({
   product,
-  shoppingListProducts,
   onDeleteProduct,
   onToggleShoppingList,
 }) {
   return (
     <StyledListItem>
+      <StyledLink href={`/products/${product._id}`}>{product.name} </StyledLink>
       <ToggleShoppingList
         product={product}
-        shoppingListProducts={shoppingListProducts}
         onToggleShoppingList={onToggleShoppingList}
         type="button"
       />
-      <StyledLink href={`/products/${product._id}`}>{product.name} </StyledLink>
       <DeleteConfirmation product={product} onDeleteProduct={onDeleteProduct} />
     </StyledListItem>
   );

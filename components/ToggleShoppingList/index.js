@@ -1,29 +1,31 @@
 import Icon from "@/components/Icons";
 import { StyledIconButton as StyledToggleShoppingListButton } from "@/components/Buttons";
 
-export default function ToggleShoppingList({
-  product,
-  onToggleShoppingList,
-  shoppingListProducts,
-}) {
+export default function ToggleShoppingList({ product, onToggleShoppingList }) {
+  function toggleShoppingList(product) {
+    const productToShoppingList = {
+      name: product.name,
+      note: product.note,
+      selectedStore: product.selectedStore,
+      _id: product._id,
+      onShoppingList: `${product.onShoppingList}` === "true" ? false : true,
+    };
+    onToggleShoppingList(productToShoppingList);
+  }
   return (
     <>
       <StyledToggleShoppingListButton
         type="button"
-        onClick={() => onToggleShoppingList(product)}
+        onClick={() => toggleShoppingList(product)}
       >
         <Icon
           variant={
-            shoppingListProducts
-              .map((shoppingListProduct) => shoppingListProduct._id)
-              .includes(product._id)
+            product.onShoppingList
               ? "removeFromShoppingList"
               : "addToShoppingList"
           }
           color={
-            shoppingListProducts
-              .map((shoppingListProduct) => shoppingListProduct._id)
-              .includes(product._id)
+            product.onShoppingList
               ? "var(--accentColor)"
               : "var(--primaryDarkColor)"
           }

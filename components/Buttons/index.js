@@ -51,6 +51,20 @@ export const StyledButtonContainer = styled.div`
   transform: translate(-50%);
 `;
 
+export const StyledListLink = styled(Link)`
+  display: inline-block;
+  flex-grow: 1;
+  width: auto;
+  padding: 10px;
+  text-decoration: none;
+  color: var(--primaryDarkColor);
+  &:hover {
+    cursor: pointer;
+  }
+  text-decoration: ${({ $checkedProduct }) =>
+    $checkedProduct && "line-through"};
+`;
+
 export const StyledCreateLink = styled(Link)`
   display: flex;
   justify-content: center;

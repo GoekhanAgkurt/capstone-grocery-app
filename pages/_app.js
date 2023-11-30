@@ -3,8 +3,7 @@ import { initialProducts, initialStores } from "@/lib/data";
 import useLocalStorageState from "use-local-storage-state";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
-import { use, useState } from "react";
-import shoppingList from "./shoppingList";
+import { useState } from "react";
 
 export default function App({ Component, pageProps }) {
   const [products, setProducts] = useLocalStorageState("products", {
@@ -14,12 +13,7 @@ export default function App({ Component, pageProps }) {
   const [stores, setStores] = useLocalStorageState("stores", {
     defaultValue: initialStores,
   });
-  const [shoppingListProducts, setShoppingListProducts] = useLocalStorageState(
-    "shoppingListProducts",
-    {
-      defaultValue: [],
-    }
-  );
+
   const [isEdit, setIsEdit] = useState(false);
 
   function handleAddProduct(newProduct) {
@@ -54,20 +48,21 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
-  function handleToggleShoppingList(newProduct) {
-    {
-      shoppingListProducts
-        .map((shoppingListProduct) => shoppingListProduct._id)
-        .includes(newProduct._id)
-        ? setShoppingListProducts(
-            shoppingListProducts.filter(
-              (shoppingListProduct) =>
-                shoppingListProduct._id !== newProduct._id
-            )
-          )
-        : setShoppingListProducts([...shoppingListProducts, newProduct]);
-    }
-    console.log("On the shopping list are:", shoppingListProducts);
+  function handleToggleShoppingList(productToShoppingList) {
+    setProducts(
+      products.map((product) =>
+        product._id === productToShoppingList._id
+          ? productToShoppingList
+          : product
+      )
+    );
+  }
+  function handleCheckProduct(checkedProduct) {
+    setProducts(
+      products.map((product) =>
+        product._id === checkedProduct._id ? checkedProduct : product
+      )
+    );
   }
 
   return (
@@ -78,7 +73,6 @@ export default function App({ Component, pageProps }) {
         {...pageProps}
         products={products}
         stores={stores}
-        shoppingListProducts={shoppingListProducts}
         isEdit={isEdit}
         onAddProduct={handleAddProduct}
         onAddStore={handleAddStore}
@@ -87,6 +81,7 @@ export default function App({ Component, pageProps }) {
         onDeleteStore={handleDeleteStore}
         onSetIsEdit={handleSetIsEdit}
         onToggleShoppingList={handleToggleShoppingList}
+        onCheckProduct={handleCheckProduct}
       />
       <Navigation isEdit={isEdit} />
     </>

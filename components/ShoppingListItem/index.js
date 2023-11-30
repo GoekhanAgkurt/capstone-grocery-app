@@ -1,26 +1,23 @@
 import { StyledListItem } from "@/components/ListItems";
-import styled from "styled-components";
-import Link from "next/link";
+import { StyledListLink } from "@/components/Buttons";
 import CheckProductFromShoppingList from "@/components/CheckProductFromShoppingList";
 
-export default function ShoppingListItem({ shoppingListProduct }) {
-  const StyledLink = styled(Link)`
-    display: inline-block;
-    flex-grow: 1;
-    width: auto;
-    padding: 10px;
-    text-decoration: none;
-    color: var(--primaryDarkColor);
-    &:hover {
-      cursor: pointer;
-    }
-  `;
+export default function ShoppingListItem({
+  shoppingListProduct,
+  checkProduct,
+}) {
   return (
     <StyledListItem>
-      <StyledLink href={`/products/${shoppingListProduct._id}`}>
+      <StyledListLink
+        href={`/products/${shoppingListProduct._id}`}
+        $checkedProduct={shoppingListProduct.checkedProduct}
+      >
         {shoppingListProduct.name}
-      </StyledLink>
-      <CheckProductFromShoppingList shoppingListProduct={shoppingListProduct} />
+      </StyledListLink>
+      <CheckProductFromShoppingList
+        shoppingListProduct={shoppingListProduct}
+        checkProduct={checkProduct}
+      />
     </StyledListItem>
   );
 }

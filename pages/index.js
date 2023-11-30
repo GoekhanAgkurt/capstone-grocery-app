@@ -4,7 +4,6 @@ import { StyledCreateLink } from "@/components/Buttons";
 
 export default function HomePage({
   products,
-  shoppingListProducts,
   onDeleteProduct,
   onToggleShoppingList,
 }) {
@@ -12,7 +11,6 @@ export default function HomePage({
     <main>
       <ProductsList
         products={products}
-        shoppingListProducts={shoppingListProducts}
         onDeleteProduct={onDeleteProduct}
         onToggleShoppingList={onToggleShoppingList}
       ></ProductsList>
