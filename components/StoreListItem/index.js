@@ -5,13 +5,13 @@ import DeleteConfirmation from "@/components/DeleteConfirmation";
 
 const StyledLink = styled(Link)`
   display: inline-block;
-  width: 85%;
-  padding: 10px;
   text-decoration: none;
+  padding: 10px;
   color: var(--primaryDarkColor);
   &:hover {
     cursor: pointer;
   }
+  width: 85%;
 `;
 
 export default function StoreListItem({ store, onDeleteStore }) {

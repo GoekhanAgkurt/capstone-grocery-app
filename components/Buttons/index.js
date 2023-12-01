@@ -51,6 +51,20 @@ export const StyledButtonContainer = styled.div`
   transform: translate(-50%);
 `;
 
+export const StyledListLink = styled(Link)`
+  display: inline-block;
+  flex-grow: 1;
+  width: auto;
+  padding: 10px;
+  text-decoration: none;
+  color: var(--primaryDarkColor);
+  &:hover {
+    cursor: pointer;
+  }
+  text-decoration: ${({ $checkedProduct }) =>
+    $checkedProduct && "line-through"};
+`;
+
 export const StyledCreateLink = styled(Link)`
   display: flex;
   justify-content: center;
@@ -72,5 +86,19 @@ export const StyledCreateLink = styled(Link)`
     right: 47.5px;
     height: 65px;
     width: 65px;
+  }
+`;
+
+export const StyledIconButton = styled.button`
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  &:hover {
+    cursor: pointer;
+  }
+  &:disabled {
+    cursor: default;
   }
 `;

@@ -1,22 +1,13 @@
 import styled from "styled-components";
-import { StyledSubmitButton, StyledCancelButton } from "@/components/Buttons";
+import {
+  StyledSubmitButton,
+  StyledCancelButton,
+  StyledIconButton as StyledDeleteButton,
+} from "@/components/Buttons";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Icon from "@/components/Icons";
 
-const StyledDeleteIcon = styled.button`
-  border: none;
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  &:hover {
-    cursor: pointer;
-  }
-  &:disabled {
-    cursor: default;
-  }
-`;
 const StyledDeleteConfirmation = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -56,49 +47,67 @@ const StyledDeleteMessage = styled.span`
 `;
 
 export default function DeleteConfirmation({
+  products,
   product,
   store,
   onDeleteProduct,
   onDeleteStore,
   onDetailsPage,
+  onShoppingListPage,
+  onClearAllCheckedProducts,
 }) {
   const [showConfirmButtons, setShowConfirmButtons] = useState(false);
   const router = useRouter();
+
+  const productIsChecked = products
+    ? !products.find((product) => product.checkedProduct === true)
+    : false;
   return (
     <>
-      <StyledDeleteIcon
+      <StyledDeleteButton
         $onDetailsPage={onDetailsPage}
         type="button"
         onClick={() => setShowConfirmButtons(true)}
-        disabled={showConfirmButtons}
+        disabled={
+          showConfirmButtons || (onShoppingListPage && productIsChecked)
+        }
       >
         {onDetailsPage && (
           <StyledDeleteMessage $disabled={showConfirmButtons}>
             Delete{" "}
           </StyledDeleteMessage>
         )}
+        {onShoppingListPage && (
+          <StyledDeleteMessage
+            $disabled={showConfirmButtons || productIsChecked}
+          >
+            Clear all checked{" "}
+          </StyledDeleteMessage>
+        )}
         <Icon
           variant="delete"
           color={
-            showConfirmButtons
+            showConfirmButtons || (onShoppingListPage && productIsChecked)
               ? "var(--disabledColor)"
               : "var(--primaryDarkColor"
           }
         />
-      </StyledDeleteIcon>
+      </StyledDeleteButton>
 
       {showConfirmButtons && (
         <>
-          <StyledDeleteWarningMessage>
-            {store && (
-              <>
-                <Icon variant="warning" color="var(--dangerColor)" size="25" />
-                <span>Connected products will also lose this store</span>
-              </>
-            )}
-          </StyledDeleteWarningMessage>
+          {store && (
+            <StyledDeleteWarningMessage>
+              <Icon variant="warning" color="var(--dangerColor)" size="25" />
+              <span>Connected products will also lose this store</span>
+            </StyledDeleteWarningMessage>
+          )}
           <StyledDeleteConfirmation>
-            <span>Confirm Delete</span>
+            {onShoppingListPage ? (
+              <span>Confirm clear all checked</span>
+            ) : (
+              <span>Confirm Delete</span>
+            )}
             <StyledSmallCancelButton
               type="button"
               onClick={() => setShowConfirmButtons(false)}
@@ -110,7 +119,10 @@ export default function DeleteConfirmation({
               onClick={() => {
                 onDetailsPage &&
                   (store ? router.push("/stores") : router.push("/"));
-                store ? onDeleteStore(store._id) : onDeleteProduct(product._id);
+                onShoppingListPage &&
+                  (onClearAllCheckedProducts(), setShowConfirmButtons(false));
+                store && onDeleteStore(store._id);
+                product && onDeleteProduct(product._id);
               }}
             >
               <Icon variant="delete" color="var(--primaryButtonColor)" />

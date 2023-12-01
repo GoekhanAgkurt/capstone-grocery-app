@@ -58,7 +58,33 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
-
+  function handleToggleShoppingList(productToShoppingList) {
+    setProducts(
+      products.map((product) =>
+        product._id === productToShoppingList._id
+          ? { ...product, onShoppingList: !product.onShoppingList }
+          : product
+      )
+    );
+  }
+  function handleCheckProduct(checkedProduct) {
+    setProducts(
+      products.map((product) =>
+        product._id === checkedProduct._id
+          ? { ...product, checkedProduct: !product.checkedProduct }
+          : product
+      )
+    );
+  }
+  function handleClearAllCheckedProducts() {
+    setProducts(
+      products.map((product) =>
+        product.checkedProduct
+          ? { ...product, onShoppingList: false, checkedProduct: false }
+          : product
+      )
+    );
+  }
   return (
     <>
       <GlobalStyle />
@@ -75,6 +101,9 @@ export default function App({ Component, pageProps }) {
         onDeleteProduct={handleDeleteProduct}
         onDeleteStore={handleDeleteStore}
         onSetIsEdit={handleSetIsEdit}
+        onToggleShoppingList={handleToggleShoppingList}
+        onCheckProduct={handleCheckProduct}
+        onClearAllCheckedProducts={handleClearAllCheckedProducts}
       />
       <Navigation isEdit={isEdit} />
     </>
