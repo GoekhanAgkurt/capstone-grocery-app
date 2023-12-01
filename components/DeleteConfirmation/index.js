@@ -58,6 +58,10 @@ export default function DeleteConfirmation({
 }) {
   const [showConfirmButtons, setShowConfirmButtons] = useState(false);
   const router = useRouter();
+
+  const productIsChecked = products
+    ? !products.find((product) => product.checkedProduct === true)
+    : false;
   return (
     <>
       <StyledDeleteButton
@@ -65,9 +69,7 @@ export default function DeleteConfirmation({
         type="button"
         onClick={() => setShowConfirmButtons(true)}
         disabled={
-          showConfirmButtons ||
-          (onShoppingListPage &&
-            !products.find((product) => product.checkedProduct === true))
+          showConfirmButtons || (onShoppingListPage && productIsChecked)
         }
       >
         {onDetailsPage && (
@@ -77,10 +79,7 @@ export default function DeleteConfirmation({
         )}
         {onShoppingListPage && (
           <StyledDeleteMessage
-            $disabled={
-              showConfirmButtons ||
-              !products.find((product) => product.checkedProduct === true)
-            }
+            $disabled={showConfirmButtons || productIsChecked}
           >
             Clear all checked{" "}
           </StyledDeleteMessage>
@@ -88,9 +87,7 @@ export default function DeleteConfirmation({
         <Icon
           variant="delete"
           color={
-            showConfirmButtons ||
-            (onShoppingListPage &&
-              !products.find((product) => product.checkedProduct === true))
+            showConfirmButtons || (onShoppingListPage && productIsChecked)
               ? "var(--disabledColor)"
               : "var(--primaryDarkColor"
           }
