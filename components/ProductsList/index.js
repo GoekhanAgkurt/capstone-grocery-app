@@ -4,14 +4,6 @@ export default function ProductsList({
   onDeleteProduct,
   onToggleShoppingList,
 }) {
-  // if (products.length === 0) {
-  //   return (
-  //     <>
-  //       <p>Currently, your product list is empty. </p>
-  //       <p>You can add products to your list via the the green + button</p>
-  //     </>
-  //   );
-  // }
   return (
     <ul>
       {products.map((product) => (
