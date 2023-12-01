@@ -4,7 +4,28 @@ import { StyledCreateLink } from "@/components/Buttons";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 
-const StyledSearchForm = styled.form``;
+const StyledSearchForm = styled.form`
+  display: flex;
+  margin-block-start: 30px;
+  border-radius: 5px;
+  width: 100%;
+  border: 1px solid;
+  box-shadow: inset 0px 0px 2px var(--shadowColor);
+  padding-inline: 10px;
+  background-color: white;
+  &:focus-within {
+    border: 2px solid var(--accentColor);
+  }
+`;
+
+const StyledSearchInput = styled.input`
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 10px;
+  width: 100%;
+  font-size: 16px;
+`;
 
 export default function HomePage({
   products,
@@ -24,13 +45,14 @@ export default function HomePage({
   return (
     <main>
       <StyledSearchForm>
-        <input
+        <Icon variant="search" />
+        <StyledSearchInput
           onChange={(event) => setSearchTerm(event.target.value)}
           type="text"
           id="searchTerm"
           name="searchTerm"
-          placeholder="search a product"
-        ></input>
+          placeholder="Search a product"
+        ></StyledSearchInput>
       </StyledSearchForm>
       <h2>All Products</h2>
       <ProductsList
