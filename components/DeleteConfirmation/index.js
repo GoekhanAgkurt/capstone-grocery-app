@@ -47,11 +47,14 @@ const StyledDeleteMessage = styled.span`
 `;
 
 export default function DeleteConfirmation({
+  products,
   product,
   store,
   onDeleteProduct,
   onDeleteStore,
   onDetailsPage,
+  onShoppingListPage,
+  onClearAllCheckedProducts,
 }) {
   const [showConfirmButtons, setShowConfirmButtons] = useState(false);
   const router = useRouter();
@@ -61,17 +64,33 @@ export default function DeleteConfirmation({
         $onDetailsPage={onDetailsPage}
         type="button"
         onClick={() => setShowConfirmButtons(true)}
-        disabled={showConfirmButtons}
+        disabled={
+          showConfirmButtons ||
+          (onShoppingListPage &&
+            !products.find((product) => product.checkedProduct === true))
+        }
       >
         {onDetailsPage && (
           <StyledDeleteMessage $disabled={showConfirmButtons}>
             Delete{" "}
           </StyledDeleteMessage>
         )}
+        {onShoppingListPage && (
+          <StyledDeleteMessage
+            $disabled={
+              showConfirmButtons ||
+              !products.find((product) => product.checkedProduct === true)
+            }
+          >
+            Clear all checked{" "}
+          </StyledDeleteMessage>
+        )}
         <Icon
           variant="delete"
           color={
-            showConfirmButtons
+            showConfirmButtons ||
+            (onShoppingListPage &&
+              !products.find((product) => product.checkedProduct === true))
               ? "var(--disabledColor)"
               : "var(--primaryDarkColor"
           }
@@ -80,16 +99,18 @@ export default function DeleteConfirmation({
 
       {showConfirmButtons && (
         <>
-          <StyledDeleteWarningMessage>
-            {store && (
-              <>
-                <Icon variant="warning" color="var(--dangerColor)" size="25" />
-                <span>Connected products will also lose this store</span>
-              </>
-            )}
-          </StyledDeleteWarningMessage>
+          {store && (
+            <StyledDeleteWarningMessage>
+              <Icon variant="warning" color="var(--dangerColor)" size="25" />
+              <span>Connected products will also lose this store</span>
+            </StyledDeleteWarningMessage>
+          )}
           <StyledDeleteConfirmation>
-            <span>Confirm Delete</span>
+            {onShoppingListPage ? (
+              <span>Confirm clear all checked</span>
+            ) : (
+              <span>Confirm Delete</span>
+            )}
             <StyledSmallCancelButton
               type="button"
               onClick={() => setShowConfirmButtons(false)}
@@ -101,7 +122,10 @@ export default function DeleteConfirmation({
               onClick={() => {
                 onDetailsPage &&
                   (store ? router.push("/stores") : router.push("/"));
-                store ? onDeleteStore(store._id) : onDeleteProduct(product._id);
+                onShoppingListPage &&
+                  (onClearAllCheckedProducts(), setShowConfirmButtons(false));
+                store && onDeleteStore(store._id);
+                product && onDeleteProduct(product._id);
               }}
             >
               <Icon variant="delete" color="var(--primaryButtonColor)" />

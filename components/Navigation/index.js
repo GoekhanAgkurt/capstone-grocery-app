@@ -33,66 +33,69 @@ export default function Navigation({ isEdit }) {
     router.pathname === "/create" ||
     router.pathname === "/stores/create" ||
     isEdit
-  )
+  ) {
     return;
-  return (
-    <nav>
-      <StyledNavBar>
-        <StyledListItem>
-          <StyledNavLink
-            href="/"
-            $currentPage={
-              router.pathname === "/" || router.pathname === "/products/[id]"
-            }
-          >
-            <Icon
-              variant="products"
-              size="40"
-              color={
+  } else {
+    return (
+      <nav>
+        <StyledNavBar>
+          <StyledListItem>
+            <StyledNavLink
+              href="/"
+              $currentPage={
                 router.pathname === "/" || router.pathname === "/products/[id]"
-                  ? "var(--accentColor)"
-                  : "var(--primaryDarkColor)"
               }
-            />
-          </StyledNavLink>
-        </StyledListItem>
-        <StyledListItem>
-          <StyledNavLink
-            href="/stores"
-            $currentPage={
-              router.pathname === "/stores" ||
-              router.pathname === "/stores/[id]"
-            }
-          >
-            <Icon
-              variant="store"
-              size="40"
-              color={
+            >
+              <Icon
+                variant="products"
+                size="40"
+                color={
+                  router.pathname === "/" ||
+                  router.pathname === "/products/[id]"
+                    ? "var(--accentColor)"
+                    : "var(--primaryDarkColor)"
+                }
+              />
+            </StyledNavLink>
+          </StyledListItem>
+          <StyledListItem>
+            <StyledNavLink
+              href="/stores"
+              $currentPage={
                 router.pathname === "/stores" ||
                 router.pathname === "/stores/[id]"
-                  ? "var(--accentColor)"
-                  : "var(--primaryDarkColor)"
               }
-            />
-          </StyledNavLink>
-        </StyledListItem>
-        <StyledListItem>
-          <StyledNavLink
-            href="/shoppingList"
-            $currentPage={router.pathname === "/shoppingList"}
-          >
-            <Icon
-              variant="shoppingList"
-              size="40"
-              color={
-                router.pathname === "/shoppingList"
-                  ? "var(--accentColor)"
-                  : "var(--primaryDarkColor)"
-              }
-            />
-          </StyledNavLink>
-        </StyledListItem>
-      </StyledNavBar>
-    </nav>
-  );
+            >
+              <Icon
+                variant="store"
+                size="40"
+                color={
+                  router.pathname === "/stores" ||
+                  router.pathname === "/stores/[id]"
+                    ? "var(--accentColor)"
+                    : "var(--primaryDarkColor)"
+                }
+              />
+            </StyledNavLink>
+          </StyledListItem>
+          <StyledListItem>
+            <StyledNavLink
+              href="/shoppingList"
+              $currentPage={router.pathname === "/shoppingList"}
+            >
+              <Icon
+                variant="shoppingList"
+                size="40"
+                color={
+                  router.pathname === "/shoppingList"
+                    ? "var(--accentColor)"
+                    : "var(--primaryDarkColor)"
+                }
+              />
+            </StyledNavLink>
+          </StyledListItem>
+        </StyledNavBar>
+      </nav>
+    );
+  }
 }

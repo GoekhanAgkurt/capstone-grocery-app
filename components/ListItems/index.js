@@ -8,7 +8,6 @@ export const StyledTitleContainer = styled.div`
 `;
 
 export const StyledTitle = styled.h2`
-  width: 75%;
   margin: 0px;
 `;
 

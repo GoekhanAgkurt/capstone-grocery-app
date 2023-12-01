@@ -101,7 +101,6 @@ export default function ProductDetailsPage({
     onEditProduct(editedProduct);
     onSetIsEdit();
   }
-
   return (
     <main>
       {!isEdit ? (
