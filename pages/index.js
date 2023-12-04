@@ -60,10 +60,13 @@ export default function HomePage({
         onDeleteProduct={onDeleteProduct}
         onToggleShoppingList={onToggleShoppingList}
       ></ProductsList>
-      {!products && (
+      {products.length === 0 && searchTerm.length === 0 && (
         <>
           <p>Currently, your product list is empty. </p>
-          <p>You can add products to your list via the the green + button</p>
+          <p>
+            You can add products to your list via the green {`"+" `}
+            button.
+          </p>
         </>
       )}
       {searchTerm.length > 0 && foundProducts.length === 0 && (
