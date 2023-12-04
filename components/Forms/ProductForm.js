@@ -11,19 +11,60 @@ import {
   StyledSubmitButton,
   StyledCancelButton,
   StyledButtonContainer,
+  StyledIconButton,
 } from "@/components/Buttons";
 import Icon from "@/components/Icons";
+import styled from "styled-components";
+import { useState } from "react";
+import Loading from "../Loading";
+
+const StyledImageUpload = styled.input`
+  display: none;
+`;
+
+const StyledUploadImageButton = styled(StyledIconButton)`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 130px;
+  justify-content: center;
+  background-color: var(--accentColor);
+  border-radius: 5px;
+  font-size: 12px;
+  color: var(--primaryBackgroundColor);
+  padding: 5px 10px;
+  box-shadow: 0px 1px 3px var(--primaryDarkColor);
+  &:hover {
+    background-color: var(--accentHoverColor);
+  }
+`;
+
+const StyledRemoveImageButton = styled(StyledUploadImageButton)`
+  left: 10px;
+  background-color: var(--dangerColor);
+  &:hover {
+    background-color: var(--dangerHoverColor);
+  }
+`;
 
 export default function ProductForm({
   product = {},
   stores,
+  currentImageURL,
   onSubmit,
+  onSetCurrentImageURL,
   onSetIsEdit,
 }) {
+  const [isUploading, setIsUploading] = useState(false);
   const isCreateProduct = Object.keys(product).length === 0;
 
-  function handleFormSubmit(event) {
+  function changeImage(event) {
+    onSetCurrentImageURL(URL.createObjectURL(event.target.files[0]));
+  }
+
+  async function handleFormSubmit(event) {
     event.preventDefault();
+    setIsUploading(true);
 
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
@@ -35,8 +76,28 @@ export default function ProductForm({
       _id: isCreateProduct ? uid() : product._id,
     };
 
+    if (
+      data.productImage.name !== "" &&
+      currentImageURL !== "/images/default-image.png"
+    ) {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      if (!response.ok) {
+        throw new Error("Error uploading picture.");
+      } else {
+        const imageResponse = await response.json();
+        productData.imageURL = imageResponse.secure_url;
+      }
+    } else {
+      productData.imageURL = "/images/default-image.png";
+    }
+
     onSubmit(productData);
   }
+
+  if (isUploading) return <Loading>Saving new product.</Loading>;
   return (
     <StyledForm onSubmit={handleFormSubmit}>
       {isCreateProduct ? (
@@ -83,6 +144,28 @@ export default function ProductForm({
         placeholder="Enter Note"
         defaultValue={product.note}
       />
+      <StyledUploadImageButton as="label" htmlFor="productImage">
+        <Icon variant="upload" color="var(--primaryBackgroundColor)" />
+        {currentImageURL === "/images/default-image.png"
+          ? "Uplaod Image"
+          : "Edit Image"}
+      </StyledUploadImageButton>
+      <StyledImageUpload
+        id="productImage"
+        name="productImage"
+        type="file"
+        accept=".png, .jpeg, .jpg, .webp"
+        onChange={changeImage}
+      />
+      {currentImageURL !== "/images/default-image.png" && (
+        <StyledRemoveImageButton
+          type="button"
+          onClick={() => onSetCurrentImageURL("/images/default-image.png")}
+        >
+          <Icon variant="delete" color="var(--primaryBackgroundColor)" />
+          Remove Image
+        </StyledRemoveImageButton>
+      )}
       <StyledButtonContainer>
         {isCreateProduct ? (
           <StyledCancelButton as={Link} href="/">
@@ -90,7 +173,13 @@ export default function ProductForm({
             Cancel
           </StyledCancelButton>
         ) : (
-          <StyledCancelButton type="button" onClick={() => onSetIsEdit()}>
+          <StyledCancelButton
+            type="button"
+            onClick={() => {
+              onSetIsEdit();
+              onSetCurrentImageURL(product.imageURL);
+            }}
+          >
             <Icon variant="cancel" color="var(--primaryButtonColor)" />
             Cancel
           </StyledCancelButton>

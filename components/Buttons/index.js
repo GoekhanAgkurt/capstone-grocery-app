@@ -24,7 +24,7 @@ export const StyledSubmitButton = styled(StyledButton)`
   justify-content: center;
   gap: 5px;
   &:hover {
-    background-color: #5d8a55;
+    background-color: var(--accentHoverColor);
   }
 `;
 export const StyledCancelButton = styled(StyledButton)`
