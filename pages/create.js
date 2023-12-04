@@ -13,28 +13,34 @@ import {
   StyledInput,
   StyledTextArea,
 } from "@/components/Forms";
+import ProductForm from "@/components/Forms/ProductForm";
 
 export default function CreateProduct({ onAddProduct, stores }) {
   const router = useRouter();
-  function createProduct(event) {
-    event.preventDefault();
+  // function createProduct(event) {
+  //   event.preventDefault();
 
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
+  //   const formData = new FormData(event.target);
+  //   const data = Object.fromEntries(formData);
 
-    const newProduct = {
-      name: data.productName,
-      note: data.productNote,
-      selectedStore: data.selectedStore,
-      _id: uid(),
-    };
+  //   const newProduct = {
+  //     name: data.productName,
+  //     note: data.productNote,
+  //     selectedStore: data.selectedStore,
+  //     _id: uid(),
+  //   };
+  //   onAddProduct(newProduct);
+  //   router.push("/");
+  // }
+  function createProduct(newProduct) {
     onAddProduct(newProduct);
     router.push("/");
   }
   return (
     <main>
       <h2>New Product</h2>
-      <StyledForm onSubmit={createProduct}>
+      <ProductForm stores={stores} onSubmit={createProduct} />
+      {/* <StyledForm onSubmit={createProduct}>
         <StyledLabel htmlFor="productName">Name</StyledLabel>
         <StyledInput
           id="productName"
@@ -68,7 +74,7 @@ export default function CreateProduct({ onAddProduct, stores }) {
             Submit
           </StyledSubmitButton>
         </StyledButtonContainer>
-      </StyledForm>
+      </StyledForm> */}
     </main>
   );
 }
