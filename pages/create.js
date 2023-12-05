@@ -3,6 +3,7 @@ import ProductForm from "@/components/Forms/ProductForm";
 import ProductImage from "@/components/ProductImage";
 import styled from "styled-components";
 import { useState } from "react";
+import { defaultImageURL } from "@/public/images/defaultImageURL";
 
 const StyledMainWithPaddingBottom = styled.main`
   padding-bottom: 180px;
@@ -10,10 +11,8 @@ const StyledMainWithPaddingBottom = styled.main`
 
 export default function CreateProduct({ onAddProduct, stores }) {
   const router = useRouter();
-  const [currentImageURL, setCurrentImageURL] = useState(
-    "/images/default-image.png"
-  );
 
+  const [currentImageURL, setCurrentImageURL] = useState(defaultImageURL);
   function handleSetCurrentImageURL(url) {
     setCurrentImageURL(url);
   }

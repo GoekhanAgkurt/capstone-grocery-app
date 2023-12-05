@@ -1,3 +1,4 @@
+import { defaultImageURL } from "@/public/images/defaultImageURL";
 import Link from "next/link";
 import { uid } from "uid";
 import {
@@ -47,6 +48,10 @@ const StyledRemoveImageButton = styled(StyledUploadImageButton)`
   }
 `;
 
+const StyledErrorMessage = styled.p`
+  color: var(--dangerColor);
+`;
+
 export default function ProductForm({
   product = {},
   stores,
@@ -56,6 +61,7 @@ export default function ProductForm({
   onSetIsEdit,
 }) {
   const [isUploading, setIsUploading] = useState(false);
+  const [isError, setIsError] = useState("");
   const isCreateProduct = Object.keys(product).length === 0;
 
   function changeImage(event) {
@@ -76,30 +82,48 @@ export default function ProductForm({
       _id: isCreateProduct ? uid() : product._id,
     };
 
-    if (
-      data.productImage.name !== "" &&
-      currentImageURL !== "/images/default-image.png"
-    ) {
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-      if (!response.ok) {
-        throw new Error("Error uploading picture.");
-      } else {
-        const imageResponse = await response.json();
-        productData.imageURL = imageResponse.secure_url;
+    if (data.productImage.name !== "" && currentImageURL !== defaultImageURL) {
+      try {
+        const response = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+        if (!response.ok) {
+          throw new Error(
+            `Error uploading picture (${
+              response.statusText + " " + response.status
+            }). Please try again.`
+          );
+        } else {
+          const imageResponse = await response.json();
+          productData.imageURL = imageResponse.secure_url;
+        }
+      } catch (error) {
+        onSetCurrentImageURL(product.imageURL || defaultImageURL);
+        setIsError(error.message);
+        setIsUploading(false);
+        return;
       }
     } else {
-      productData.imageURL = "/images/default-image.png";
+      if (product.imageURL) {
+        productData.imageURL =
+          currentImageURL === defaultImageURL
+            ? defaultImageURL
+            : product.imageURL;
+      } else productData.ImageURL = defaultImageURL;
     }
-
     onSubmit(productData);
   }
 
-  if (isUploading) return <Loading>Saving new product.</Loading>;
+  if (isUploading)
+    return (
+      <Loading>
+        {isCreateProduct ? "Uplaoding product." : "Updating product."}
+      </Loading>
+    );
   return (
     <StyledForm onSubmit={handleFormSubmit}>
+      {isError !== "" && <StyledErrorMessage>{isError}</StyledErrorMessage>}
       {isCreateProduct ? (
         <>
           <StyledLabel htmlFor="productName">Name</StyledLabel>
@@ -145,10 +169,11 @@ export default function ProductForm({
         defaultValue={product.note}
       />
       <StyledUploadImageButton as="label" htmlFor="productImage">
-        <Icon variant="upload" color="var(--primaryBackgroundColor)" />
-        {currentImageURL === "/images/default-image.png"
-          ? "Uplaod Image"
-          : "Edit Image"}
+        <Icon
+          variant={currentImageURL === defaultImageURL ? "upload" : "edit"}
+          color="var(--primaryBackgroundColor)"
+        />
+        {currentImageURL === defaultImageURL ? "Uplaod Image" : "Change Image"}
       </StyledUploadImageButton>
       <StyledImageUpload
         id="productImage"
@@ -157,10 +182,10 @@ export default function ProductForm({
         accept=".png, .jpeg, .jpg, .webp"
         onChange={changeImage}
       />
-      {currentImageURL !== "/images/default-image.png" && (
+      {currentImageURL !== defaultImageURL && (
         <StyledRemoveImageButton
           type="button"
-          onClick={() => onSetCurrentImageURL("/images/default-image.png")}
+          onClick={() => onSetCurrentImageURL(defaultImageURL)}
         >
           <Icon variant="delete" color="var(--primaryBackgroundColor)" />
           Remove Image

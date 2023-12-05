@@ -12,6 +12,7 @@ import Icon from "@/components/Icons";
 import { StyledTitleContainer, StyledTitle } from "@/components/ListItems";
 import ProductForm from "@/components/Forms/ProductForm";
 import ProductImage from "@/components/ProductImage";
+import { defaultImageURL } from "@/public/images/defaultImageURL";
 
 const StyledDetailField = styled.p`
   width: 100%;
@@ -37,10 +38,7 @@ export default function ProductDetailsPage({
   const { isReady } = router;
   const { id } = router.query;
 
-  const [currentImageURL, setCurrentImageURL] = useState(
-    "/images/default-image.png"
-  );
-
+  const [currentImageURL, setCurrentImageURL] = useState(defaultImageURL);
   function handleSetCurrentImageURL(url) {
     setCurrentImageURL(url);
   }
@@ -48,9 +46,10 @@ export default function ProductDetailsPage({
   const product = products.find((product) => product._id === id);
 
   useEffect(() => {
-    if (product && product.imageURL && isReady)
+    if (product && product.imageURL)
+      //&& isReady)
       setCurrentImageURL(product.imageURL);
-  }, [product, isReady]);
+  }, [product]);
 
   if (!product) return <h2>product not found</h2>;
   if (!isReady) return <h2>is Loading</h2>;
@@ -65,7 +64,7 @@ export default function ProductDetailsPage({
   }
   return (
     <main>
-      <ProductImage imageSrc={currentImageURL} disabled={isEdit}></ProductImage>
+      <ProductImage imageSrc={currentImageURL}></ProductImage>
       {!isEdit ? (
         <>
           <StyledTitleContainer>

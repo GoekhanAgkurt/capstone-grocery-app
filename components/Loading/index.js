@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import Icon from "../Icons";
+import Lottie from "lottie-react";
+import BananaWalking from "@/public/lottiefiles/BananaWalking.json";
 
 const StyledLoadingContainer = styled.div`
   position: absolute;
@@ -16,10 +17,14 @@ const StyledLoadingContainer = styled.div`
   z-index: 2;
 `;
 
+const StyledLottie = styled(Lottie)`
+  width: 250px;
+`;
+
 export default function Loading({ children }) {
   return (
     <StyledLoadingContainer>
-      <Icon variant="products" color="var(--accentColor)" size="200"></Icon>
+      <StyledLottie loop={true} animationData={BananaWalking} />
       <h2>{children}</h2>
     </StyledLoadingContainer>
   );

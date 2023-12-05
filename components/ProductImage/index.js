@@ -1,5 +1,6 @@
+import { defaultImageURL } from "@/public/images/defaultImageURL";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 const StyledImageButton = styled.button`
@@ -16,9 +17,9 @@ const StyledImageButton = styled.button`
 
 const StyledImage = styled(Image)`
   width: calc(100% + 30px);
-  object-fit: cover;
+  object-fit: ${({ $fullView }) => ($fullView ? "contain" : "cover")};
   margin: 0 -15px;
-  height: ${({ $fullView }) => ($fullView ? "auto" : "30vh")};
+  height: 30vh;
   z-index: 0;
 `;
 
@@ -27,23 +28,29 @@ const StyledMessage = styled.span`
   bottom: 5px;
   left: 0;
   padding: 5px 10px;
-  background-color: darkgrey;
+  background-color: rgba(0, 0, 0, 0.5);
   color: var(--primaryBackgroundColor);
-  font-size: 14px;
+  font-size: 12px;
 `;
 
-export default function ProductImage({
-  imageSrc = "/images/default-image.png",
-  disabled,
-}) {
+const StyledAcceptedFormatsMessage = styled.p`
+  position: absolute;
+  transform: translate(-50%);
+  width: 100%;
+  color: var(--disabledColor);
+  text-align: center;
+  font-size: 14px;
+  bottom: 0;
+  left: 50%;
+`;
+
+export default function ProductImage({ imageSrc = defaultImageURL }) {
   const [imageFullView, setImageFullView] = useState(false);
-  useEffect(() => {
-    if (disabled) setImageFullView(false);
-  }, [disabled]);
   return (
     <StyledImageButton
+      type="button"
       onClick={() => setImageFullView(!imageFullView)}
-      disabled={disabled}
+      disabled={imageSrc === defaultImageURL}
     >
       <StyledImage
         $fullView={imageFullView}
@@ -51,9 +58,19 @@ export default function ProductImage({
         alt="Product Photo"
         width={1024}
         height={1024}
+        priority
       ></StyledImage>
-      {imageFullView && (
-        <StyledMessage>To close full image view tap again</StyledMessage>
+      {imageSrc !== defaultImageURL && (
+        <StyledMessage>
+          {imageFullView
+            ? "Click again to close full view"
+            : "Click image to view full view"}
+        </StyledMessage>
+      )}
+      {imageSrc === defaultImageURL && (
+        <StyledAcceptedFormatsMessage>
+          Accepted image formats: .png, .jpg, .jpeg, .webp
+        </StyledAcceptedFormatsMessage>
       )}
     </StyledImageButton>
   );
