@@ -4,13 +4,21 @@ import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet-defaulticon-compatibility";
-import LocationMarker from "./LocationMarker";
+import Link from "next/link";
 
 const StyledMapContainer = styled(MapContainer)`
   height: 30vh;
   width: calc(100%+30px);
   margin: 0 -15px;
   z-index: 0;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  &:hover {
+    cursor: pointer;
+    color: red;
+  }
 `;
 
 const redIcon = new L.Icon({
@@ -35,6 +43,7 @@ const greyIcon = new L.Icon({
 });
 
 export default function Map({ stores, currentStore, addressSearch, isEdit }) {
+  if (!addressSearch) addressSearch = currentStore.address;
   return (
     <StyledMapContainer
       center={[51.51365366910267, 7.469919177246061]}
@@ -47,24 +56,21 @@ export default function Map({ stores, currentStore, addressSearch, isEdit }) {
         <Marker
           key={store._id}
           position={
-            addressSearch &&
-            addressSearch.address &&
-            store._id === currentStore._id
+            addressSearch.address && store._id === currentStore._id
               ? [addressSearch.lat, addressSearch.long]
               : [store.lat, store.long]
           }
           icon={store._id === currentStore._id ? redIcon : greyIcon}
           title={store.name}
         >
-          <h2>{store.name}</h2>
           <Popup>
-            <h2>{store.name}</h2>
+            <StyledLink href={`/stores/${store._id}`}>
+              <h2>{store.name}</h2>
+            </StyledLink>
             <p>{store.note}</p>
           </Popup>
         </Marker>
       ))}
-
-      <LocationMarker />
     </StyledMapContainer>
   );
 }

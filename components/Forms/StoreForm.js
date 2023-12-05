@@ -29,15 +29,14 @@ export default function StoreForm({
     const data = Object.fromEntries(formData);
 
     const storeData = {
-      ...store,
       name: data.storeName,
       note: data.storeNote,
       _id: isCreateStore ? uid() : store._id,
-      address: addressSearch.address,
+      address:
+        addressSearch.address === "" ? store.address : addressSearch.address,
       lat: addressSearch.lat,
       long: addressSearch.long,
     };
-
     onSubmit(storeData);
   }
   return (

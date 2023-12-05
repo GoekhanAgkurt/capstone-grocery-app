@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import {
   StyledSubmitButton,
@@ -49,43 +49,49 @@ export default function StoreDetailsPage({
   onDeleteStore,
   onSetIsEdit,
 }) {
-  const [addressSearch, setAddressSearch] = useState({
-    address: "",
-    lat: "",
-    long: "",
-  });
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
 
   const store = stores.find((store) => store._id === id);
-  if (!store) return <h2>store not found</h2>;
-  if (!isReady) return <h2>is Loading</h2>;
 
+  const [addressSearch, setAddressSearch] = useState({
+    address: "",
+    lat: "",
+    long: "",
+  });
+  const [newAddress, setNewAddress] = useState(store.address);
   function editStore(editedStore) {
     onEditStore(editedStore);
     onSetIsEdit();
   }
-  function handleAddressSearch(event) {
-    event.preventDefault();
 
-    const formData = new FormData(event.target);
-    const address = Object.fromEntries(formData);
-    const addressURL = `https://nominatim.openstreetmap.org/search?format=json&limit=3&q=${address.storeAddress}`;
-    console.log("Adresse: ", addressURL);
+  useEffect(() => {
+    async function fetchCoordinates(newAddress) {
+      const newAddressURL = `https://nominatim.openstreetmap.org/search?format=json&limit=3&q=${newAddress}`;
+      try {
+        const response = await fetch(newAddressURL);
+        const coordinates = await response.json();
+        if (coordinates.length === 0) {
+          throw new Error("Address could not be found");
+        } else {
+          console.log("coordinates: ", coordinates);
+          setAddressSearch({
+            address: newAddress,
+            lat: coordinates[0].lat,
+            long: coordinates[0].lon,
+          });
+          console.log("AddressSearch", addressSearch);
+        }
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+    fetchCoordinates(newAddress);
+  }, [newAddress]);
 
-    updateStoreAddressAndCoordinates(addressURL, address);
-  }
-  async function updateStoreAddressAndCoordinates(addressURL, address) {
-    const response = await fetch(addressURL);
-    const coordinates = await response.json();
-    setAddressSearch({
-      address: address.storeAddress,
-      lat: coordinates[0].lat,
-      long: coordinates[0].lon,
-    });
-    console.log("newAddress: ", addressSearch);
-  }
+  if (!store) return <h2>store not found</h2>;
+  if (!isReady) return <h2>is Loading...</h2>;
   return (
     <main>
       {!isEdit ? (
@@ -136,15 +142,16 @@ export default function StoreDetailsPage({
             onSetIsEdit={onSetIsEdit}
             addressSearch={addressSearch}
           />
-          <StyledStoreAddressForm onSubmit={handleAddressSearch}>
+          <StyledStoreAddressForm>
             <StyledLabel htmlFor="storeAddress">Address</StyledLabel>
             <StyledInput
               id="storeAddress"
               name="storeAddress"
+              type="text"
               placeholder="Enter store address"
-              defaultValue={store.address}
+              value={newAddress}
+              onChange={(event) => setNewAddress(event.target.value)}
             />
-            <button type="submit">Search</button>
           </StyledStoreAddressForm>
         </>
       )}
