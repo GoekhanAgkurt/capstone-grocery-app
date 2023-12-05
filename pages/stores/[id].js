@@ -1,14 +1,22 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import styled from "styled-components";
 import {
   StyledSubmitButton,
   StyledCancelButton,
   StyledButtonContainer,
 } from "@/components/Buttons";
+import {
+  StyledForm as StyledStoreAddressForm,
+  StyledLabel,
+  StyledInput,
+} from "@/components/Forms";
 import Icon from "@/components/Icons";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
 import StoreForm from "@/components/Forms/StoreForm";
+import dynamic from "next/dynamic";
+const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const StyledTitleContainer = styled.div`
   display: flex;
@@ -41,6 +49,11 @@ export default function StoreDetailsPage({
   onDeleteStore,
   onSetIsEdit,
 }) {
+  const [addressSearch, setAddressSearch] = useState({
+    address: "",
+    lat: "",
+    long: "",
+  });
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
@@ -53,11 +66,31 @@ export default function StoreDetailsPage({
     onEditStore(editedStore);
     onSetIsEdit();
   }
+  function handleAddressSearch(event) {
+    event.preventDefault();
 
+    const formData = new FormData(event.target);
+    const address = Object.fromEntries(formData);
+    const addressURL = `https://nominatim.openstreetmap.org/search?format=json&limit=3&q=${address.storeAddress}`;
+    console.log("Adresse: ", addressURL);
+
+    updateStoreAddressAndCoordinates(addressURL, address);
+  }
+  async function updateStoreAddressAndCoordinates(addressURL, address) {
+    const response = await fetch(addressURL);
+    const coordinates = await response.json();
+    setAddressSearch({
+      address: address.storeAddress,
+      lat: coordinates[0].lat,
+      long: coordinates[0].lon,
+    });
+    console.log("newAddress: ", addressSearch);
+  }
   return (
     <main>
       {!isEdit ? (
         <>
+          <Map stores={stores} currentStore={store} />
           <StyledTitleContainer>
             <StyledTitle>{store.name}</StyledTitle>
             <DeleteConfirmation
@@ -70,23 +103,50 @@ export default function StoreDetailsPage({
           <StyledDetailField>
             {store.note ? store.note : "No note"}
           </StyledDetailField>
+          <StyledDetailTitle>Address</StyledDetailTitle>
+          <StyledDetailField>
+            {store.address ? store.address : "No address"}
+          </StyledDetailField>
           <StyledButtonContainer>
             <StyledCancelButton as={Link} href="/stores">
               <Icon variant="arrowBack" color="var(--primaryButtonColor" />
               All stores
             </StyledCancelButton>
-            <StyledSubmitButton onClick={() => onSetIsEdit()}>
+            <StyledSubmitButton
+              onClick={() => (
+                onSetIsEdit(),
+                setAddressSearch({ address: "", lat: "", long: "" })
+              )}
+            >
               <Icon variant="edit" color="var(--primaryButtonColor" />
               Edit
             </StyledSubmitButton>
           </StyledButtonContainer>
         </>
       ) : (
-        <StoreForm
-          store={store}
-          onSubmit={editStore}
-          onSetIsEdit={onSetIsEdit}
-        />
+        <>
+          <Map
+            stores={stores}
+            currentStore={store}
+            addressSearch={addressSearch}
+          />
+          <StoreForm
+            store={store}
+            onSubmit={editStore}
+            onSetIsEdit={onSetIsEdit}
+            addressSearch={addressSearch}
+          />
+          <StyledStoreAddressForm onSubmit={handleAddressSearch}>
+            <StyledLabel htmlFor="storeAddress">Address</StyledLabel>
+            <StyledInput
+              id="storeAddress"
+              name="storeAddress"
+              placeholder="Enter store address"
+              defaultValue={store.address}
+            />
+            <button type="submit">Search</button>
+          </StyledStoreAddressForm>
+        </>
       )}
     </main>
   );

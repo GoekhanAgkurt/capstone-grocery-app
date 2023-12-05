@@ -14,7 +14,12 @@ import {
 } from "@/components/Buttons";
 import Icon from "@/components/Icons";
 
-export default function StoreForm({ store = {}, onSubmit, onSetIsEdit }) {
+export default function StoreForm({
+  store = {},
+  onSubmit,
+  onSetIsEdit,
+  addressSearch,
+}) {
   const isCreateStore = Object.keys(store).length === 0;
 
   function handleFormSubmit(event) {
@@ -24,9 +29,13 @@ export default function StoreForm({ store = {}, onSubmit, onSetIsEdit }) {
     const data = Object.fromEntries(formData);
 
     const storeData = {
+      ...store,
       name: data.storeName,
       note: data.storeNote,
       _id: isCreateStore ? uid() : store._id,
+      address: addressSearch.address,
+      lat: addressSearch.lat,
+      long: addressSearch.long,
     };
 
     onSubmit(storeData);

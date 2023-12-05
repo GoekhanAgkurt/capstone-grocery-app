@@ -67,6 +67,7 @@ export default createGlobalStyle`
     background-color: var(--accentColor);
     width: 100%;
     box-shadow: 0px 1px 2px var(--primaryDarkColor);
+    z-index: 1;
      }
 
      nav {
@@ -80,6 +81,7 @@ export default createGlobalStyle`
     grid-area: main;
     overflow: auto;
     padding-inline: 15px;
+    padding-bottom: 100px;
     color: var(--primaryDarkColor);
   
   }
