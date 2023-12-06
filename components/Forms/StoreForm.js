@@ -18,7 +18,9 @@ export default function StoreForm({
   store = {},
   onSubmit,
   onSetIsEdit,
-  addressSearch,
+  newAddress,
+  onNewAddress,
+  currentCoordinates,
 }) {
   const isCreateStore = Object.keys(store).length === 0;
 
@@ -32,11 +34,11 @@ export default function StoreForm({
       name: data.storeName,
       note: data.storeNote,
       _id: isCreateStore ? uid() : store._id,
-      address:
-        addressSearch.address === "" ? store.address : addressSearch.address,
-      lat: addressSearch.lat,
-      long: addressSearch.long,
+      address: newAddress ? newAddress : "",
+      lat: currentCoordinates ? currentCoordinates[0].lat : "",
+      lon: currentCoordinates ? currentCoordinates[0].lon : "",
     };
+
     onSubmit(storeData);
   }
   return (
@@ -78,7 +80,13 @@ export default function StoreForm({
             Cancel
           </StyledCancelButton>
         ) : (
-          <StyledCancelButton type="button" onClick={() => onSetIsEdit()}>
+          <StyledCancelButton
+            type="button"
+            onClick={() => {
+              onSetIsEdit();
+              onNewAddress(store.address);
+            }}
+          >
             <Icon variant="cancel" color="var(--primaryButtonColor)" />
             Cancel
           </StyledCancelButton>

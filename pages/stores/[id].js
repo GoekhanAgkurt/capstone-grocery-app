@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import useSWR from "swr";
 import styled from "styled-components";
 import {
   StyledSubmitButton,
@@ -53,50 +54,44 @@ export default function StoreDetailsPage({
   const { isReady } = router;
   const { id } = router.query;
 
+  // const [location, setLocation] = useState({
+  //   address: "",
+  //   lat: "",
+  //   lon: "",
+  // });
+  const [newAddress, setNewAddress] = useState("");
+
   const store = stores.find((store) => store._id === id);
 
-  const [addressSearch, setAddressSearch] = useState({
-    address: "",
-    lat: "",
-    long: "",
-  });
-  const [newAddress, setNewAddress] = useState(store.address);
   function editStore(editedStore) {
     onEditStore(editedStore);
     onSetIsEdit();
   }
-
+  function handleNewAddress(address) {
+    setNewAddress(address);
+  }
   useEffect(() => {
-    async function fetchCoordinates(newAddress) {
-      const newAddressURL = `https://nominatim.openstreetmap.org/search?format=json&limit=3&q=${newAddress}`;
-      try {
-        const response = await fetch(newAddressURL);
-        const coordinates = await response.json();
-        if (coordinates.length === 0) {
-          throw new Error("Address could not be found");
-        } else {
-          console.log("coordinates: ", coordinates);
-          setAddressSearch({
-            address: newAddress,
-            lat: coordinates[0].lat,
-            long: coordinates[0].lon,
-          });
-          console.log("AddressSearch", addressSearch);
-        }
-      } catch (error) {
-        console.error(error.message);
-      }
-    }
-    fetchCoordinates(newAddress);
-  }, [newAddress]);
+    if (!store) return;
+    setNewAddress(store.address);
+    console.log("I found the store", store.address);
+  }, [store]);
+
+  const newAddressURL = `https://nominatim.openstreetmap.org/search?format=json&limit=3&q=${newAddress}`;
+  const { data: currentCoordinates } = useSWR(store ? newAddressURL : null);
+  console.log("coordinates from SWR: ", currentCoordinates);
 
   if (!store) return <h2>store not found</h2>;
   if (!isReady) return <h2>is Loading...</h2>;
+
   return (
     <main>
+      <Map
+        stores={stores}
+        currentStore={store}
+        currentCoordinates={currentCoordinates}
+      />
       {!isEdit ? (
         <>
-          <Map stores={stores} currentStore={store} />
           <StyledTitleContainer>
             <StyledTitle>{store.name}</StyledTitle>
             <DeleteConfirmation
@@ -118,12 +113,7 @@ export default function StoreDetailsPage({
               <Icon variant="arrowBack" color="var(--primaryButtonColor" />
               All stores
             </StyledCancelButton>
-            <StyledSubmitButton
-              onClick={() => (
-                onSetIsEdit(),
-                setAddressSearch({ address: "", lat: "", long: "" })
-              )}
-            >
+            <StyledSubmitButton onClick={() => onSetIsEdit()}>
               <Icon variant="edit" color="var(--primaryButtonColor" />
               Edit
             </StyledSubmitButton>
@@ -131,16 +121,14 @@ export default function StoreDetailsPage({
         </>
       ) : (
         <>
-          <Map
-            stores={stores}
-            currentStore={store}
-            addressSearch={addressSearch}
-          />
           <StoreForm
             store={store}
             onSubmit={editStore}
             onSetIsEdit={onSetIsEdit}
-            addressSearch={addressSearch}
+            location={location}
+            newAddress={newAddress}
+            currentCoordinates={currentCoordinates}
+            onNewAddress={handleNewAddress}
           />
           <StyledStoreAddressForm>
             <StyledLabel htmlFor="storeAddress">Address</StyledLabel>
@@ -149,6 +137,7 @@ export default function StoreDetailsPage({
               name="storeAddress"
               type="text"
               placeholder="Enter store address"
+              // defaultValue={store.address}
               value={newAddress}
               onChange={(event) => setNewAddress(event.target.value)}
             />

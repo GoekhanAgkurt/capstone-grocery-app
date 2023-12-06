@@ -42,8 +42,8 @@ const greyIcon = new L.Icon({
   shadowSize: [27, 27],
 });
 
-export default function Map({ stores, currentStore, addressSearch, isEdit }) {
-  if (!addressSearch) addressSearch = currentStore.address;
+export default function Map({ stores, currentStore, currentCoordinates }) {
+  console.log("current Corrdinates : ", currentCoordinates);
   return (
     <StyledMapContainer
       center={[51.51365366910267, 7.469919177246061]}
@@ -56,9 +56,11 @@ export default function Map({ stores, currentStore, addressSearch, isEdit }) {
         <Marker
           key={store._id}
           position={
-            addressSearch.address && store._id === currentStore._id
-              ? [addressSearch.lat, addressSearch.long]
-              : [store.lat, store.long]
+            store._id === currentStore._id
+              ? currentCoordinates && currentCoordinates.length !== 0
+                ? [currentCoordinates[0].lat, currentCoordinates[0].lon]
+                : ["", ""]
+              : [store.lat, store.lon]
           }
           icon={store._id === currentStore._id ? redIcon : greyIcon}
           title={store.name}
