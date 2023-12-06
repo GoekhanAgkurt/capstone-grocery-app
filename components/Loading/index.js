@@ -1,6 +1,6 @@
-import styled from "styled-components";
 import Lottie from "lottie-react";
 import BananaWalking from "@/public/lottiefiles/BananaWalking.json";
+import styled from "styled-components";
 
 const StyledLoadingContainer = styled.div`
   position: absolute;

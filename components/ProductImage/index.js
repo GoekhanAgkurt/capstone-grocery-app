@@ -1,6 +1,6 @@
-import { defaultImageURL } from "@/public/images/defaultImageURL";
 import Image from "next/image";
 import { useState } from "react";
+import defaultImageURL from "@/public/images/defaultImageURL";
 import styled from "styled-components";
 
 const StyledImageButton = styled.button`

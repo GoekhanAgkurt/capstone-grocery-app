@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
+import { useState } from "react";
+import defaultImageURL from "@/public/images/defaultImageURL";
+import styled from "styled-components";
 import ProductForm from "@/components/Forms/ProductForm";
 import ProductImage from "@/components/ProductImage";
-import styled from "styled-components";
-import { useState } from "react";
-import { defaultImageURL } from "@/public/images/defaultImageURL";
 
 const StyledMainWithPaddingBottom = styled.main`
   padding-bottom: 180px;

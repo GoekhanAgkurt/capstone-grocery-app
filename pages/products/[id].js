@@ -1,18 +1,18 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import defaultImageURL from "@/public/images/defaultImageURL";
 import styled from "styled-components";
+import Icon from "@/components/Icons";
+import DeleteConfirmation from "@/components/DeleteConfirmation";
+import ProductForm from "@/components/Forms/ProductForm";
+import ProductImage from "@/components/ProductImage";
 import {
   StyledCancelButton,
   StyledSubmitButton,
   StyledButtonContainer,
 } from "@/components/Buttons";
-import DeleteConfirmation from "@/components/DeleteConfirmation";
-import Icon from "@/components/Icons";
 import { StyledTitleContainer, StyledTitle } from "@/components/ListItems";
-import ProductForm from "@/components/Forms/ProductForm";
-import ProductImage from "@/components/ProductImage";
-import { defaultImageURL } from "@/public/images/defaultImageURL";
 
 const StyledDetailField = styled.p`
   width: 100%;
@@ -46,9 +46,7 @@ export default function ProductDetailsPage({
   const product = products.find((product) => product._id === id);
 
   useEffect(() => {
-    if (product && product.imageURL)
-      //&& isReady)
-      setCurrentImageURL(product.imageURL);
+    if (product && product.imageURL) setCurrentImageURL(product.imageURL);
   }, [product]);
 
   if (!product) return <h2>product not found</h2>;

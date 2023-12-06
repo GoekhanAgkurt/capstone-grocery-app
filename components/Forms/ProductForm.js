@@ -1,6 +1,10 @@
-import { defaultImageURL } from "@/public/images/defaultImageURL";
 import Link from "next/link";
+import { useState } from "react";
 import { uid } from "uid";
+import defaultImageURL from "@/public/images/defaultImageURL";
+import styled from "styled-components";
+import Icon from "@/components/Icons";
+import Loading from "@/components/Loading";
 import {
   StyledForm,
   StyledTitleInput,
@@ -14,10 +18,6 @@ import {
   StyledButtonContainer,
   StyledIconButton,
 } from "@/components/Buttons";
-import Icon from "@/components/Icons";
-import styled from "styled-components";
-import { useState } from "react";
-import Loading from "../Loading";
 
 const StyledImageUpload = styled.input`
   display: none;
@@ -61,7 +61,7 @@ export default function ProductForm({
   onSetIsEdit,
 }) {
   const [isUploading, setIsUploading] = useState(false);
-  const [isError, setIsError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const isCreateProduct = Object.keys(product).length === 0;
 
   function changeImage(event) {
@@ -100,17 +100,15 @@ export default function ProductForm({
         }
       } catch (error) {
         onSetCurrentImageURL(product.imageURL || defaultImageURL);
-        setIsError(error.message);
+        setErrorMessage(error.message);
         setIsUploading(false);
         return;
       }
     } else {
-      if (product.imageURL) {
-        productData.imageURL =
-          currentImageURL === defaultImageURL
-            ? defaultImageURL
-            : product.imageURL;
-      } else productData.ImageURL = defaultImageURL;
+      productData.imageURL =
+        currentImageURL === defaultImageURL
+          ? defaultImageURL
+          : product.imageURL || defaultImageURL;
     }
     onSubmit(productData);
   }
@@ -118,12 +116,14 @@ export default function ProductForm({
   if (isUploading)
     return (
       <Loading>
-        {isCreateProduct ? "Uplaoding product." : "Updating product."}
+        {isCreateProduct ? "Uploading product." : "Updating product."}
       </Loading>
     );
   return (
     <StyledForm onSubmit={handleFormSubmit}>
-      {isError !== "" && <StyledErrorMessage>{isError}</StyledErrorMessage>}
+      {errorMessage !== "" && (
+        <StyledErrorMessage>{errorMessage}</StyledErrorMessage>
+      )}
       {isCreateProduct ? (
         <>
           <StyledLabel htmlFor="productName">Name</StyledLabel>
@@ -173,7 +173,7 @@ export default function ProductForm({
           variant={currentImageURL === defaultImageURL ? "upload" : "edit"}
           color="var(--primaryBackgroundColor)"
         />
-        {currentImageURL === defaultImageURL ? "Uplaod Image" : "Change Image"}
+        {currentImageURL === defaultImageURL ? "Upload Image" : "Change Image"}
       </StyledUploadImageButton>
       <StyledImageUpload
         id="productImage"
