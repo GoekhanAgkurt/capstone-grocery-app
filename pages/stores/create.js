@@ -1,9 +1,12 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
+
 import useSWR from "swr";
 
 import StoreForm from "@/components/Forms/StoreForm";
-import Map from "@/components/Map";
+
+import dynamic from "next/dynamic";
+const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 export default function CreateStore({ onAddStore, stores }) {
   const [newAddress, setNewAddress] = useState("");
