@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useMapEvents } from "react-leaflet/hooks";
+import { useEffect } from "react";
 import { Marker, Popup } from "react-leaflet";
+import { useMapEvents } from "react-leaflet/hooks";
 
 const redIcon = new L.Icon({
   iconUrl:
@@ -20,7 +20,7 @@ export default function CurrentMarker({
   isCreateStore,
 }) {
   const map = useMapEvents({
-    locationfound: (e) => {
+    locationfound: () => {
       map.flyTo(position, map.getZoom(12));
     },
   });

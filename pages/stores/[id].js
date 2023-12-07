@@ -3,14 +3,16 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import useSWR from "swr";
 import styled from "styled-components";
+
+import Icon from "@/components/Icons";
+import DeleteConfirmation from "@/components/DeleteConfirmation";
+import StoreForm from "@/components/Forms/StoreForm";
 import {
   StyledSubmitButton,
   StyledCancelButton,
   StyledButtonContainer,
 } from "@/components/Buttons";
-import Icon from "@/components/Icons";
-import DeleteConfirmation from "@/components/DeleteConfirmation";
-import StoreForm from "@/components/Forms/StoreForm";
+
 import dynamic from "next/dynamic";
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
@@ -63,14 +65,12 @@ export default function StoreDetailsPage({
   useEffect(() => {
     if (!store) return;
     setNewAddress(store.address);
-    console.log("I found the store", store.address);
   }, [store]);
 
   const newAddressURL = `https://nominatim.openstreetmap.org/search?format=json&limit=3&q=${newAddress}`;
   const { data: currentCoordinates, isLoading } = useSWR(
     store ? newAddressURL : null
   );
-  console.log("coordinates from SWR: ", currentCoordinates);
 
   if (!store) return <h2>store not found</h2>;
   if (!isReady) return <h2>is Loading...</h2>;
@@ -116,11 +116,11 @@ export default function StoreDetailsPage({
         <>
           <StoreForm
             store={store}
-            onSubmit={editStore}
-            onSetIsEdit={onSetIsEdit}
-            location={location}
             newAddress={newAddress}
             currentCoordinates={currentCoordinates}
+            location={location}
+            onSetIsEdit={onSetIsEdit}
+            onSubmit={editStore}
             onNewAddress={handleNewAddress}
           />
         </>

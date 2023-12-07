@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { uid } from "uid";
+
+import styled from "styled-components";
+import Icon from "@/components/Icons";
 import {
   StyledForm,
   StyledTitleInput,
@@ -12,7 +15,10 @@ import {
   StyledCancelButton,
   StyledButtonContainer,
 } from "@/components/Buttons";
-import Icon from "@/components/Icons";
+
+const StyledConditionalButtonContainer = styled(StyledButtonContainer)`
+  bottom: ${({ $isCreateStore }) => $isCreateStore && "40px"};
+`;
 
 export default function StoreForm({
   store = {},
@@ -82,7 +88,6 @@ export default function StoreForm({
         value={newAddress}
         onChange={(event) => onNewAddress(event.target.value)}
       />
-
       <StyledLabel htmlFor="storeNote">Note</StyledLabel>
       <StyledTextArea
         id="storeNote"
@@ -90,7 +95,7 @@ export default function StoreForm({
         placeholder="Enter Note"
         defaultValue={store.note}
       />
-      <StyledButtonContainer>
+      <StyledConditionalButtonContainer $isCreateStore={isCreateStore}>
         {isCreateStore ? (
           <StyledCancelButton as={Link} href="/stores">
             <Icon variant="cancel" color="var(--primaryButtonColor)" />
@@ -112,7 +117,7 @@ export default function StoreForm({
           <Icon variant="check" color="var(--primaryButtonColor)" />
           {isCreateStore ? "Submit" : "Save"}
         </StyledSubmitButton>
-      </StyledButtonContainer>
+      </StyledConditionalButtonContainer>
     </StyledForm>
   );
 }
