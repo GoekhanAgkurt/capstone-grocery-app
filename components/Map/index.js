@@ -75,7 +75,7 @@ export default function Map({
           <CurrentMarker
             key="currentMarker"
             position={
-              currentCoordinates && currentCoordinates.length !== 0
+              currentCoordinates && currentCoordinates.length
                 ? [currentCoordinates[0].lat, currentCoordinates[0].lon]
                 : ["", ""]
             }
@@ -89,7 +89,7 @@ export default function Map({
               key="currentMarker"
               store={store}
               position={
-                currentCoordinates && currentCoordinates.length !== 0
+                currentCoordinates && currentCoordinates.length
                   ? [currentCoordinates[0].lat, currentCoordinates[0].lon]
                   : ["", ""]
               }
