@@ -8,11 +8,6 @@ import {
   StyledCancelButton,
   StyledButtonContainer,
 } from "@/components/Buttons";
-import {
-  StyledForm as StyledStoreAddressForm,
-  StyledLabel,
-  StyledInput,
-} from "@/components/Forms";
 import Icon from "@/components/Icons";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
 import StoreForm from "@/components/Forms/StoreForm";
@@ -54,11 +49,6 @@ export default function StoreDetailsPage({
   const { isReady } = router;
   const { id } = router.query;
 
-  // const [location, setLocation] = useState({
-  //   address: "",
-  //   lat: "",
-  //   lon: "",
-  // });
   const [newAddress, setNewAddress] = useState("");
 
   const store = stores.find((store) => store._id === id);
@@ -77,7 +67,9 @@ export default function StoreDetailsPage({
   }, [store]);
 
   const newAddressURL = `https://nominatim.openstreetmap.org/search?format=json&limit=3&q=${newAddress}`;
-  const { data: currentCoordinates } = useSWR(store ? newAddressURL : null);
+  const { data: currentCoordinates, isLoading } = useSWR(
+    store ? newAddressURL : null
+  );
   console.log("coordinates from SWR: ", currentCoordinates);
 
   if (!store) return <h2>store not found</h2>;
@@ -89,6 +81,7 @@ export default function StoreDetailsPage({
         stores={stores}
         currentStore={store}
         currentCoordinates={currentCoordinates}
+        isLoading={isLoading}
       />
       {!isEdit ? (
         <>
@@ -100,13 +93,13 @@ export default function StoreDetailsPage({
               onDetailsPage
             />
           </StyledTitleContainer>
-          <StyledDetailTitle>Note</StyledDetailTitle>
-          <StyledDetailField>
-            {store.note ? store.note : "No note"}
-          </StyledDetailField>
           <StyledDetailTitle>Address</StyledDetailTitle>
           <StyledDetailField>
             {store.address ? store.address : "No address"}
+          </StyledDetailField>
+          <StyledDetailTitle>Note</StyledDetailTitle>
+          <StyledDetailField>
+            {store.note ? store.note : "No note"}
           </StyledDetailField>
           <StyledButtonContainer>
             <StyledCancelButton as={Link} href="/stores">
@@ -130,18 +123,6 @@ export default function StoreDetailsPage({
             currentCoordinates={currentCoordinates}
             onNewAddress={handleNewAddress}
           />
-          <StyledStoreAddressForm>
-            <StyledLabel htmlFor="storeAddress">Address</StyledLabel>
-            <StyledInput
-              id="storeAddress"
-              name="storeAddress"
-              type="text"
-              placeholder="Enter store address"
-              // defaultValue={store.address}
-              value={newAddress}
-              onChange={(event) => setNewAddress(event.target.value)}
-            />
-          </StyledStoreAddressForm>
         </>
       )}
     </main>

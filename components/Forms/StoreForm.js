@@ -35,8 +35,14 @@ export default function StoreForm({
       note: data.storeNote,
       _id: isCreateStore ? uid() : store._id,
       address: newAddress ? newAddress : "",
-      lat: currentCoordinates ? currentCoordinates[0].lat : "",
-      lon: currentCoordinates ? currentCoordinates[0].lon : "",
+      lat:
+        currentCoordinates && currentCoordinates.length !== 0
+          ? currentCoordinates[0].lat
+          : "",
+      lon:
+        currentCoordinates && currentCoordinates.length !== 0
+          ? currentCoordinates[0].lon
+          : "",
     };
 
     onSubmit(storeData);
@@ -66,6 +72,17 @@ export default function StoreForm({
           aria-label="Input for store title"
         />
       )}
+
+      <StyledLabel htmlFor="storeAddress">Address</StyledLabel>
+      <StyledInput
+        id="storeAddress"
+        name="storeAddress"
+        type="text"
+        placeholder="Enter store address"
+        value={newAddress}
+        onChange={(event) => onNewAddress(event.target.value)}
+      />
+
       <StyledLabel htmlFor="storeNote">Note</StyledLabel>
       <StyledTextArea
         id="storeNote"
