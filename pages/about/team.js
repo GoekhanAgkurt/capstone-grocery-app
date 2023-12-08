@@ -75,13 +75,8 @@ export default function Team() {
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
             nonumy em ipsum dolor sit amet, consetetur sadipscing elitr, sed
             diam nonumy eirmod tempor em ipsum dolor sit amet, consetetur
-            sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-            et dolore magna aliquyam erat, sed diam voluptua.invidunt ed diam
-            voluptuaem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-            diam nonumy eirmod tempor em ipsum dolor sit amet, consetetur
-            sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-            et dolore magna aliquyam erat, sed diam voluptua.invidun voluptuaem
-            ipsum dolor sit amet, consetetur.
+            sadipscing elitr, sed diam eirmod tempor invidunt ut labore , sed
+            diam voluptua.invidunt ed diam voluptuaem ipsum dolor sit amet.
           </p>
         </StyledArticle>
 
@@ -107,8 +102,10 @@ export default function Team() {
           </StyledSocialsContainer>
           <p>
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-            erat, sed diam voluptua.
+            nonumy em ipsum dolor sit amet, consetetur sadipscing elitr, sed
+            diam nonumy eirmod tempor em ipsum dolor sit amet, consetetur
+            sadipscing elitr, sed diam eirmod tempor invidunt ut labore , sed
+            diam voluptua.invidunt ed diam voluptuaem ipsum dolor sit amet.
           </p>
         </StyledArticle>
 
@@ -134,8 +131,10 @@ export default function Team() {
           </StyledSocialsContainer>
           <p>
             Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-            erat, sed diam voluptua.
+            nonumy em ipsum dolor sit amet, consetetur sadipscing elitr, sed
+            diam nonumy eirmod tempor em ipsum dolor sit amet, consetetur
+            sadipscing elitr, sed diam eirmod tempor invidunt ut labore , sed
+            diam voluptua.invidunt ed diam voluptuaem ipsum dolor sit amet.
           </p>
         </StyledArticle>
       </StyledSection>

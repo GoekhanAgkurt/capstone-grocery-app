@@ -14,7 +14,8 @@ const StyledMenu = styled.menu`
   list-style: none;
   display: flex;
   flex-direction: column;
-  padding-top: 25%;
+  padding-block-start: 25%;
+  padding-inline-start: 15px;
   gap: 1%;
 `;
 
@@ -30,8 +31,7 @@ const StyledMenuButton = styled.button`
   font-size: 50px;
   color: var(--primaryBackgroundColor);
 
-  &:hover,
-  :active {
+  &:hover {
     text-decoration: underline;
   }
 `;
