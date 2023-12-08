@@ -74,7 +74,7 @@ export default createGlobalStyle`
     color: var(--primaryBackgroundColor);
     background-color: var(--accentColor);
     width: 100%;
-    box-shadow: 0px 1px 2px var(--primaryDarkColor);
+     box-shadow: 0px 1px 2px var(--primaryDarkColor);
     z-index: 1;
     display: flex;
     justify-content: space-between;
