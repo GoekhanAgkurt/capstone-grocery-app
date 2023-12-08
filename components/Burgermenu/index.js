@@ -1,8 +1,7 @@
 import { useState } from "react";
 import Icon from "../Icons";
-import { StyledButton, StyledIconButton } from "../Buttons";
+import { StyledIconButton } from "../Buttons";
 import styled from "styled-components";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 const StyledMenu = styled.menu`
@@ -31,7 +30,8 @@ const StyledMenuButton = styled.button`
   font-size: 50px;
   color: var(--primaryBackgroundColor);
 
-  &:hover {
+  &:hover,
+  :active {
     text-decoration: underline;
   }
 `;
