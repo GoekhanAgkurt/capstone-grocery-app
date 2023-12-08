@@ -39,8 +39,14 @@ export default createGlobalStyle`
     --fontBold: ${openSansBold.style.fontFamily};
     --fontTitle: ${kalam.style.fontFamily};
   }
+  html {
+    height: 100%;
+
+  }
   
   body {
+    height: 100%;
+
     margin: 0;
     font-family: var(--fontRegular);
     background-color: #575757;
@@ -49,7 +55,7 @@ export default createGlobalStyle`
   }
   
   #__next {
-    height: 100vh;
+    height: 100%;
     display: grid;
     grid-template-areas:
     "header"
@@ -60,6 +66,7 @@ export default createGlobalStyle`
     width: 100%;
     max-width: 600px;
     background-color: var(--primaryBackgroundColor);
+    position: relative;
   }
   header {
     grid-area: header;
@@ -69,6 +76,8 @@ export default createGlobalStyle`
     width: 100%;
     box-shadow: 0px 1px 2px var(--primaryDarkColor);
     z-index: 1;
+    display: flex;
+    justify-content: space-between;
      }
 
      nav {

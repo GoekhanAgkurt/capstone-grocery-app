@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
+import BurgerMenu from "../Burgermenu";
 
 const StyledHeadline = styled.h1`
   margin-block: 10px;
@@ -20,6 +21,7 @@ export default function Header({ isEdit }) {
       ) : (
         <StyledHeadline>Grocery App </StyledHeadline>
       )}
+      <BurgerMenu />
     </header>
   );
 }
