@@ -21,7 +21,7 @@ export default function CurrentMarker({
 }) {
   const map = useMapEvents({
     locationfound: () => {
-      map.flyTo(position, map.getZoom(12));
+      position[0] !== "" && map.flyTo(position, map.getZoom(12));
     },
   });
 

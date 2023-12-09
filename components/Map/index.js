@@ -2,6 +2,8 @@ import Link from "next/link";
 
 import styled from "styled-components";
 
+import useLocalStorageState from "use-local-storage-state";
+
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import Lottie from "lottie-react";
 import * as L from "leaflet";
@@ -12,6 +14,8 @@ import "leaflet-defaulticon-compatibility";
 import LoadingAnimation from "@/public/lottiefiles/LoadingAnimation.json";
 
 import CurrentMarker from "@/components/Map/CurrentMarker";
+
+import UserLocationMarker from "@/components/Map/UserLocationMarker";
 
 const StyledMapAndIconContainer = styled.div`
   position: relative;
@@ -59,6 +63,14 @@ export default function Map({
   currentCoordinates,
   isLoading,
 }) {
+  const [userPosition, setUserPosition] = useLocalStorageState("userPosition", {
+    lat: "",
+    lng: "",
+  });
+  function handleSetUserPosition(coordinates) {
+    setUserPosition(coordinates);
+  }
+
   const isCreateStore = Object.keys(currentStore).length === 0;
   return (
     <StyledMapAndIconContainer>
@@ -66,22 +78,28 @@ export default function Map({
         <StyledLottie loop={true} animationData={LoadingAnimation} />
       )}
       <StyledMapContainer
-        center={[51.51365366910267, 7.469919177246061]}
+        center={userPosition ? [userPosition.lat, userPosition.lng] : ["", ""]}
         zoom={12}
         scrollWheelZoom
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <UserLocationMarker
+          onSetUserPosition={handleSetUserPosition}
+          userPosition={userPosition}
+        />
         {isCreateStore && (
-          <CurrentMarker
-            key="currentMarker"
-            position={
-              currentCoordinates && currentCoordinates.length
-                ? [currentCoordinates[0].lat, currentCoordinates[0].lon]
-                : ["", ""]
-            }
-            isLoading={isLoading}
-            isCreateStore={isCreateStore}
-          />
+          <>
+            <CurrentMarker
+              key="currentMarker"
+              position={
+                currentCoordinates && currentCoordinates.length
+                  ? [currentCoordinates[0].lat, currentCoordinates[0].lon]
+                  : ["", ""]
+              }
+              isLoading={isLoading}
+              isCreateStore={isCreateStore}
+            />
+          </>
         )}
         {stores.map((store) =>
           store._id === currentStore._id ? (
