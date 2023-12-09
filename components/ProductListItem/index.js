@@ -19,6 +19,7 @@ const StyledLink = styled(Link)`
 
 export default function ProductListItem({
   product,
+  mutateProducts,
   onDeleteProduct,
   onToggleShoppingList,
 }) {
@@ -40,7 +41,11 @@ export default function ProductListItem({
           }
         />
       </StyledToggleShoppingListButton>
-      <DeleteConfirmation product={product} onDeleteProduct={onDeleteProduct} />
+      <DeleteConfirmation
+        product={product}
+        onDeleteProduct={onDeleteProduct}
+        mutate={mutateProducts}
+      />
     </StyledListItem>
   );
 }

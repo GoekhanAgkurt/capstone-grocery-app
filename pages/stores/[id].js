@@ -41,7 +41,6 @@ const StyledDetailTitle = styled.h3`
 `;
 
 export default function StoreDetailsPage({
-  stores,
   isEdit,
   onEditStore,
   onDeleteStore,
@@ -51,9 +50,13 @@ export default function StoreDetailsPage({
   const { isReady } = router;
   const { id } = router.query;
 
-  const [newAddress, setNewAddress] = useState("");
+  const {
+    data: store,
+    isLoading: isLoadingStore,
+    error: errorStore,
+  } = useSWR(id ? `/api/stores/${id}` : null);
 
-  const store = stores.find((store) => store._id === id);
+  const [newAddress, setNewAddress] = useState("");
 
   function editStore(editedStore) {
     onEditStore(editedStore);
@@ -72,13 +75,10 @@ export default function StoreDetailsPage({
     store ? newAddressURL : null
   );
 
-  if (!store) return <h2>store not found</h2>;
-  if (!isReady) return <h2>is Loading...</h2>;
-
+  if (isLoadingStore || errorStore || !isReady) return <h2>Loading...</h2>;
   return (
     <main>
       <Map
-        stores={stores}
         currentStore={store}
         currentCoordinates={currentCoordinates}
         isLoading={isLoading}

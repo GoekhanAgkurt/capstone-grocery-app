@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import useSWR from "swr";
 import defaultImageURL from "@/public/images/defaultImageURL";
 import styled from "styled-components";
 import Icon from "@/components/Icons";
@@ -27,8 +28,6 @@ const StyledDetailTitle = styled.h3`
 `;
 
 export default function ProductDetailsPage({
-  products,
-  stores,
   isEdit,
   onEditProduct,
   onDeleteProduct,
@@ -43,14 +42,30 @@ export default function ProductDetailsPage({
     setCurrentImageURL(url);
   }
 
-  const product = products.find((product) => product._id === id);
+  const {
+    data: product,
+    isLoading: isLoadingProduct,
+    error: errorProduct,
+  } = useSWR(isReady ? `/api/products/${id}` : null);
+
+  const {
+    data: stores,
+    isLoading: isLoadingStores,
+    error: errorStores,
+  } = useSWR("/api/stores");
 
   useEffect(() => {
     if (product && product.imageURL) setCurrentImageURL(product.imageURL);
   }, [product]);
 
-  if (!product) return <h2>product not found</h2>;
-  if (!isReady) return <h2>is Loading</h2>;
+  if (
+    isLoadingProduct ||
+    isLoadingStores ||
+    errorProduct ||
+    errorStores ||
+    !isReady
+  )
+    return <h2>Loading...</h2>;
 
   const linkedStore = stores.find(
     (store) => store._id === product.selectedStore

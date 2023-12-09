@@ -1,6 +1,7 @@
 import ProductListItem from "@/components/ProductListItem";
 export default function ProductsList({
   products,
+  mutateProducts,
   onDeleteProduct,
   onToggleShoppingList,
 }) {
@@ -10,6 +11,7 @@ export default function ProductsList({
         <ProductListItem
           key={product._id}
           product={product}
+          mutateProducts={mutateProducts}
           onDeleteProduct={onDeleteProduct}
           onToggleShoppingList={onToggleShoppingList}
         />

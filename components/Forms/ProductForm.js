@@ -18,6 +18,7 @@ import {
   StyledButtonContainer,
   StyledIconButton,
 } from "@/components/Buttons";
+import useSWR from "swr";
 
 const StyledImageUpload = styled.input`
   display: none;
@@ -54,7 +55,6 @@ const StyledErrorMessage = styled.p`
 
 export default function ProductForm({
   product = {},
-  stores,
   currentImageURL,
   onSubmit,
   onSetCurrentImageURL,
@@ -62,6 +62,12 @@ export default function ProductForm({
 }) {
   const [isUploading, setIsUploading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const {
+    data: stores,
+    isLoading: isLoadingStores,
+    error: errorStores,
+  } = useSWR("/api/stores");
   const isCreateProduct = Object.keys(product).length === 0;
 
   function changeImage(event) {
@@ -78,8 +84,8 @@ export default function ProductForm({
     const productData = {
       name: data.productName,
       note: data.productNote,
-      selectedStore: data.selectedStore,
-      _id: isCreateProduct ? uid() : product._id,
+      selectedStore: data.selectedStore || null,
+      _id: isCreateProduct ? null : product._id,
     };
 
     if (data.productImage.name !== "" && currentImageURL !== defaultImageURL) {
@@ -119,6 +125,7 @@ export default function ProductForm({
         {isCreateProduct ? "Uploading product." : "Updating product."}
       </Loading>
     );
+  if (isLoadingStores || errorStores) return <h2>Loading stores...</h2>;
   return (
     <StyledForm onSubmit={handleFormSubmit}>
       {errorMessage !== "" && (
@@ -154,7 +161,7 @@ export default function ProductForm({
         name="selectedStore"
         defaultValue={product.selectedStore}
       >
-        <option value="">--Select a store--</option>
+        <option value={""}>--Select a store--</option>
         {stores.map((store) => (
           <option key={store._id} value={store._id}>
             {store.name}

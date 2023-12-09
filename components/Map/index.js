@@ -3,6 +3,7 @@ import Link from "next/link";
 import styled from "styled-components";
 
 import useLocalStorageState from "use-local-storage-state";
+import useSWR from "swr";
 
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import Lottie from "lottie-react";
@@ -58,7 +59,6 @@ const greyIcon = new L.Icon({
 });
 
 export default function Map({
-  stores,
   currentStore = {},
   currentCoordinates,
   isLoading,
@@ -67,11 +67,19 @@ export default function Map({
     lat: "",
     lng: "",
   });
+  const {
+    data: stores,
+    isLoading: isLoadingStores,
+    error: errorStores,
+  } = useSWR("/api/stores");
+
   function handleSetUserPosition(coordinates) {
     setUserPosition(coordinates);
   }
 
   const isCreateStore = Object.keys(currentStore).length === 0;
+  if (isLoadingStores || errorStores) return <h2>Loading stores...</h2>;
+  console.log("stores", stores);
   return (
     <StyledMapAndIconContainer>
       {isLoading && (
@@ -116,7 +124,7 @@ export default function Map({
           ) : (
             <Marker
               key={store._id}
-              position={[store.lat, store.lon]}
+              position={[store.lat || "", store.lon || ""]}
               icon={greyIcon}
               title={store.name}
             >

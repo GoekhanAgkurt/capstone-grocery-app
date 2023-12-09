@@ -3,6 +3,7 @@ import Icon from "@/components/Icons";
 import { StyledCreateLink } from "@/components/Buttons";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import useSWR from "swr";
 
 const StyledSearchForm = styled.form`
   display: flex;
@@ -27,21 +28,26 @@ const StyledSearchInput = styled.input`
   font-size: 16px;
 `;
 
-export default function HomePage({
-  products,
-  onDeleteProduct,
-  onToggleShoppingList,
-}) {
+export default function HomePage({ onDeleteProduct, onToggleShoppingList }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [foundProducts, setFoundProducts] = useState();
+  const {
+    data: products,
+    isLoading: isLoadingProducts,
+    error: errorProducts,
+    mutate: mutateProducts,
+  } = useSWR("/api/products");
   useEffect(() => {
-    setFoundProducts(
-      products.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
+    if (products) {
+      setFoundProducts(
+        products.filter((product) =>
+          product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    }
   }, [searchTerm, products]);
 
+  if (isLoadingProducts || errorProducts) return <h2>Loading...</h2>;
   return (
     <main>
       <StyledSearchForm>
@@ -59,6 +65,7 @@ export default function HomePage({
         products={searchTerm.length === 0 ? products : foundProducts}
         onDeleteProduct={onDeleteProduct}
         onToggleShoppingList={onToggleShoppingList}
+        mutateProducts={mutateProducts}
       ></ProductsList>
       {products.length === 0 && searchTerm.length === 0 && (
         <>
