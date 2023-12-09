@@ -90,7 +90,7 @@ export default function Team() {
             adventures in the world and creating and fixing things. I love
             woodworking and engineering. Web-Development is my new found passion
             where I can combine my creative, engineering and project management
-            skills. I'm currently living in Tunis, Tunesia, moving back to
+            skills. I{"'"}m currently living in Tunis, Tunesia, moving back to
             Germany in April `24.
           </p>
         </StyledArticle>
@@ -121,9 +121,11 @@ export default function Team() {
             </Link>
           </StyledSocialsContainer>
           <p>
-            I love the way of creating something new, useful or creative by
-            writing some code. I'm looking forward to build up my skills and
-            dive deeper into web development day by day.
+            Since I{"'"}m incredibly enthusiastic about web development and
+            learn much better through practice, I decided to end my time at
+            university and do a web development bootcamp. It was the best
+            decision and I am very excited to see what future projects I will be
+            involved in.
           </p>
         </StyledArticle>
 
@@ -151,9 +153,11 @@ export default function Team() {
               <StyledIcon variant="gitHub" />
             </a>
           </StyledSocialsContainer>
-          <p>I am a UX Designer and Java developer </p>{" "}
-          <p>- 🌱 I’m currently learning **Java, Typescript** </p>{" "}
-          <p>- 🌱 I’m currently pimping up my portfolio</p>
+          <p>
+            After studying at the Hamburger Technische Kunstschule, I worked as
+            a communication designer for 8 years. After further training in UX
+            design, I discovered my passion for coding.
+          </p>
         </StyledArticle>
       </StyledSection>
     </main>

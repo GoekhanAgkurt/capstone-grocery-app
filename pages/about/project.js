@@ -4,10 +4,13 @@ import theScrumMethod from "@/public/images/theScrumMethod.png";
 
 const StyledImageDiv = styled.div`
   position: relative;
-  background-color: red;
   width: 100%;
   height: calc(100vw / 2.435);
   max-height: 260px;
+`;
+
+const StyledImage = styled(Image)`
+  object-fit: fill;
 `;
 export default function Project() {
   return (
@@ -46,11 +49,11 @@ export default function Project() {
         workflow method.
       </p>
       <StyledImageDiv>
-        <Image
+        <StyledImage
           src={theScrumMethod}
           alt="image of the scrum-method"
-          layout="fill"
-          objectFit="fill"
+          fill
+          priority
         />
       </StyledImageDiv>
     </main>
