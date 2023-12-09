@@ -6,6 +6,11 @@ const openSans = Open_Sans({
   weight: "400",
   style: "normal",
 });
+const openSansItalic = Open_Sans({
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
+});
 const openSansBold = Open_Sans({
   subsets: ["latin"],
   weight: "600",
@@ -37,16 +42,15 @@ export default createGlobalStyle`
     --dangerHoverColor: #ba3e37;
     --fontRegular: ${openSans.style.fontFamily};
     --fontBold: ${openSansBold.style.fontFamily};
+    --fontItalic: ${openSansItalic.style.fontFamily};
     --fontTitle: ${kalam.style.fontFamily};
   }
   html {
     height: 100%;
-
   }
   
   body {
     height: 100%;
-
     margin: 0;
     font-family: var(--fontRegular);
     background-color: #575757;
@@ -104,5 +108,13 @@ export default createGlobalStyle`
   ul {
     list-style-type: none;
     padding: 0px;
+  }
+  a {
+    text-decoration: none;
+    font-family: var(--fontItalic);
+    color: var(--primaryDarkColor);
+    &:hover {
+    text-decoration: underline;
+  }
   }
   `;

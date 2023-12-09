@@ -30,16 +30,33 @@ const StyledMenuButton = styled.button`
   text-decoration: none;
   font-size: 50px;
   color: var(--primaryBackgroundColor);
-
   &:hover {
     text-decoration: underline;
   }
 `;
-
+const menuItems = [
+  {
+    label: "Team",
+    path: "/about/team",
+  },
+  {
+    label: "Project",
+    path: "/about/project",
+  },
+  {
+    label: "What's Next?",
+    path: "/about/whats-next",
+  },
+];
 export default function BurgerMenu() {
   const [showMenu, setShowMenu] = useState(false);
 
   const router = useRouter();
+
+  function handleMenuClick(path) {
+    setShowMenu(!showMenu);
+    router.push(path);
+  }
 
   return (
     <>
@@ -52,36 +69,13 @@ export default function BurgerMenu() {
       </StyledBurgerMenuIcon>
       {showMenu && (
         <StyledMenu>
-          <li>
-            <StyledMenuButton
-              onClick={() => {
-                setShowMenu(!showMenu);
-                router.push("/about/team");
-              }}
-            >
-              Team
-            </StyledMenuButton>
-          </li>
-          <li>
-            <StyledMenuButton
-              onClick={() => {
-                setShowMenu(!showMenu);
-                router.push("/about/project");
-              }}
-            >
-              Project
-            </StyledMenuButton>
-          </li>
-          <li>
-            <StyledMenuButton
-              onClick={() => {
-                setShowMenu(!showMenu);
-                router.push("/about/whats-next");
-              }}
-            >
-              What{"'"}s Next?
-            </StyledMenuButton>
-          </li>
+          {menuItems.map((item) => (
+            <li key={item.label}>
+              <StyledMenuButton onClick={() => handleMenuClick(item.path)}>
+                {item.label}
+              </StyledMenuButton>
+            </li>
+          ))}
         </StyledMenu>
       )}
     </>
