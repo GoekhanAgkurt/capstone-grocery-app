@@ -1,14 +1,20 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+import useSWR from "swr";
 import styled from "styled-components";
+
+import Icon from "@/components/Icons";
+import DeleteConfirmation from "@/components/DeleteConfirmation";
+import StoreForm from "@/components/Forms/StoreForm";
 import {
   StyledSubmitButton,
   StyledCancelButton,
   StyledButtonContainer,
 } from "@/components/Buttons";
-import Icon from "@/components/Icons";
-import DeleteConfirmation from "@/components/DeleteConfirmation";
-import StoreForm from "@/components/Forms/StoreForm";
+
+import dynamic from "next/dynamic";
+const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const StyledTitleContainer = styled.div`
   display: flex;
@@ -45,17 +51,38 @@ export default function StoreDetailsPage({
   const { isReady } = router;
   const { id } = router.query;
 
+  const [newAddress, setNewAddress] = useState("");
+
   const store = stores.find((store) => store._id === id);
-  if (!store) return <h2>store not found</h2>;
-  if (!isReady) return <h2>is Loading</h2>;
 
   function editStore(editedStore) {
     onEditStore(editedStore);
     onSetIsEdit();
   }
+  function handleNewAddress(address) {
+    setNewAddress(address);
+  }
+  useEffect(() => {
+    if (!store) return;
+    setNewAddress(store.address);
+  }, [store]);
+
+  const newAddressURL = `https://nominatim.openstreetmap.org/search?format=json&limit=3&q=${newAddress}`;
+  const { data: currentCoordinates, isLoading } = useSWR(
+    store ? newAddressURL : null
+  );
+
+  if (!store) return <h2>store not found</h2>;
+  if (!isReady) return <h2>is Loading...</h2>;
 
   return (
     <main>
+      <Map
+        stores={stores}
+        currentStore={store}
+        currentCoordinates={currentCoordinates}
+        isLoading={isLoading}
+      />
       {!isEdit ? (
         <>
           <StyledTitleContainer>
@@ -66,6 +93,10 @@ export default function StoreDetailsPage({
               onDetailsPage
             />
           </StyledTitleContainer>
+          <StyledDetailTitle>Address</StyledDetailTitle>
+          <StyledDetailField>
+            {store.address ? store.address : "No address"}
+          </StyledDetailField>
           <StyledDetailTitle>Note</StyledDetailTitle>
           <StyledDetailField>
             {store.note ? store.note : "No note"}
@@ -82,11 +113,17 @@ export default function StoreDetailsPage({
           </StyledButtonContainer>
         </>
       ) : (
-        <StoreForm
-          store={store}
-          onSubmit={editStore}
-          onSetIsEdit={onSetIsEdit}
-        />
+        <>
+          <StoreForm
+            store={store}
+            newAddress={newAddress}
+            currentCoordinates={currentCoordinates}
+            location={location}
+            onSetIsEdit={onSetIsEdit}
+            onSubmit={editStore}
+            onNewAddress={handleNewAddress}
+          />
+        </>
       )}
     </main>
   );

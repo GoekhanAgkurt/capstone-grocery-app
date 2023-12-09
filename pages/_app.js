@@ -4,6 +4,18 @@ import useLocalStorageState from "use-local-storage-state";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import { useState } from "react";
+import { SWRConfig } from "swr";
+
+const fetcher = async (url) => {
+  const response = await fetch(url);
+  if (!response.ok) {
+    const error = new Error("An error occurred while fetching the data.");
+    error.info = await response.json();
+    error.status = response.status;
+    throw error;
+  }
+  return response.json();
+};
 
 export default function App({ Component, pageProps }) {
   const [products, setProducts] = useLocalStorageState("products", {
@@ -85,26 +97,29 @@ export default function App({ Component, pageProps }) {
       )
     );
   }
+
   return (
     <>
       <GlobalStyle />
       <Header isEdit={isEdit} />
-      <Component
-        {...pageProps}
-        products={products}
-        stores={stores}
-        isEdit={isEdit}
-        onAddProduct={handleAddProduct}
-        onAddStore={handleAddStore}
-        onEditProduct={handleEditProduct}
-        onEditStore={handleEditStore}
-        onDeleteProduct={handleDeleteProduct}
-        onDeleteStore={handleDeleteStore}
-        onSetIsEdit={handleSetIsEdit}
-        onToggleShoppingList={handleToggleShoppingList}
-        onCheckProduct={handleCheckProduct}
-        onClearAllCheckedProducts={handleClearAllCheckedProducts}
-      />
+      <SWRConfig value={{ fetcher }}>
+        <Component
+          {...pageProps}
+          products={products}
+          stores={stores}
+          isEdit={isEdit}
+          onAddProduct={handleAddProduct}
+          onAddStore={handleAddStore}
+          onEditProduct={handleEditProduct}
+          onEditStore={handleEditStore}
+          onDeleteProduct={handleDeleteProduct}
+          onDeleteStore={handleDeleteStore}
+          onSetIsEdit={handleSetIsEdit}
+          onToggleShoppingList={handleToggleShoppingList}
+          onCheckProduct={handleCheckProduct}
+          onClearAllCheckedProducts={handleClearAllCheckedProducts}
+        />
+      </SWRConfig>
       <Navigation isEdit={isEdit} />
     </>
   );

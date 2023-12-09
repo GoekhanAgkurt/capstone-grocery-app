@@ -1,6 +1,6 @@
 import StoreList from "@/components/StoreList";
-import { StyledCreateLink } from "@/components/Buttons";
 import Icon from "@/components/Icons";
+import { StyledCreateLink } from "@/components/Buttons";
 
 export default function Stores({ stores, onDeleteStore }) {
   return (
