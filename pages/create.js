@@ -1,74 +1,36 @@
 import { useRouter } from "next/router";
-import Link from "next/link";
-import { uid } from "uid";
-import {
-  StyledCancelButton,
-  StyledSubmitButton,
-  StyledButtonContainer,
-} from "@/components/Buttons";
-import Icon from "@/components/Icons";
-import {
-  StyledForm,
-  StyledLabel,
-  StyledInput,
-  StyledTextArea,
-} from "@/components/Forms";
+import { useState } from "react";
+import defaultImageURL from "@/public/images/defaultImageURL";
+import styled from "styled-components";
+import ProductForm from "@/components/Forms/ProductForm";
+import ProductImage from "@/components/ProductImage";
+
+const StyledMainWithPaddingBottom = styled.main`
+  padding-bottom: 180px;
+`;
 
 export default function CreateProduct({ onAddProduct, stores }) {
   const router = useRouter();
-  function createProduct(event) {
-    event.preventDefault();
 
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
+  const [currentImageURL, setCurrentImageURL] = useState(defaultImageURL);
+  function handleSetCurrentImageURL(url) {
+    setCurrentImageURL(url);
+  }
 
-    const newProduct = {
-      name: data.productName,
-      note: data.productNote,
-      selectedStore: data.selectedStore,
-      _id: uid(),
-    };
+  function createProduct(newProduct) {
     onAddProduct(newProduct);
     router.push("/");
   }
   return (
-    <main>
+    <StyledMainWithPaddingBottom>
+      <ProductImage imageSrc={currentImageURL} />
       <h2>New Product</h2>
-      <StyledForm onSubmit={createProduct}>
-        <StyledLabel htmlFor="productName">Name</StyledLabel>
-        <StyledInput
-          id="productName"
-          name="productName"
-          type="text"
-          placeholder="Enter product name"
-          required
-        />
-        <StyledLabel htmlFor="selectedStore">Store</StyledLabel>
-        <StyledInput as="select" id="selectedStore" name="selectedStore">
-          <option value="">--Select a store--</option>
-          {stores.map((store) => (
-            <option key={store._id} value={store._id}>
-              {store.name}
-            </option>
-          ))}
-        </StyledInput>
-        <StyledLabel htmlFor="productNote">Note</StyledLabel>
-        <StyledTextArea
-          id="productNote"
-          name="productNote"
-          placeholder="Enter Note"
-        />
-        <StyledButtonContainer>
-          <StyledCancelButton as={Link} href="/">
-            <Icon variant="cancel" color="var(--primaryButtonColor)" />
-            Cancel
-          </StyledCancelButton>
-          <StyledSubmitButton type="submit">
-            <Icon variant="check" color="var(--primaryButtonColor)" />
-            Submit
-          </StyledSubmitButton>
-        </StyledButtonContainer>
-      </StyledForm>
-    </main>
+      <ProductForm
+        stores={stores}
+        currentImageURL={currentImageURL}
+        onSubmit={createProduct}
+        onSetCurrentImageURL={handleSetCurrentImageURL}
+      />
+    </StyledMainWithPaddingBottom>
   );
 }

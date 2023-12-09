@@ -29,6 +29,7 @@ export default createGlobalStyle`
     --shadowColor: #929090;
     --primaryDarkColor: #474747;
     --accentColor: #73A76A;
+    --accentHoverColor: #5d8a55;
     --disabledColor: #aaaaaa;
     --primaryButtonColor: #edecec;
     --cancelHoverColor: #8e8d8d;
@@ -83,7 +84,7 @@ export default createGlobalStyle`
     padding-inline: 15px;
     padding-bottom: 100px;
     color: var(--primaryDarkColor);
-  
+    position: relative;
   }
   h1, h2, h3 {
     font-family: var(--fontBold);
