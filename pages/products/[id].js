@@ -13,6 +13,7 @@ import {
   StyledButtonContainer,
 } from "@/components/Buttons";
 import { StyledTitleContainer, StyledTitle } from "@/components/ListItems";
+import Head from "next/head";
 
 const StyledDetailField = styled.p`
   width: 100%;
@@ -62,6 +63,14 @@ export default function ProductDetailsPage({
   }
   return (
     <main>
+      <Head>
+        <title key="title">My Groceries | {product.name}</title>
+        <meta
+          property="og:title"
+          content={`My Groceries | ${product.name}`}
+          key="og-title"
+        />
+      </Head>
       <ProductImage imageSrc={currentImageURL}></ProductImage>
       {!isEdit ? (
         <>

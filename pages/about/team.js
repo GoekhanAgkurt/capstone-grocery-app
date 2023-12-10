@@ -2,6 +2,7 @@ import Icon from "@/components/Icons";
 import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
+import Head from "next/head";
 
 const StyledSection = styled.section`
   display: flex;
@@ -38,24 +39,41 @@ const StyledIcon = styled(Icon)`
   }
 `;
 
+const StyledAnchor = styled.a`
+  text-decoration: none;
+  font-family: var(--fontItalic);
+  color: var(--primaryDarkColor);
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 export default function Team() {
   return (
     <main>
+      <Head>
+        <title key="title">My Groceries | Team</title>
+        <meta
+          property="og:title"
+          content="My Groceries | Team"
+          key="og-title"
+        />
+      </Head>
       <section>
         <h2>Team</h2>
         <p>
-          Hi, 👋 we are <a href="#Lüder">Lüder</a>,{" "}
-          <a href="#Lennart">Lennart</a> and <a href="#Gökhan">Gökhan</a> and
-          developed this app in the course of our Capstone-Project, that is the
-          final project of the 3 months full time web-development bootcamp from{" "}
-          {""}
-          <a
+          Hi, 👋 we are <StyledAnchor href="#Lüder">Lüder</StyledAnchor>,{" "}
+          <StyledAnchor href="#Lennart">Lennart</StyledAnchor> and{" "}
+          <StyledAnchor href="#Gökhan">Gökhan</StyledAnchor> and developed this
+          app in the course of our Capstone-Project, that is the final project
+          of the 3 months full time web-development bootcamp from {""}
+          <StyledAnchor
             href="https://www.neuefische.de/bootcamp/web-development#kursinhalte"
             target="_blank"
             rel="noopener noreferrer"
           >
             neueFische
-          </a>
+          </StyledAnchor>
         </p>
       </section>
 
@@ -125,7 +143,8 @@ export default function Team() {
             learn much better through practice, I decided to end my time at
             university and do a web development bootcamp. It was the best
             decision and I am very excited to see what future projects I will be
-            involved in.
+            involved in. If I{"'"}m not programming or editing photos and
+            videos, you{"'"}ll probably see me on my mountain bike.
           </p>
         </StyledArticle>
 

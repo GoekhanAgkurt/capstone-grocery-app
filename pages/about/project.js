@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styled from "styled-components";
 import theScrumMethod from "@/public/images/theScrumMethod.png";
+import Head from "next/head";
 
 const StyledImageDiv = styled.div`
   position: relative;
@@ -9,12 +10,29 @@ const StyledImageDiv = styled.div`
   max-height: 260px;
 `;
 
+const StyledAnchor = styled.a`
+  text-decoration: none;
+  font-family: var(--fontItalic);
+  color: var(--primaryDarkColor);
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const StyledImage = styled(Image)`
   object-fit: fill;
 `;
 export default function Project() {
   return (
     <main>
+      <Head>
+        <title key="title">My Groceries | Project</title>
+        <meta
+          property="og:title"
+          content="My Groceries | Project"
+          key="og-title"
+        />
+      </Head>
       <h1>The Capstone Project</h1>
 
       <h2>The Grocery App</h2>
@@ -22,13 +40,13 @@ export default function Project() {
         The Grocery App was developed in the course of the capstone project,
         that is the final project of the 3 months full time web-development
         bootcamp from {""}
-        <a
+        <StyledAnchor
           href="https://www.neuefische.de/bootcamp/web-development#kursinhalte"
           target="_blank"
           rel="noopener noreferrer"
         >
           neueFische
-        </a>
+        </StyledAnchor>
       </p>
       <p>
         The App enables the user, to better organize his / her next shopping

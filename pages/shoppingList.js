@@ -1,6 +1,7 @@
 import ShoppingListItem from "@/components/ShoppingListItem";
 import { StyledTitleContainer, StyledTitle } from "@/components/ListItems";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
+import Head from "next/head";
 
 export default function shoppingList({
   products,
@@ -9,6 +10,14 @@ export default function shoppingList({
 }) {
   return (
     <main>
+      <Head>
+        <title key="title">My Groceries | Shopping List</title>
+        <meta
+          property="og:title"
+          content="My Groceries | Shopping List"
+          key="og-title"
+        />
+      </Head>
       <StyledTitleContainer>
         <StyledTitle>Shopping List</StyledTitle>
         <DeleteConfirmation

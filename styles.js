@@ -109,12 +109,4 @@ export default createGlobalStyle`
     list-style-type: none;
     padding: 0px;
   }
-  a {
-    text-decoration: none;
-    font-family: var(--fontItalic);
-    color: var(--primaryDarkColor);
-    &:hover {
-    text-decoration: underline;
-  }
-  }
   `;

@@ -3,6 +3,7 @@ import Icon from "@/components/Icons";
 import { StyledCreateLink } from "@/components/Buttons";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import Head from "next/head";
 
 const StyledSearchForm = styled.form`
   display: flex;
@@ -44,6 +45,14 @@ export default function HomePage({
 
   return (
     <main>
+      <Head>
+        <title key="title">My Groceries | Products</title>
+        <meta
+          property="og:title"
+          content="My Groceries | Products"
+          key="og-title"
+        />
+      </Head>
       <StyledSearchForm>
         <Icon variant="search" />
         <StyledSearchInput

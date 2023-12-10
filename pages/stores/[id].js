@@ -9,6 +9,7 @@ import {
 import Icon from "@/components/Icons";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
 import StoreForm from "@/components/Forms/StoreForm";
+import Head from "next/head";
 
 const StyledTitleContainer = styled.div`
   display: flex;
@@ -56,6 +57,14 @@ export default function StoreDetailsPage({
 
   return (
     <main>
+      <Head>
+        <title key="title">My Groceries | {store.name}</title>
+        <meta
+          property="og:title"
+          content={`My Groceries | ${store.name}`}
+          key="og-title"
+        />
+      </Head>
       {!isEdit ? (
         <>
           <StyledTitleContainer>
