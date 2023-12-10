@@ -29,7 +29,6 @@ const lotties = {
 };
 
 export default function LottieFile({ children, variant }) {
-  console.log("variant", variant === "error");
   return (
     <StyledLoadingContainer $error={variant === "error"}>
       <StyledLottie loop={true} animationData={lotties[variant]} />
