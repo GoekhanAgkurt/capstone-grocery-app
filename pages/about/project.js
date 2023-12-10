@@ -110,9 +110,9 @@ export default function Project() {
         to get this product.{" "}
       </p>
       <p>
-        Sometimes a product need to be a special type, from a specific brand or
-        is just hard to find by it{"'"}s name or label. In this case the user
-        can upload a product photo to always remember what it looks like.
+        Sometimes a product needs to be a special type, from a specific brand or
+        is just hard to find by it{"'"}s name or label. In this case users can
+        upload a product photo to always remember what it looks like.
       </p>
       <h3>Technologies and Tools</h3>
       <StyledTools>
