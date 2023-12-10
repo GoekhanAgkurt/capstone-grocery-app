@@ -5,6 +5,7 @@ import useSWR from "swr";
 import styled from "styled-components";
 
 import Icon from "@/components/Icons";
+import LottieFile from "@/components/LottieFile";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
 import StoreForm from "@/components/Forms/StoreForm";
 import {
@@ -73,7 +74,13 @@ export default function StoreDetailsPage({ isEdit, onSetIsEdit }) {
     store ? newAddressURL : null
   );
 
-  if (isLoadingStore || errorStore || !isReady) return <h2>Loading...</h2>;
+  if (isLoadingStore || !isReady) return <h2>Loading...</h2>;
+  if (errorStore)
+    return (
+      <main>
+        <LottieFile variant="error">Store not found.</LottieFile>
+      </main>
+    );
   return (
     <main>
       <Map

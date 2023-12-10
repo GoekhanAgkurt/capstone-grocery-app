@@ -15,6 +15,7 @@ import {
 } from "@/components/Buttons";
 import { StyledTitleContainer, StyledTitle } from "@/components/ListItems";
 import { updateProduct } from "@/utils/productUtils";
+import LottieFile from "@/components/LottieFile";
 
 const StyledDetailField = styled.p`
   width: 100%;
@@ -55,24 +56,26 @@ export default function ProductDetailsPage({ isEdit, onSetIsEdit }) {
     if (product && product.imageURL) setCurrentImageURL(product.imageURL);
   }, [product]);
 
-  if (
-    isLoadingProduct ||
-    isLoadingStores ||
-    errorProduct ||
-    errorStores ||
-    !isReady
-  )
-    return <h2>Loading...</h2>;
-
-  const linkedStore = stores.find(
-    (store) => store._id === product.selectedStore
-  );
-
   function editProduct(editedProduct) {
     updateProduct(editedProduct);
     onSetIsEdit();
     mutateProduct();
   }
+
+  if (isLoadingProduct || isLoadingStores || !isReady)
+    return <h2>Loading...</h2>;
+
+  if (errorProduct || errorStores)
+    return (
+      <main>
+        <LottieFile variant="error">Product not found.</LottieFile>
+      </main>
+    );
+
+  const linkedStore = stores.find(
+    (store) => store._id === product.selectedStore
+  );
+
   return (
     <main>
       <ProductImage imageSrc={currentImageURL}></ProductImage>

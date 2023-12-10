@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { useState } from "react";
-import { uid } from "uid";
 import defaultImageURL from "@/public/images/defaultImageURL";
 import styled from "styled-components";
 import Icon from "@/components/Icons";
-import Loading from "@/components/Loading";
+import LottieFile from "@/components/LottieFile";
 import {
   StyledForm,
   StyledTitleInput,
@@ -121,9 +120,9 @@ export default function ProductForm({
 
   if (isUploading)
     return (
-      <Loading>
+      <LottieFile variant="loading">
         {isCreateProduct ? "Uploading product." : "Updating product."}
-      </Loading>
+      </LottieFile>
     );
   if (isLoadingStores || errorStores) return <h2>Loading stores...</h2>;
   return (
