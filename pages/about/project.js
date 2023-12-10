@@ -80,9 +80,9 @@ export default function Project() {
       <h2>The Capstone Project</h2>
       <h3>The Grocery App</h3>
       <p>
-        My Groceries was developed in the course of the capstone project that is
-        the final project of the 3 months full time web-development bootcamp
-        from {""}
+        This app was developed in the course of the capstone project that is the
+        final project of the 3 months full time web-development bootcamp from{" "}
+        {""}
         <StyledAnchor
           href="https://www.neuefische.de/bootcamp/web-development#kursinhalte"
           target="_blank"
@@ -92,18 +92,28 @@ export default function Project() {
         </StyledAnchor>
         .
       </p>
-      <p>
+      {/* <p>
         The App enables the user to better organize their next shopping trip.
         Particularly if it involves going to several shops or supermarkets to
         get all the needed grocery-items.
+      </p> */}
+      <p>
+        My Groceries is a shopping list app for groceries with the option of
+        linking created products and stores with each other while also saving
+        and displaying additional information such as locations or product
+        photos.
       </p>
       <p>
-        The user can decide, in which of the created stores he / she wants {"("}
-        or can{")"} buy the products, that he / she created in the app. When the
-        products are then put on the shopping list, the user can click on a
-        product to see, where he / she needs to go, to get this product.
+        Users can decide in which of the created stores they want to buy the
+        products that they created in the app. When a product is then put on the
+        shopping list, the user can click on a product to see where they need to
+        go to get this product.{" "}
       </p>
-
+      <p>
+        Sometimes a product need to be a special type, from a specific brand or
+        is just hard to find just it{"'"}s name or label. In this case the user
+        can upload a product photo to always remember what it looks like.
+      </p>
       <h3>Technologies and Tools</h3>
       <StyledTools>
         {tools.map((tool) => (
