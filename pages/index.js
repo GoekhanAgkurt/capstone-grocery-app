@@ -43,6 +43,9 @@ export default function HomePage({
     );
   }, [searchTerm, products]);
 
+  function submitForm(event) {
+    event.preventDefault();
+  }
   return (
     <main>
       <Head>
@@ -53,7 +56,7 @@ export default function HomePage({
           key="og-title"
         />
       </Head>
-      <StyledSearchForm>
+      <StyledSearchForm onSubmit={submitForm}>
         <Icon variant="search" />
         <StyledSearchInput
           onChange={(event) => setSearchTerm(event.target.value)}
