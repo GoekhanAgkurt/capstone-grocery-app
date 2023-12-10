@@ -62,7 +62,7 @@ export default function Team() {
       <section>
         <h2>Team</h2>
         <p>
-          Hi, 👋 we are <StyledAnchor href="#Lüder">Lüder</StyledAnchor>,{" "}
+          Hi! 👋 We are <StyledAnchor href="#Lüder">Lüder</StyledAnchor>,{" "}
           <StyledAnchor href="#Lennart">Lennart</StyledAnchor> and{" "}
           <StyledAnchor href="#Gökhan">Gökhan</StyledAnchor> and developed this
           app in the course of our Capstone-Project, that is the final project
@@ -74,6 +74,7 @@ export default function Team() {
           >
             neueFische
           </StyledAnchor>
+          .
         </p>
       </section>
 

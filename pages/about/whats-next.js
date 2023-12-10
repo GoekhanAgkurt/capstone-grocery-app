@@ -11,7 +11,7 @@ export default function WhatsNext() {
           key="og-title"
         />
       </Head>
-      <h1>What{"'"}s Next? </h1>
+      <h2>What{"'"}s Next? </h2>
       <p>
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
         eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
@@ -23,9 +23,7 @@ export default function WhatsNext() {
         rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
         ipsum dolor sit amet.
       </p>
-
-      <h2>Project</h2>
-
+      <h2>Ideas</h2>
       <p>
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
         eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
