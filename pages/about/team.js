@@ -144,7 +144,7 @@ export default function Team() {
             learn much better through practice, I decided to end my time at
             university and do a web development bootcamp. It was the best
             decision and I am very excited to see what future projects I will be
-            involved in. If I{"'"}m not programming or editing photos and
+            involved in. When I{"'"}m not programming or editing photos and
             videos, you{"'"}ll probably see me on my mountain bike. 🤙
           </p>
         </StyledArticle>
