@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 import { addStore } from "@/utils/storesUtils";
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
-export default function CreateStore({ onAddStore }) {
+export default function CreateStore() {
   const [newAddress, setNewAddress] = useState("");
 
   const newAddressURL = `https://nominatim.openstreetmap.org/search?format=json&limit=3&q=${newAddress}`;

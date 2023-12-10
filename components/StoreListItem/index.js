@@ -14,15 +14,11 @@ const StyledLink = styled(Link)`
   width: 85%;
 `;
 
-export default function StoreListItem({ store, onDeleteStore, mutateStores }) {
+export default function StoreListItem({ store, mutateStores }) {
   return (
     <StyledListItem>
       <StyledLink href={`/stores/${store._id}`}>{store.name}</StyledLink>
-      <DeleteConfirmation
-        store={store}
-        onDeleteStore={onDeleteStore}
-        mutate={mutateStores}
-      />
+      <DeleteConfirmation store={store} mutate={mutateStores} />
     </StyledListItem>
   );
 }

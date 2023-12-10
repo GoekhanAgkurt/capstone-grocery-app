@@ -4,6 +4,7 @@ import DeleteConfirmation from "@/components/DeleteConfirmation";
 import { StyledListItem } from "@/components/ListItems";
 import Icon from "@/components/Icons";
 import { StyledIconButton as StyledToggleShoppingListButton } from "@/components/Buttons";
+import { toggleOnShoppingList } from "@/utils/productUtils";
 
 const StyledLink = styled(Link)`
   display: inline-block;
@@ -17,18 +18,18 @@ const StyledLink = styled(Link)`
   flex-grow: 1;
 `;
 
-export default function ProductListItem({
-  product,
-  mutateProducts,
-  onDeleteProduct,
-  onToggleShoppingList,
-}) {
+export default function ProductListItem({ product, mutateProducts }) {
+  async function toggleOnClick() {
+    await toggleOnShoppingList(product);
+    mutateProducts();
+  }
+
   return (
     <StyledListItem $onShoppingList={product.onShoppingList}>
       <StyledLink href={`/products/${product._id}`}>{product.name} </StyledLink>
       <StyledToggleShoppingListButton
         type="button"
-        onClick={() => onToggleShoppingList(product)}
+        onClick={() => toggleOnClick()}
       >
         <Icon
           variant={
@@ -41,11 +42,7 @@ export default function ProductListItem({
           }
         />
       </StyledToggleShoppingListButton>
-      <DeleteConfirmation
-        product={product}
-        onDeleteProduct={onDeleteProduct}
-        mutate={mutateProducts}
-      />
+      <DeleteConfirmation product={product} mutate={mutateProducts} />
     </StyledListItem>
   );
 }

@@ -17,7 +17,7 @@ export default async function handler(request, response) {
     response.status(200).json(product);
   } else if (request.method === "PATCH") {
     try {
-      const productToUpdate = await Product.findByIdAndUpdat(id, {
+      const productToUpdate = await Product.findByIdAndUpdate(id, {
         $set: request.body,
       });
       response

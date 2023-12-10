@@ -28,7 +28,7 @@ const StyledSearchInput = styled.input`
   font-size: 16px;
 `;
 
-export default function HomePage({ onDeleteProduct, onToggleShoppingList }) {
+export default function HomePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [foundProducts, setFoundProducts] = useState();
   const {
@@ -63,8 +63,6 @@ export default function HomePage({ onDeleteProduct, onToggleShoppingList }) {
       <h2>All Products</h2>
       <ProductsList
         products={searchTerm.length === 0 ? products : foundProducts}
-        onDeleteProduct={onDeleteProduct}
-        onToggleShoppingList={onToggleShoppingList}
         mutateProducts={mutateProducts}
       ></ProductsList>
       {products.length === 0 && searchTerm.length === 0 && (

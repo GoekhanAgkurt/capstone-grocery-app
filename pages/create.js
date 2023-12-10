@@ -19,7 +19,6 @@ export default function CreateProduct() {
   }
 
   async function createProduct(newProduct) {
-    console.log(newProduct);
     await addProduct(newProduct);
     router.push("/");
   }

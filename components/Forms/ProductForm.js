@@ -82,10 +82,10 @@ export default function ProductForm({
     const data = Object.fromEntries(formData);
 
     const productData = {
+      _id: isCreateProduct ? null : product._id,
       name: data.productName,
       note: data.productNote,
       selectedStore: data.selectedStore || null,
-      _id: isCreateProduct ? null : product._id,
     };
 
     if (data.productImage.name !== "" && currentImageURL !== defaultImageURL) {

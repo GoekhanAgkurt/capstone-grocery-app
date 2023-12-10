@@ -14,6 +14,7 @@ import {
   StyledButtonContainer,
 } from "@/components/Buttons";
 import { StyledTitleContainer, StyledTitle } from "@/components/ListItems";
+import { updateProduct } from "@/utils/productUtils";
 
 const StyledDetailField = styled.p`
   width: 100%;
@@ -27,12 +28,7 @@ const StyledDetailTitle = styled.h3`
   margin-block: 0px 0px;
 `;
 
-export default function ProductDetailsPage({
-  isEdit,
-  onEditProduct,
-  onDeleteProduct,
-  onSetIsEdit,
-}) {
+export default function ProductDetailsPage({ isEdit, onSetIsEdit }) {
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
@@ -46,6 +42,7 @@ export default function ProductDetailsPage({
     data: product,
     isLoading: isLoadingProduct,
     error: errorProduct,
+    mutate: mutateProduct,
   } = useSWR(isReady ? `/api/products/${id}` : null);
 
   const {
@@ -72,8 +69,9 @@ export default function ProductDetailsPage({
   );
 
   function editProduct(editedProduct) {
-    onEditProduct(editedProduct);
+    updateProduct(editedProduct);
     onSetIsEdit();
+    mutateProduct();
   }
   return (
     <main>
@@ -82,11 +80,7 @@ export default function ProductDetailsPage({
         <>
           <StyledTitleContainer>
             <StyledTitle>{product.name}</StyledTitle>
-            <DeleteConfirmation
-              product={product}
-              onDeleteProduct={onDeleteProduct}
-              onDetailsPage
-            />
+            <DeleteConfirmation product={product} onDetailsPage />
           </StyledTitleContainer>
           <StyledDetailTitle>Store</StyledDetailTitle>
           <StyledDetailField>

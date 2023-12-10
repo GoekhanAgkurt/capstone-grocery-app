@@ -39,6 +39,7 @@ export async function toggleOnShoppingList(product) {
     body: JSON.stringify({
       ...product,
       onShoppingList: !product.onShoppingList,
+      checkedProduct: false,
     }),
     headers: {
       "Content-Type": "application/json",

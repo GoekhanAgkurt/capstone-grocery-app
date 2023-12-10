@@ -17,7 +17,7 @@ export default async function handler(request, response) {
     response.status(200).json(store);
   } else if (request.method === "PATCH") {
     try {
-      const storeToUpdate = await Store.findByIdAndUpdat(id, {
+      const storeToUpdate = await Store.findByIdAndUpdate(id, {
         $set: request.body,
       });
       response

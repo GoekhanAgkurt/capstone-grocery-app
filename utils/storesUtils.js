@@ -36,7 +36,7 @@ export async function deleteStore(storeIdToDelete) {
         method: "PATCH",
         body: JSON.stringify({
           ...product,
-          selectedStore: "1234",
+          selectedStore: null,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -45,7 +45,6 @@ export async function deleteStore(storeIdToDelete) {
       if (!responseProduct.ok) {
         console.error(`Error:${responseProduct.status} `);
       }
-      console.log("responseProduct", responseProduct);
     })
   );
 

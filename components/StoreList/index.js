@@ -1,7 +1,7 @@
 import StoreListItem from "@/components/StoreListItem";
 import useSWR from "swr";
 
-export default function StoreList({ onDeleteStore }) {
+export default function StoreList() {
   const {
     data: stores,
     isLoading: isLoadingStores,
@@ -26,7 +26,6 @@ export default function StoreList({ onDeleteStore }) {
           <StoreListItem
             key={store._id}
             store={store}
-            onDeleteStore={onDeleteStore}
             mutateStores={mutateStores}
           />
         ))}

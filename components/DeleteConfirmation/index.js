@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Icon from "@/components/Icons";
 import { deleteStore } from "@/utils/storesUtils";
-import { deleteProduct } from "@/utils/productUtils";
+import { clearAllCheckedProducts, deleteProduct } from "@/utils/productUtils";
 
 const StyledDeleteConfirmation = styled.div`
   display: flex;
@@ -55,7 +55,6 @@ export default function DeleteConfirmation({
   mutate,
   onDetailsPage,
   onShoppingListPage,
-  onClearAllCheckedProducts,
 }) {
   const [showConfirmButtons, setShowConfirmButtons] = useState(false);
   const router = useRouter();
@@ -68,8 +67,9 @@ export default function DeleteConfirmation({
     store && (await deleteStore(store._id));
     product && (await deleteProduct(product._id));
     if (onShoppingListPage) {
-      onClearAllCheckedProducts();
+      await clearAllCheckedProducts();
       setShowConfirmButtons(false);
+      mutate();
     }
     if (onDetailsPage) {
       store ? router.push("/stores") : router.push("/");

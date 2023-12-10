@@ -79,7 +79,6 @@ export default function Map({
 
   const isCreateStore = Object.keys(currentStore).length === 0;
   if (isLoadingStores || errorStores) return <h2>Loading stores...</h2>;
-  console.log("stores", stores);
   return (
     <StyledMapAndIconContainer>
       {isLoading && (

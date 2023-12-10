@@ -14,6 +14,7 @@ import {
 } from "@/components/Buttons";
 
 import dynamic from "next/dynamic";
+import { updateStore } from "@/utils/storesUtils";
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const StyledTitleContainer = styled.div`
@@ -40,12 +41,7 @@ const StyledDetailTitle = styled.h3`
   margin-block: 0px 0px;
 `;
 
-export default function StoreDetailsPage({
-  isEdit,
-  onEditStore,
-  onDeleteStore,
-  onSetIsEdit,
-}) {
+export default function StoreDetailsPage({ isEdit, onSetIsEdit }) {
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
@@ -54,13 +50,15 @@ export default function StoreDetailsPage({
     data: store,
     isLoading: isLoadingStore,
     error: errorStore,
+    mutate: mutateStore,
   } = useSWR(id ? `/api/stores/${id}` : null);
 
   const [newAddress, setNewAddress] = useState("");
 
   function editStore(editedStore) {
-    onEditStore(editedStore);
+    updateStore(editedStore);
     onSetIsEdit();
+    mutateStore();
   }
   function handleNewAddress(address) {
     setNewAddress(address);
@@ -87,11 +85,7 @@ export default function StoreDetailsPage({
         <>
           <StyledTitleContainer>
             <StyledTitle>{store.name}</StyledTitle>
-            <DeleteConfirmation
-              store={store}
-              onDeleteStore={onDeleteStore}
-              onDetailsPage
-            />
+            <DeleteConfirmation store={store} onDetailsPage />
           </StyledTitleContainer>
           <StyledDetailTitle>Address</StyledDetailTitle>
           <StyledDetailField>

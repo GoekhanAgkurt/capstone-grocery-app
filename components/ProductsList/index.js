@@ -1,10 +1,5 @@
 import ProductListItem from "@/components/ProductListItem";
-export default function ProductsList({
-  products,
-  mutateProducts,
-  onDeleteProduct,
-  onToggleShoppingList,
-}) {
+export default function ProductsList({ products, mutateProducts }) {
   return (
     <ul>
       {products.map((product) => (
@@ -12,8 +7,6 @@ export default function ProductsList({
           key={product._id}
           product={product}
           mutateProducts={mutateProducts}
-          onDeleteProduct={onDeleteProduct}
-          onToggleShoppingList={onToggleShoppingList}
         />
       ))}
     </ul>
