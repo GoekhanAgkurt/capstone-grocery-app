@@ -4,6 +4,7 @@ import { StyledCreateLink } from "@/components/Buttons";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
+import LottieFile from "@/components/LottieFile";
 
 const StyledSearchForm = styled.form`
   display: flex;
@@ -47,7 +48,18 @@ export default function HomePage() {
     }
   }, [searchTerm, products]);
 
-  if (isLoadingProducts || errorProducts) return <h2>Loading...</h2>;
+  if (isLoadingProducts)
+    return (
+      <main>
+        <h2>Loading...</h2>
+      </main>
+    );
+  if (errorProducts)
+    return (
+      <main>
+        <LottieFile variant="error">Can{"'"}t load Products</LottieFile>
+      </main>
+    );
   return (
     <main>
       <StyledSearchForm>

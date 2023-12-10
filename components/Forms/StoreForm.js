@@ -50,8 +50,6 @@ export default function StoreForm({
           ? currentCoordinates[0].lon
           : "",
     };
-    // if (!isCreateStore) storeData._id = store._id;
-
     onSubmit(storeData);
   }
   return (

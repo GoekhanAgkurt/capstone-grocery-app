@@ -1,5 +1,6 @@
 import StoreListItem from "@/components/StoreListItem";
 import useSWR from "swr";
+import LottieFile from "../LottieFile";
 
 export default function StoreList() {
   const {
@@ -9,7 +10,11 @@ export default function StoreList() {
     mutate: mutateStores,
   } = useSWR("/api/stores");
 
-  if (isLoadingStores || errorStores) return <h2>Loading...</h2>;
+  if (isLoadingStores) return <h2>Loading...</h2>;
+
+  if (errorStores)
+    return <LottieFile variant="error">Can{"'"}t load Stores</LottieFile>;
+
   if (stores.length === 0) {
     return (
       <>
@@ -18,6 +23,7 @@ export default function StoreList() {
       </>
     );
   }
+
   return (
     <>
       <h2>All Stores</h2>
