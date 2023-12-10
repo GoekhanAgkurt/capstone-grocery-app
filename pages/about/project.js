@@ -106,12 +106,12 @@ export default function Project() {
       <p>
         Users can decide in which of the created stores they want to buy the
         products that they created in the app. When a product is then put on the
-        shopping list, the user can click on a product to see where they need to
-        go to get this product.{" "}
+        shopping list, users can click on a product to see where they need to go
+        to get this product.{" "}
       </p>
       <p>
         Sometimes a product need to be a special type, from a specific brand or
-        is just hard to find just it{"'"}s name or label. In this case the user
+        is just hard to find by it{"'"}s name or label. In this case the user
         can upload a product photo to always remember what it looks like.
       </p>
       <h3>Technologies and Tools</h3>
