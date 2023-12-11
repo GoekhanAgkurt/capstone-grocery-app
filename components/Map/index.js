@@ -1,3 +1,7 @@
+import CurrentMarker from "@/components/Map/CurrentMarker";
+import UserLocationMarker from "@/components/Map/UserLocationMarker";
+import LottieFile from "@/components/LottieFile";
+
 import Link from "next/link";
 
 import styled from "styled-components";
@@ -6,24 +10,17 @@ import useLocalStorageState from "use-local-storage-state";
 import useSWR from "swr";
 
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import Lottie from "lottie-react";
 import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet-defaulticon-compatibility";
-
-import LoadingAnimation from "@/public/lottiefiles/LoadingAnimation.json";
-
-import CurrentMarker from "@/components/Map/CurrentMarker";
-
-import UserLocationMarker from "@/components/Map/UserLocationMarker";
 
 const StyledMapAndIconContainer = styled.div`
   position: relative;
 `;
 const StyledMapContainer = styled(MapContainer)`
   height: 30vh;
-  width: calc(100%+30px);
+  width: calc(100% + 30px);
   margin: 0 -15px;
   z-index: 0;
 `;
@@ -39,7 +36,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const StyledLottie = styled(Lottie)`
+const StyledLottie = styled(LottieFile)`
   width: 30%;
   position: absolute;
   top: 50%;
@@ -47,7 +44,7 @@ const StyledLottie = styled(Lottie)`
   transform: translate(-50%, -50%);
   z-index: 2;
 `;
-const greyIcon = new L.Icon({
+const yellowIcon = new L.Icon({
   iconUrl:
     "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png",
   shadowUrl:
@@ -78,12 +75,18 @@ export default function Map({
   }
 
   const isCreateStore = Object.keys(currentStore).length === 0;
-  if (isLoadingStores || errorStores) return <h2>Loading stores...</h2>;
+
+  if (isLoadingStores)
+    return (
+      <LottieFile variant="loadingProductsAndStores">
+        Loading Stores...
+      </LottieFile>
+    );
+  if (errorStores)
+    return <LottieFile variant="error">Can{"'"}t load Stores</LottieFile>;
   return (
     <StyledMapAndIconContainer>
-      {isLoading && (
-        <StyledLottie loop={true} animationData={LoadingAnimation} />
-      )}
+      {isLoading && <StyledLottie variant="loadingMap" onMap />}
       <StyledMapContainer
         center={userPosition ? [userPosition.lat, userPosition.lng] : ["", ""]}
         zoom={12}
@@ -124,7 +127,7 @@ export default function Map({
             <Marker
               key={store._id}
               position={[store.lat || "", store.lon || ""]}
-              icon={greyIcon}
+              icon={yellowIcon}
               title={store.name}
             >
               <Popup>

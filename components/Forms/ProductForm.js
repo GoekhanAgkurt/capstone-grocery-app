@@ -124,7 +124,14 @@ export default function ProductForm({
         {isCreateProduct ? "Uploading product." : "Updating product."}
       </LottieFile>
     );
-  if (isLoadingStores || errorStores) return <h2>Loading stores...</h2>;
+  if (isLoadingStores)
+    return (
+      <LottieFile variant="loadingProductsAndStores">
+        Loading Stores...
+      </LottieFile>
+    );
+  if (errorStores)
+    return <LottieFile variant="error">Can{"'"}t load Stores</LottieFile>;
   return (
     <StyledForm onSubmit={handleFormSubmit}>
       {errorMessage !== "" && (
