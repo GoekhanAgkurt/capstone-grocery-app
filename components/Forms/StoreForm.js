@@ -39,7 +39,7 @@ export default function StoreForm({
     const storeData = {
       name: data.storeName,
       note: data.storeNote,
-      _id: isCreateStore ? uid() : store._id,
+      _id: isCreateStore ? null : store._id,
       address: newAddress ? newAddress : "",
       lat:
         currentCoordinates && currentCoordinates.length !== 0
@@ -50,7 +50,6 @@ export default function StoreForm({
           ? currentCoordinates[0].lon
           : "",
     };
-
     onSubmit(storeData);
   }
   return (

@@ -1,12 +1,16 @@
 import ShoppingListItem from "@/components/ShoppingListItem";
 import { StyledTitleContainer, StyledTitle } from "@/components/ListItems";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
+import useSWR from "swr";
 
-export default function shoppingList({
-  products,
-  onCheckProduct,
-  onClearAllCheckedProducts,
-}) {
+export default function ShoppingList() {
+  const {
+    data: products,
+    isLoading: isLoadingProducts,
+    error: errorProducts,
+    mutate: mutateProducts,
+  } = useSWR("/api/products");
+  if (isLoadingProducts || errorProducts) return <h2>Loading Products...</h2>;
   return (
     <main>
       <StyledTitleContainer>
@@ -14,7 +18,7 @@ export default function shoppingList({
         <DeleteConfirmation
           products={products}
           onShoppingListPage
-          onClearAllCheckedProducts={onClearAllCheckedProducts}
+          mutate={mutateProducts}
         />
       </StyledTitleContainer>
       {!products.find((product) => product.onShoppingList === true) && (
@@ -32,7 +36,7 @@ export default function shoppingList({
             <ShoppingListItem
               key={shoppingListProduct._id}
               shoppingListProduct={shoppingListProduct}
-              onCheckProduct={onCheckProduct}
+              mutateProducts={mutateProducts}
             />
           ))}
       </ul>

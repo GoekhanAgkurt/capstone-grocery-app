@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import useSWR from "swr";
 import defaultImageURL from "@/public/images/defaultImageURL";
 import styled from "styled-components";
 import Icon from "@/components/Icons";
@@ -13,6 +14,8 @@ import {
   StyledButtonContainer,
 } from "@/components/Buttons";
 import { StyledTitleContainer, StyledTitle } from "@/components/ListItems";
+import { updateProduct } from "@/utils/productUtils";
+import LottieFile from "@/components/LottieFile";
 
 const StyledDetailField = styled.p`
   width: 100%;
@@ -26,14 +29,7 @@ const StyledDetailTitle = styled.h3`
   margin-block: 0px 0px;
 `;
 
-export default function ProductDetailsPage({
-  products,
-  stores,
-  isEdit,
-  onEditProduct,
-  onDeleteProduct,
-  onSetIsEdit,
-}) {
+export default function ProductDetailsPage({ isEdit, onSetIsEdit }) {
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
@@ -43,23 +39,43 @@ export default function ProductDetailsPage({
     setCurrentImageURL(url);
   }
 
-  const product = products.find((product) => product._id === id);
+  const {
+    data: product,
+    isLoading: isLoadingProduct,
+    error: errorProduct,
+    mutate: mutateProduct,
+  } = useSWR(isReady ? `/api/products/${id}` : null);
+
+  const {
+    data: stores,
+    isLoading: isLoadingStores,
+    error: errorStores,
+  } = useSWR("/api/stores");
 
   useEffect(() => {
     if (product && product.imageURL) setCurrentImageURL(product.imageURL);
   }, [product]);
 
-  if (!product) return <h2>product not found</h2>;
-  if (!isReady) return <h2>is Loading</h2>;
+  function editProduct(editedProduct) {
+    updateProduct(editedProduct);
+    onSetIsEdit();
+    mutateProduct();
+  }
+
+  if (isLoadingProduct || isLoadingStores || !isReady)
+    return <h2>Loading...</h2>;
+
+  if (errorProduct || errorStores)
+    return (
+      <main>
+        <LottieFile variant="error">Product not found.</LottieFile>
+      </main>
+    );
 
   const linkedStore = stores.find(
     (store) => store._id === product.selectedStore
   );
 
-  function editProduct(editedProduct) {
-    onEditProduct(editedProduct);
-    onSetIsEdit();
-  }
   return (
     <main>
       <ProductImage imageSrc={currentImageURL}></ProductImage>
@@ -67,11 +83,7 @@ export default function ProductDetailsPage({
         <>
           <StyledTitleContainer>
             <StyledTitle>{product.name}</StyledTitle>
-            <DeleteConfirmation
-              product={product}
-              onDeleteProduct={onDeleteProduct}
-              onDetailsPage
-            />
+            <DeleteConfirmation product={product} onDetailsPage />
           </StyledTitleContainer>
           <StyledDetailTitle>Store</StyledDetailTitle>
           <StyledDetailField>

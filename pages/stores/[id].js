@@ -5,6 +5,7 @@ import useSWR from "swr";
 import styled from "styled-components";
 
 import Icon from "@/components/Icons";
+import LottieFile from "@/components/LottieFile";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
 import StoreForm from "@/components/Forms/StoreForm";
 import {
@@ -14,6 +15,7 @@ import {
 } from "@/components/Buttons";
 
 import dynamic from "next/dynamic";
+import { updateStore } from "@/utils/storesUtils";
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const StyledTitleContainer = styled.div`
@@ -40,24 +42,24 @@ const StyledDetailTitle = styled.h3`
   margin-block: 0px 0px;
 `;
 
-export default function StoreDetailsPage({
-  stores,
-  isEdit,
-  onEditStore,
-  onDeleteStore,
-  onSetIsEdit,
-}) {
+export default function StoreDetailsPage({ isEdit, onSetIsEdit }) {
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
 
+  const {
+    data: store,
+    isLoading: isLoadingStore,
+    error: errorStore,
+    mutate: mutateStore,
+  } = useSWR(id ? `/api/stores/${id}` : null);
+
   const [newAddress, setNewAddress] = useState("");
 
-  const store = stores.find((store) => store._id === id);
-
   function editStore(editedStore) {
-    onEditStore(editedStore);
+    updateStore(editedStore);
     onSetIsEdit();
+    mutateStore();
   }
   function handleNewAddress(address) {
     setNewAddress(address);
@@ -72,13 +74,16 @@ export default function StoreDetailsPage({
     store ? newAddressURL : null
   );
 
-  if (!store) return <h2>store not found</h2>;
-  if (!isReady) return <h2>is Loading...</h2>;
-
+  if (isLoadingStore || !isReady) return <h2>Loading...</h2>;
+  if (errorStore)
+    return (
+      <main>
+        <LottieFile variant="error">Store not found.</LottieFile>
+      </main>
+    );
   return (
     <main>
       <Map
-        stores={stores}
         currentStore={store}
         currentCoordinates={currentCoordinates}
         isLoading={isLoading}
@@ -87,11 +92,7 @@ export default function StoreDetailsPage({
         <>
           <StyledTitleContainer>
             <StyledTitle>{store.name}</StyledTitle>
-            <DeleteConfirmation
-              store={store}
-              onDeleteStore={onDeleteStore}
-              onDetailsPage
-            />
+            <DeleteConfirmation store={store} onDetailsPage />
           </StyledTitleContainer>
           <StyledDetailTitle>Address</StyledDetailTitle>
           <StyledDetailField>
