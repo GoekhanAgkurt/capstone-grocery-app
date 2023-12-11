@@ -25,10 +25,10 @@ export default function CreateProduct({ onAddProduct, stores }) {
   return (
     <>
       <Head>
-        <title key="title">My Groceries | Create Product</title>
+        <title key="title">My Grocery | Create Product</title>
         <meta
           property="og:title"
-          content="My Groceries | Create Product"
+          content="My Grocery | Create Product"
           key="og-title"
         />
       </Head>

@@ -58,10 +58,10 @@ export default function StoreDetailsPage({
   return (
     <main>
       <Head>
-        <title key="title">My Groceries | {store.name}</title>
+        <title key="title">My Grocery | {store.name}</title>
         <meta
           property="og:title"
-          content={`My Groceries | ${store.name}`}
+          content={`My Grocery | ${store.name}`}
           key="og-title"
         />
       </Head>

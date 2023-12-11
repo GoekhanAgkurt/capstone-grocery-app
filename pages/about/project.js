@@ -3,11 +3,15 @@ import styled from "styled-components";
 import theScrumMethod from "@/public/images/theScrumMethod.png";
 import Head from "next/head";
 
-const StyledImageDiv = styled.div`
+const StyledImageAnchor = styled.a`
   position: relative;
+  display: inline-block;
   width: 100%;
   height: calc(100vw / 2.435);
   max-height: 260px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const StyledAnchor = styled.a`
@@ -70,10 +74,10 @@ export default function Project() {
   return (
     <main>
       <Head>
-        <title key="title">My Groceries | Project</title>
+        <title key="title">My Grocery | Project</title>
         <meta
           property="og:title"
-          content="My Groceries | Project"
+          content="My Grocery | Project"
           key="og-title"
         />
       </Head>
@@ -98,7 +102,7 @@ export default function Project() {
         get all the needed grocery-items.
       </p> */}
       <p>
-        My Groceries is a shopping list app for groceries with the option of
+        My Grocery is a shopping list app for groceries with the option of
         linking created products and stores with each other while also saving
         and displaying additional information such as locations or product
         photos.
@@ -134,14 +138,18 @@ export default function Project() {
         This App got developed by rigorously following the {` "SCRUM"`} agile
         workflow.
       </p>
-      <StyledImageDiv>
+      <StyledImageAnchor
+        href="https://en.wikipedia.org/wiki/Scrum_(software_development)"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <StyledImage
           src={theScrumMethod}
           alt="image of the scrum-method"
           fill
           priority
         />
-      </StyledImageDiv>
+      </StyledImageAnchor>
     </main>
   );
 }

@@ -7,10 +7,10 @@ export default function Stores({ stores, onDeleteStore }) {
   return (
     <main>
       <Head>
-        <title key="title">My Groceries | Stores</title>
+        <title key="title">My Grocery | Stores</title>
         <meta
           property="og:title"
-          content="My Groceries | Stores"
+          content="My Grocery | Stores"
           key="og-title"
         />
       </Head>

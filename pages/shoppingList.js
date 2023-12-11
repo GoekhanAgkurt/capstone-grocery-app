@@ -11,10 +11,10 @@ export default function shoppingList({
   return (
     <main>
       <Head>
-        <title key="title">My Groceries | Shopping List</title>
+        <title key="title">My Grocery | Shopping List</title>
         <meta
           property="og:title"
-          content="My Groceries | Shopping List"
+          content="My Grocery | Shopping List"
           key="og-title"
         />
       </Head>

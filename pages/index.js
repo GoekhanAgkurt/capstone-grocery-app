@@ -49,10 +49,10 @@ export default function HomePage({
   return (
     <main>
       <Head>
-        <title key="title">My Groceries | Products</title>
+        <title key="title">My Grocery | Products</title>
         <meta
           property="og:title"
-          content="My Groceries | Products"
+          content="My Grocery | Products"
           key="og-title"
         />
       </Head>

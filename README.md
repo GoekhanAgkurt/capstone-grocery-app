@@ -1,10 +1,10 @@
-# My Groceries
+# My Grocery
 
 ## Project
 
 This app was developed in the course of the capstone project that is the final project of the 3 months full time web-development bootcamp from [neue fische](https://www.neuefische.de/bootcamp/web-development#kursinhalte).
 
-My Groceries is a shopping list app for groceries with the option of linking created products and stores with each other while also saving and displaying additional information such as locations or product photos.
+My Grocery is a shopping list app for groceries with the option of linking created products and stores with each other while also saving and displaying additional information such as locations or product photos.
 
 Users can decide in which of the created stores they want to buy the products that they created in the app. When a product is then put on the shopping list, users can click on a product to see where they need to go to get this product.
 
@@ -31,33 +31,3 @@ To do so create `.env.local` file in the project's root.
 Check the `env.example` file, copy paste the variables into the `.env.local` and complete it with the corresponding values
 
 Run `npm run dev` to start a development server and open the displayed URL in a browser.
-
-Use `npm run test` to run the tests.
-
-### CodeSandbox Cloud
-
-Select the "Preview: 3000" tab to view this project.
-
-Select the "Tests: logs" tab to view the tests.
-
-> The `npm run dev` and `npm run test` scripts run automatically.
-
-### Scripts
-
-You can use the following commands:
-
-- `npm run dev` to start a development server
-- `npm run build` to build the project
-- `npm run start` to start a production server
-- `npm run test` to run the tests
-- `npm run lint` to run the linter
-
-## New Next Project
-
-This project was created from the neue fische `next` template.
-
-You can [🔗 **use this template on CodeSandbox**](https://codesandbox.io/p/sandbox/github/neuefische/web-exercises/tree/main/templates/next?file=/README.md) or locally by running this command in your Terminal:
-
-```bash
-npx -y ghcd@latest neuefische/web-exercises/tree/main/templates/next my-app -i
-```

@@ -52,12 +52,8 @@ export default function Team() {
   return (
     <main>
       <Head>
-        <title key="title">My Groceries | Team</title>
-        <meta
-          property="og:title"
-          content="My Groceries | Team"
-          key="og-title"
-        />
+        <title key="title">My Grocery | Team</title>
+        <meta property="og:title" content="My Grocery | Team" key="og-title" />
       </Head>
       <section>
         <h2>Team</h2>

@@ -11,10 +11,10 @@ export default function CreateStore({ onAddStore }) {
   return (
     <main>
       <Head>
-        <title key="title">My Groceries | Create Store</title>
+        <title key="title">My Grocery | Create Store</title>
         <meta
           property="og:title"
-          content="My Groceries | Create Store"
+          content="My Grocery | Create Store"
           key="og-title"
         />
       </Head>

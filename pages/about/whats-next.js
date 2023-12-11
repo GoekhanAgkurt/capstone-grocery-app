@@ -14,16 +14,16 @@ export default function WhatsNext() {
   return (
     <main>
       <Head>
-        <title key="title">My Groceries | What{"'"}s Next?</title>
+        <title key="title">My Grocery | What{"'"}s Next?</title>
         <meta
           property="og:title"
-          content="My Groceries | What's next?"
+          content="My Grocery | What's next?"
           key="og-title"
         />
       </Head>
       <h2>What{"'"}s Next? </h2>
       <p>
-        Yes, My Groceries was a final project of the{" "}
+        Yes, My Grocery was a final project of the{" "}
         <StyledAnchor
           href="https://www.neuefische.de/bootcamp/web-development#kursinhalte"
           target="_blank"
@@ -38,6 +38,17 @@ export default function WhatsNext() {
         reviewing more PR{"'"}s? In any case, we certainly have enough ideas.
       </p>
       <h2>Ideas</h2>
+      <h3>Store Filter</h3>
+      The next and most important step is to implement a way to filter the
+      shopping list for the stores where shopping is required. At the moment,
+      there can be only one store connected to each product but in the future we
+      want the users to be able to link a product to multiple supermarkets so
+      planning of a shopping trip will be even more efficient - with a good
+      algorithm of course.
+      <h3>Map Overview on Shopping List Page</h3>
+      We think that it would be a huge value for a user to only see the markets
+      they need to go to for those items that are currently in the shopping
+      list.
       <h3>User Authentication</h3>
       <p>
         Since we now connected the app with a MongoDB, one of the next obvious
@@ -61,7 +72,7 @@ export default function WhatsNext() {
       <h3>Dark Mode</h3>
       <p>Every app needs a dark mode.</p>
       <h3>Shared Shopping List</h3>
-      <h3>Map Overview on Shopping List Page</h3>
+      When user authentication is possible
     </main>
   );
 }
