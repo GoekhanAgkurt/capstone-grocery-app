@@ -17,6 +17,7 @@ import LoadingAnimation from "@/public/lottiefiles/LoadingAnimation.json";
 import CurrentMarker from "@/components/Map/CurrentMarker";
 
 import UserLocationMarker from "@/components/Map/UserLocationMarker";
+import LottieFile from "../LottieFile";
 
 const StyledMapAndIconContainer = styled.div`
   position: relative;
@@ -78,7 +79,9 @@ export default function Map({
   }
 
   const isCreateStore = Object.keys(currentStore).length === 0;
-  if (isLoadingStores || errorStores) return <h2>Loading stores...</h2>;
+  if (isLoadingStores) return <h2>Loading stores...</h2>;
+  if (errorStores)
+    return <LottieFile variant="error">Error loading stores</LottieFile>;
   return (
     <StyledMapAndIconContainer>
       {isLoading && (
