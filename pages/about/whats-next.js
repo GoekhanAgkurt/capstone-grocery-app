@@ -46,7 +46,7 @@ export default function WhatsNext() {
         only display products, he plans to buy in a certain store. Or he can
         sort the shopping list by the stores, so the products on the shopping
         list are displayed in groups of stores. <br /> This way, the user can
-        more easily get an overview about to witch stores he has to go, to get
+        more easily get an overview about to which stores he has to go, to get
         all his products {"(and also how many products he plans to buy there)"}.{" "}
         <br /> At the moment, a product can only be connected to one store. But
         in the future we want the users to be able to connect a product to
