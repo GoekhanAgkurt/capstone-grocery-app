@@ -1,6 +1,7 @@
 import ShoppingListItem from "@/components/ShoppingListItem";
 import { StyledTitleContainer, StyledTitle } from "@/components/ListItems";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
+import LottieFile from "@/components/LottieFile";
 import useSWR from "swr";
 
 export default function ShoppingList() {
@@ -10,7 +11,14 @@ export default function ShoppingList() {
     error: errorProducts,
     mutate: mutateProducts,
   } = useSWR("/api/products");
-  if (isLoadingProducts || errorProducts) return <h2>Loading Products...</h2>;
+  if (isLoadingProducts)
+    return (
+      <LottieFile variant="loadingProductsAndStores">
+        Loading Products...
+      </LottieFile>
+    );
+  if (errorProducts)
+    return <LottieFile variant="error">Can{"'"}t load Products</LottieFile>;
   return (
     <main>
       <StyledTitleContainer>

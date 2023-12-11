@@ -10,8 +10,7 @@ const StyledLoadingContainer = styled.div`
   top: 0;
   left: 0;
   height: 100%;
-  width: 100%;
-  /* width: ${({ $onMap }) => ($onMap ? "calc(100% + 30px)" : "100%")}; */
+  width: ${({ $onMap }) => ($onMap ? "calc(100% + 30px)" : "100%")};
   margin: 0 -15px;
   display: flex;
   flex-direction: column;
@@ -21,8 +20,8 @@ const StyledLoadingContainer = styled.div`
     $onMap ? "none" : "var(--primaryBackgroundColor)"};
   color: ${({ $error }) =>
     $error ? "var(--dangerColor)" : "var(--accentColor)"};
+  backdrop-filter: ${({ $onMap }) => $onMap && "blur(2px)"};
   z-index: 2;
-  backdrop-filter: blur(2px);
 `;
 
 const StyledLottie = styled(Lottie)`
