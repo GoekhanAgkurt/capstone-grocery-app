@@ -109,4 +109,7 @@ export default createGlobalStyle`
     list-style-type: none;
     padding: 0px;
   }
+  br {
+    line-height: 3em;
+  }
   `;

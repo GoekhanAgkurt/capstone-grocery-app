@@ -62,7 +62,7 @@ export default function Team() {
           <StyledAnchor href="#Lennart">Lennart</StyledAnchor> and{" "}
           <StyledAnchor href="#Gökhan">Gökhan</StyledAnchor> and developed this
           app in the course of our Capstone-Project, that is the final project
-          of the 3 months full time web-development bootcamp from {""}
+          of the 3 months full-time web development bootcamp from {""}
           <StyledAnchor
             href="https://www.neuefische.de/bootcamp/web-development#kursinhalte"
             target="_blank"
@@ -101,12 +101,21 @@ export default function Team() {
             </Link>
           </StyledSocialsContainer>
           <p>
-            Besides Kite Surfing, and beeing with my son, I enjoy going on
-            adventures in the world and creating and fixing things. I love
-            woodworking and engineering. Web-Development is my new found passion
+            Besides Kite Surfing, and spending time with my son, I enjoy going
+            on adventures in the world and creating and fixing things. I love
+            woodworking and engineering. Web development is my new found passion
             where I can combine my creative, engineering and project management
-            skills. I{"'"}m currently living in Tunis, Tunesia, moving back to
-            Germany in April `24.
+            skills. I{"'"}m currently living in Tunis, Tunisia, but moving back
+            to Germany in April `24. Following this course, I{"'"}ll do a
+            JavaScript 3 months full-time course with {""}
+            <StyledAnchor
+              href="https://www.neuefische.de/bootcamp/web-development#kursinhalte"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              neueFische
+            </StyledAnchor>
+            .
           </p>
         </StyledArticle>
 

@@ -85,7 +85,7 @@ export default function Project() {
       <h3>The Grocery App</h3>
       <p>
         This app was developed in the course of the capstone project that is the
-        final project of the 3 months full time web-development bootcamp from{" "}
+        final project of the 3 months-full time web development bootcamp from{" "}
         {""}
         <StyledAnchor
           href="https://www.neuefische.de/bootcamp/web-development#kursinhalte"
@@ -103,20 +103,20 @@ export default function Project() {
       </p> */}
       <p>
         My Grocery is a shopping list app for groceries with the option of
-        linking created products and stores with each other while also saving
-        and displaying additional information such as locations or product
-        photos.
+        linking created products and stores to each other while also saving and
+        displaying additional information such as the store location or a
+        product picture.
       </p>
       <p>
         Users can decide in which of the created stores they want to buy the
         products that they created in the app. When a product is then put on the
         shopping list, users can click on a product to see where they need to go
-        to get this product.{" "}
+        to buy this product.{" "}
       </p>
       <p>
         Sometimes a product needs to be a special type, from a specific brand or
         is just hard to find by it{"'"}s name or label. In this case users can
-        upload a product photo to always remember what it looks like.
+        upload a product picture to always remember what it looks like.
       </p>
       <h3>Technologies and Tools</h3>
       <StyledTools>
@@ -150,6 +150,40 @@ export default function Project() {
           priority
         />
       </StyledImageAnchor>
+      <p>
+        The sprint-review cycle was one week. Every sprint ended with e public
+        sprint-review, where we presented the current progress of the app to
+        sudents from other {""}
+        <StyledAnchor
+          href="https://www.neuefische.de/bootcamp/web-development#kursinhalte"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          neueFische
+        </StyledAnchor>{" "}
+        courses. <br />
+        Only externally reviewed user stories from the Sprint Backlog were
+        implemented during a running sprint. <br /> To insure that the user only
+        interacts with a functional and useful app, the feature-branches only
+        got merched to the main branch after approved code reviews and quality
+        assurances by other students and / or the coaches from {""}
+        <StyledAnchor
+          href="https://www.neuefische.de/bootcamp/web-development#kursinhalte"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          neueFische
+        </StyledAnchor>
+        .
+        <br /> Before every sprint, we discussed and planned the sprint backlog
+        for the coming sprint. After every sprint, we held a sprint retro, du
+        discuss the {`"start"`}, {`"stops"`} and {`"continues"`} of the next
+        sprint. <br /> Daily scrums{" "}
+        {`(in the morning and while standing up of course)`} helped, to
+        communicate and discuss with the coaches the progress of the last day,
+        the planned to-do
+        {"'"}s for the coming day and potential blockers.
+      </p>
     </main>
   );
 }
