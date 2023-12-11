@@ -1,10 +1,10 @@
 import ProductsList from "@/components/ProductsList";
 import Icon from "@/components/Icons";
 import { StyledCreateLink } from "@/components/Buttons";
+import LottieFile from "@/components/LottieFile";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import LottieFile from "@/components/LottieFile";
 
 const StyledSearchForm = styled.form`
   display: flex;
@@ -51,7 +51,9 @@ export default function HomePage() {
   if (isLoadingProducts)
     return (
       <main>
-        <h2>Loading...</h2>
+        <LottieFile variant="loadingProductsAndStores">
+          Loading Products...
+        </LottieFile>
       </main>
     );
   if (errorProducts)

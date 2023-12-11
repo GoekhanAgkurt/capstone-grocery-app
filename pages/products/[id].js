@@ -63,7 +63,11 @@ export default function ProductDetailsPage({ isEdit, onSetIsEdit }) {
   }
 
   if (isLoadingProduct || isLoadingStores || !isReady)
-    return <h2>Loading...</h2>;
+    return (
+      <main>
+        <LottieFile variant="loadingProductsAndStores">Loading...</LottieFile>
+      </main>
+    );
 
   if (errorProduct || errorStores)
     return (
