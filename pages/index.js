@@ -51,7 +51,9 @@ export default function HomePage() {
   if (isLoadingProducts)
     return (
       <main>
-        <h2>Loading...</h2>
+        <LottieFile variant="loadingProductsAndStores">
+          Loading Products...
+        </LottieFile>
       </main>
     );
   if (errorProducts)

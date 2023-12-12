@@ -79,7 +79,12 @@ export default function Map({
   }
 
   const isCreateStore = Object.keys(currentStore).length === 0;
-  if (isLoadingStores) return <h2>Loading stores...</h2>;
+  if (isLoadingStores)
+    return (
+      <LottieFile variant="loadingProductsAndStores">
+        Loading Stores...
+      </LottieFile>
+    );
   if (errorStores)
     return <LottieFile variant="error">Error loading stores</LottieFile>;
   return (

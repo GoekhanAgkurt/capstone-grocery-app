@@ -1,6 +1,7 @@
 import Lottie from "lottie-react";
 import BananaAngry from "@/public/lottiefiles/BananaAngry.json";
 import BananaWalking from "@/public/lottiefiles/BananaWalking.json";
+import LoadingCircle from "@/public/lottiefiles/LoadingCircle.json";
 import styled from "styled-components";
 
 const StyledLoadingContainer = styled.div`
@@ -26,6 +27,7 @@ const StyledLottie = styled(Lottie)`
 const lotties = {
   error: BananaAngry,
   loading: BananaWalking,
+  loadingProductsAndStores: LoadingCircle,
 };
 
 export default function LottieFile({ children, variant }) {

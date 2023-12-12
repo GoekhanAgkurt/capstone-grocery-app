@@ -74,7 +74,14 @@ export default function StoreDetailsPage({ isEdit, onSetIsEdit }) {
     store ? newAddressURL : null
   );
 
-  if (isLoadingStore || !isReady) return <h2>Loading...</h2>;
+  if (isLoadingStore || !isReady)
+    return (
+      <main>
+        <LottieFile variant="loadingProductsAndStores">
+          Loading Store...
+        </LottieFile>
+      </main>
+    );
   if (errorStore)
     return (
       <main>

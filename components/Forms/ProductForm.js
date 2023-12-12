@@ -124,7 +124,12 @@ export default function ProductForm({
         {isCreateProduct ? "Uploading product." : "Updating product."}
       </LottieFile>
     );
-  if (isLoadingStores) return <h2>Loading stores...</h2>;
+  if (isLoadingStores)
+    return (
+      <LottieFile variant="loadingProductsAndStores">
+        Loading Stores...
+      </LottieFile>
+    );
   if (errorStores)
     return <LottieFile variant="error">Error loading linked stores</LottieFile>;
   return (

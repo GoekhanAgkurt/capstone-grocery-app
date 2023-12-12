@@ -17,8 +17,8 @@ export default function CreateStore() {
 
   const router = useRouter();
 
-  function createStore(newStore) {
-    addStore(newStore);
+  async function createStore(newStore) {
+    await addStore(newStore);
     router.push("/stores");
   }
   function handleNewAddress(address) {

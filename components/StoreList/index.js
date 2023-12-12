@@ -10,7 +10,12 @@ export default function StoreList() {
     mutate: mutateStores,
   } = useSWR("/api/stores");
 
-  if (isLoadingStores) return <h2>Loading...</h2>;
+  if (isLoadingStores)
+    return (
+      <LottieFile variant="loadingProductsAndStores">
+        Loading Stores...
+      </LottieFile>
+    );
 
   if (errorStores)
     return <LottieFile variant="error">Can{"'"}t load Stores</LottieFile>;
