@@ -14,6 +14,7 @@ import {
   StyledButtonContainer,
 } from "@/components/Buttons";
 import { StyledTitleContainer, StyledTitle } from "@/components/ListItems";
+import Head from "next/head";
 import { updateProduct } from "@/utils/productUtils";
 import LottieFile from "@/components/LottieFile";
 
@@ -82,6 +83,14 @@ export default function ProductDetailsPage({ isEdit, onSetIsEdit }) {
 
   return (
     <main>
+      <Head>
+        <title key="title">My Grocery | {product.name}</title>
+        <meta
+          property="og:title"
+          content={`My Grocery | ${product.name}`}
+          key="og-title"
+        />
+      </Head>
       <ProductImage imageSrc={currentImageURL}></ProductImage>
       {!isEdit ? (
         <>

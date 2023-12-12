@@ -4,6 +4,7 @@ import { useState } from "react";
 import useSWR from "swr";
 
 import StoreForm from "@/components/Forms/StoreForm";
+import Head from "next/head";
 
 import dynamic from "next/dynamic";
 import { addStore } from "@/utils/storesUtils";
@@ -27,6 +28,14 @@ export default function CreateStore() {
 
   return (
     <main>
+      <Head>
+        <title key="title">My Grocery | Create Store</title>
+        <meta
+          property="og:title"
+          content="My Grocery | Create Store"
+          key="og-title"
+        />
+      </Head>
       <Map currentCoordinates={currentCoordinates} isLoading={isLoading} />
       <h2>New Store</h2>
       <StoreForm

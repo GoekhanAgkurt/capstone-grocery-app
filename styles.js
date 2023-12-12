@@ -6,6 +6,11 @@ const openSans = Open_Sans({
   weight: "400",
   style: "normal",
 });
+const openSansItalic = Open_Sans({
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
+});
 const openSansBold = Open_Sans({
   subsets: ["latin"],
   weight: "600",
@@ -37,10 +42,15 @@ export default createGlobalStyle`
     --dangerHoverColor: #ba3e37;
     --fontRegular: ${openSans.style.fontFamily};
     --fontBold: ${openSansBold.style.fontFamily};
+    --fontItalic: ${openSansItalic.style.fontFamily};
     --fontTitle: ${kalam.style.fontFamily};
+  }
+  html {
+    height: 100%;
   }
   
   body {
+    height: 100%;
     margin: 0;
     font-family: var(--fontRegular);
     background-color: #575757;
@@ -49,7 +59,7 @@ export default createGlobalStyle`
   }
   
   #__next {
-    height: 100vh;
+    height: 100%;
     display: grid;
     grid-template-areas:
     "header"
@@ -60,6 +70,7 @@ export default createGlobalStyle`
     width: 100%;
     max-width: 600px;
     background-color: var(--primaryBackgroundColor);
+    position: relative;
   }
   header {
     grid-area: header;
@@ -67,8 +78,10 @@ export default createGlobalStyle`
     color: var(--primaryBackgroundColor);
     background-color: var(--accentColor);
     width: 100%;
-    box-shadow: 0px 1px 2px var(--primaryDarkColor);
+     box-shadow: 0px 1px 2px var(--primaryDarkColor);
     z-index: 1;
+    display: flex;
+    justify-content: space-between;
      }
 
      nav {
@@ -95,5 +108,8 @@ export default createGlobalStyle`
   ul {
     list-style-type: none;
     padding: 0px;
+  }
+  br {
+    line-height: 3em;
   }
   `;

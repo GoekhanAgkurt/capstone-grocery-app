@@ -3,8 +3,10 @@ import Icon from "@/components/Icons";
 import { StyledCreateLink } from "@/components/Buttons";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import Head from "next/head";
 import useSWR from "swr";
 import LottieFile from "@/components/LottieFile";
+
 
 const StyledSearchForm = styled.form`
   display: flex;
@@ -48,6 +50,11 @@ export default function HomePage() {
     }
   }, [searchTerm, products]);
 
+
+  function submitForm(event) {
+    event.preventDefault();
+  }
+  
   if (isLoadingProducts)
     return (
       <main>
@@ -62,9 +69,18 @@ export default function HomePage() {
         <LottieFile variant="error">Can{"'"}t load Products</LottieFile>
       </main>
     );
+
   return (
     <main>
-      <StyledSearchForm>
+      <Head>
+        <title key="title">My Grocery | Products</title>
+        <meta
+          property="og:title"
+          content="My Grocery | Products"
+          key="og-title"
+        />
+      </Head>
+      <StyledSearchForm onSubmit={submitForm}>
         <Icon variant="search" />
         <StyledSearchInput
           onChange={(event) => setSearchTerm(event.target.value)}

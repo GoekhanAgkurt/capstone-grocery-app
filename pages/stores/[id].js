@@ -13,7 +13,7 @@ import {
   StyledCancelButton,
   StyledButtonContainer,
 } from "@/components/Buttons";
-
+import Head from "next/head";
 import dynamic from "next/dynamic";
 import { updateStore } from "@/utils/storesUtils";
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
@@ -90,6 +90,14 @@ export default function StoreDetailsPage({ isEdit, onSetIsEdit }) {
     );
   return (
     <main>
+      <Head>
+        <title key="title">My Grocery | {store.name}</title>
+        <meta
+          property="og:title"
+          content={`My Grocery | ${store.name}`}
+          key="og-title"
+        />
+      </Head>
       <Map
         currentStore={store}
         currentCoordinates={currentCoordinates}
