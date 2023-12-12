@@ -1,6 +1,7 @@
 import { StyledListItem } from "@/components/ListItems";
 import { StyledListLink } from "@/components/Buttons";
 import styled from "styled-components";
+import { toggleCheckedProduct } from "@/utils/productUtils";
 
 const StyledCheckboxContainer = styled.div`
   padding: 0 15px;
@@ -12,8 +13,13 @@ const StyledCheckbox = styled.input`
 `;
 export default function ShoppingListItem({
   shoppingListProduct,
-  onCheckProduct,
+  mutateProducts,
 }) {
+  async function toggleCheckOnClick() {
+    await toggleCheckedProduct(shoppingListProduct);
+    mutateProducts();
+  }
+
   return (
     <StyledListItem $onShoppingList={shoppingListProduct.checkedProduct}>
       <StyledListLink
@@ -27,7 +33,7 @@ export default function ShoppingListItem({
           type="checkbox"
           id={shoppingListProduct._id}
           checked={shoppingListProduct.checkedProduct}
-          onChange={() => onCheckProduct(shoppingListProduct)}
+          onChange={() => toggleCheckOnClick()}
         />
       </StyledCheckboxContainer>
     </StyledListItem>

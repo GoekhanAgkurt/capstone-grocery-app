@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+import useSWR from "swr";
 import styled from "styled-components";
+
+import Icon from "@/components/Icons";
+import LottieFile from "@/components/LottieFile";
+import DeleteConfirmation from "@/components/DeleteConfirmation";
+import StoreForm from "@/components/Forms/StoreForm";
 import {
   StyledSubmitButton,
   StyledCancelButton,
@@ -10,6 +17,9 @@ import Icon from "@/components/Icons";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
 import StoreForm from "@/components/Forms/StoreForm";
 import Head from "next/head";
+import dynamic from "next/dynamic";
+import { updateStore } from "@/utils/storesUtils";
+const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 const StyledTitleContainer = styled.div`
   display: flex;
@@ -35,26 +45,52 @@ const StyledDetailTitle = styled.h3`
   margin-block: 0px 0px;
 `;
 
-export default function StoreDetailsPage({
-  stores,
-  isEdit,
-  onEditStore,
-  onDeleteStore,
-  onSetIsEdit,
-}) {
+export default function StoreDetailsPage({ isEdit, onSetIsEdit }) {
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
 
-  const store = stores.find((store) => store._id === id);
-  if (!store) return <h2>store not found</h2>;
-  if (!isReady) return <h2>is Loading</h2>;
+  const {
+    data: store,
+    isLoading: isLoadingStore,
+    error: errorStore,
+    mutate: mutateStore,
+  } = useSWR(id ? `/api/stores/${id}` : null);
+
+  const [newAddress, setNewAddress] = useState("");
 
   function editStore(editedStore) {
-    onEditStore(editedStore);
+    updateStore(editedStore);
     onSetIsEdit();
+    mutateStore();
   }
+  function handleNewAddress(address) {
+    setNewAddress(address);
+  }
+  useEffect(() => {
+    if (!store) return;
+    setNewAddress(store.address);
+  }, [store]);
 
+  const newAddressURL = `https://nominatim.openstreetmap.org/search?format=json&limit=3&q=${newAddress}`;
+  const { data: currentCoordinates, isLoading } = useSWR(
+    store ? newAddressURL : null
+  );
+
+  if (isLoadingStore || !isReady)
+    return (
+      <main>
+        <LottieFile variant="loadingProductsAndStores">
+          Loading Store...
+        </LottieFile>
+      </main>
+    );
+  if (errorStore)
+    return (
+      <main>
+        <LottieFile variant="error">Store not found.</LottieFile>
+      </main>
+    );
   return (
     <main>
       <Head>
@@ -65,16 +101,21 @@ export default function StoreDetailsPage({
           key="og-title"
         />
       </Head>
+      <Map
+        currentStore={store}
+        currentCoordinates={currentCoordinates}
+        isLoading={isLoading}
+      />
       {!isEdit ? (
         <>
           <StyledTitleContainer>
             <StyledTitle>{store.name}</StyledTitle>
-            <DeleteConfirmation
-              store={store}
-              onDeleteStore={onDeleteStore}
-              onDetailsPage
-            />
+            <DeleteConfirmation store={store} onDetailsPage />
           </StyledTitleContainer>
+          <StyledDetailTitle>Address</StyledDetailTitle>
+          <StyledDetailField>
+            {store.address ? store.address : "No address"}
+          </StyledDetailField>
           <StyledDetailTitle>Note</StyledDetailTitle>
           <StyledDetailField>
             {store.note ? store.note : "No note"}
@@ -91,11 +132,17 @@ export default function StoreDetailsPage({
           </StyledButtonContainer>
         </>
       ) : (
-        <StoreForm
-          store={store}
-          onSubmit={editStore}
-          onSetIsEdit={onSetIsEdit}
-        />
+        <>
+          <StoreForm
+            store={store}
+            newAddress={newAddress}
+            currentCoordinates={currentCoordinates}
+            location={location}
+            onSetIsEdit={onSetIsEdit}
+            onSubmit={editStore}
+            onNewAddress={handleNewAddress}
+          />
+        </>
       )}
     </main>
   );

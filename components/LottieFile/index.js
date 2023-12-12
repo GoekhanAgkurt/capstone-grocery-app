@@ -1,5 +1,7 @@
 import Lottie from "lottie-react";
+import BananaAngry from "@/public/lottiefiles/BananaAngry.json";
 import BananaWalking from "@/public/lottiefiles/BananaWalking.json";
+import LoadingCircle from "@/public/lottiefiles/LoadingCircle.json";
 import styled from "styled-components";
 
 const StyledLoadingContainer = styled.div`
@@ -13,7 +15,8 @@ const StyledLoadingContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: var(--primaryBackgroundColor);
-  color: var(--accentColor);
+  color: ${({ $error }) =>
+    $error ? "var(--dangerColor)" : "var(--accentColor)"};
   z-index: 2;
 `;
 
@@ -21,10 +24,16 @@ const StyledLottie = styled(Lottie)`
   width: 250px;
 `;
 
-export default function Loading({ children }) {
+const lotties = {
+  error: BananaAngry,
+  loading: BananaWalking,
+  loadingProductsAndStores: LoadingCircle,
+};
+
+export default function LottieFile({ children, variant }) {
   return (
-    <StyledLoadingContainer>
-      <StyledLottie loop={true} animationData={BananaWalking} />
+    <StyledLoadingContainer $error={variant === "error"}>
+      <StyledLottie loop={true} animationData={lotties[variant]} />
       <h2>{children}</h2>
     </StyledLoadingContainer>
   );

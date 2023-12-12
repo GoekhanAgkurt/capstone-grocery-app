@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { uid } from "uid";
+
+import styled from "styled-components";
+import Icon from "@/components/Icons";
 import {
   StyledForm,
   StyledTitleInput,
@@ -12,9 +15,19 @@ import {
   StyledCancelButton,
   StyledButtonContainer,
 } from "@/components/Buttons";
-import Icon from "@/components/Icons";
 
-export default function StoreForm({ store = {}, onSubmit, onSetIsEdit }) {
+const StyledConditionalButtonContainer = styled(StyledButtonContainer)`
+  bottom: ${({ $isCreateStore }) => $isCreateStore && "40px"};
+`;
+
+export default function StoreForm({
+  store = {},
+  onSubmit,
+  onSetIsEdit,
+  newAddress,
+  onNewAddress,
+  currentCoordinates,
+}) {
   const isCreateStore = Object.keys(store).length === 0;
 
   function handleFormSubmit(event) {
@@ -26,9 +39,17 @@ export default function StoreForm({ store = {}, onSubmit, onSetIsEdit }) {
     const storeData = {
       name: data.storeName,
       note: data.storeNote,
-      _id: isCreateStore ? uid() : store._id,
+      _id: isCreateStore ? null : store._id,
+      address: newAddress ? newAddress : "",
+      lat:
+        currentCoordinates && currentCoordinates.length !== 0
+          ? currentCoordinates[0].lat
+          : "",
+      lon:
+        currentCoordinates && currentCoordinates.length !== 0
+          ? currentCoordinates[0].lon
+          : "",
     };
-
     onSubmit(storeData);
   }
   return (
@@ -56,6 +77,16 @@ export default function StoreForm({ store = {}, onSubmit, onSetIsEdit }) {
           aria-label="Input for store title"
         />
       )}
+
+      <StyledLabel htmlFor="storeAddress">Address</StyledLabel>
+      <StyledInput
+        id="storeAddress"
+        name="storeAddress"
+        type="text"
+        placeholder="Enter store address"
+        value={newAddress}
+        onChange={(event) => onNewAddress(event.target.value)}
+      />
       <StyledLabel htmlFor="storeNote">Note</StyledLabel>
       <StyledTextArea
         id="storeNote"
@@ -63,14 +94,20 @@ export default function StoreForm({ store = {}, onSubmit, onSetIsEdit }) {
         placeholder="Enter Note"
         defaultValue={store.note}
       />
-      <StyledButtonContainer>
+      <StyledConditionalButtonContainer $isCreateStore={isCreateStore}>
         {isCreateStore ? (
           <StyledCancelButton as={Link} href="/stores">
             <Icon variant="cancel" color="var(--primaryButtonColor)" />
             Cancel
           </StyledCancelButton>
         ) : (
-          <StyledCancelButton type="button" onClick={() => onSetIsEdit()}>
+          <StyledCancelButton
+            type="button"
+            onClick={() => {
+              onSetIsEdit();
+              onNewAddress(store.address);
+            }}
+          >
             <Icon variant="cancel" color="var(--primaryButtonColor)" />
             Cancel
           </StyledCancelButton>
@@ -79,7 +116,7 @@ export default function StoreForm({ store = {}, onSubmit, onSetIsEdit }) {
           <Icon variant="check" color="var(--primaryButtonColor)" />
           {isCreateStore ? "Submit" : "Save"}
         </StyledSubmitButton>
-      </StyledButtonContainer>
+      </StyledConditionalButtonContainer>
     </StyledForm>
   );
 }

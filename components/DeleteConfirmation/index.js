@@ -7,6 +7,8 @@ import {
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Icon from "@/components/Icons";
+import { deleteStore } from "@/utils/storesUtils";
+import { clearAllCheckedProducts, deleteProduct } from "@/utils/productUtils";
 
 const StyledDeleteConfirmation = styled.div`
   display: flex;
@@ -50,11 +52,9 @@ export default function DeleteConfirmation({
   products,
   product,
   store,
-  onDeleteProduct,
-  onDeleteStore,
+  mutate,
   onDetailsPage,
   onShoppingListPage,
-  onClearAllCheckedProducts,
 }) {
   const [showConfirmButtons, setShowConfirmButtons] = useState(false);
   const router = useRouter();
@@ -62,6 +62,21 @@ export default function DeleteConfirmation({
   const productIsChecked = products
     ? !products.find((product) => product.checkedProduct === true)
     : false;
+
+  async function deleteOnConfirm() {
+    store && (await deleteStore(store._id));
+    product && (await deleteProduct(product._id));
+    if (onShoppingListPage) {
+      await clearAllCheckedProducts();
+      setShowConfirmButtons(false);
+      mutate();
+    }
+    if (onDetailsPage) {
+      store ? router.push("/stores") : router.push("/");
+    } else {
+      mutate();
+    }
+  }
   return (
     <>
       <StyledDeleteButton
@@ -116,14 +131,7 @@ export default function DeleteConfirmation({
             </StyledSmallCancelButton>{" "}
             <StyledConfirmButton
               type="button"
-              onClick={() => {
-                onDetailsPage &&
-                  (store ? router.push("/stores") : router.push("/"));
-                onShoppingListPage &&
-                  (onClearAllCheckedProducts(), setShowConfirmButtons(false));
-                store && onDeleteStore(store._id);
-                product && onDeleteProduct(product._id);
-              }}
+              onClick={() => deleteOnConfirm()}
             >
               <Icon variant="delete" color="var(--primaryButtonColor)" />
             </StyledConfirmButton>

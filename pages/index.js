@@ -4,6 +4,9 @@ import { StyledCreateLink } from "@/components/Buttons";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Head from "next/head";
+import useSWR from "swr";
+import LottieFile from "@/components/LottieFile";
+
 
 const StyledSearchForm = styled.form`
   display: flex;
@@ -28,24 +31,45 @@ const StyledSearchInput = styled.input`
   font-size: 16px;
 `;
 
-export default function HomePage({
-  products,
-  onDeleteProduct,
-  onToggleShoppingList,
-}) {
+export default function HomePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [foundProducts, setFoundProducts] = useState();
+  const {
+    data: products,
+    isLoading: isLoadingProducts,
+    error: errorProducts,
+    mutate: mutateProducts,
+  } = useSWR("/api/products");
   useEffect(() => {
-    setFoundProducts(
-      products.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
+    if (products) {
+      setFoundProducts(
+        products.filter((product) =>
+          product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    }
   }, [searchTerm, products]);
+
 
   function submitForm(event) {
     event.preventDefault();
   }
+  
+  if (isLoadingProducts)
+    return (
+      <main>
+        <LottieFile variant="loadingProductsAndStores">
+          Loading Products...
+        </LottieFile>
+      </main>
+    );
+  if (errorProducts)
+    return (
+      <main>
+        <LottieFile variant="error">Can{"'"}t load Products</LottieFile>
+      </main>
+    );
+
   return (
     <main>
       <Head>
@@ -69,8 +93,7 @@ export default function HomePage({
       <h2>All Products</h2>
       <ProductsList
         products={searchTerm.length === 0 ? products : foundProducts}
-        onDeleteProduct={onDeleteProduct}
-        onToggleShoppingList={onToggleShoppingList}
+        mutateProducts={mutateProducts}
       ></ProductsList>
       {products.length === 0 && searchTerm.length === 0 && (
         <>

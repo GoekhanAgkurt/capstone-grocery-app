@@ -2,12 +2,24 @@ import ShoppingListItem from "@/components/ShoppingListItem";
 import { StyledTitleContainer, StyledTitle } from "@/components/ListItems";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
 import Head from "next/head";
+import LottieFile from "@/components/LottieFile";
+import useSWR from "swr";
 
-export default function shoppingList({
-  products,
-  onCheckProduct,
-  onClearAllCheckedProducts,
-}) {
+export default function ShoppingList() {
+  const {
+    data: products,
+    isLoading: isLoadingProducts,
+    error: errorProducts,
+    mutate: mutateProducts,
+  } = useSWR("/api/products");
+  if (isLoadingProducts)
+    return (
+      <LottieFile variant="loadingProductsAndStores">
+        Loading Products...
+      </LottieFile>
+    );
+  if (errorProducts)
+    return <LottieFile variant="error">Can{"'"}t load Products</LottieFile>;
   return (
     <main>
       <Head>
@@ -23,7 +35,7 @@ export default function shoppingList({
         <DeleteConfirmation
           products={products}
           onShoppingListPage
-          onClearAllCheckedProducts={onClearAllCheckedProducts}
+          mutate={mutateProducts}
         />
       </StyledTitleContainer>
       {!products.find((product) => product.onShoppingList === true) && (
@@ -41,7 +53,7 @@ export default function shoppingList({
             <ShoppingListItem
               key={shoppingListProduct._id}
               shoppingListProduct={shoppingListProduct}
-              onCheckProduct={onCheckProduct}
+              mutateProducts={mutateProducts}
             />
           ))}
       </ul>

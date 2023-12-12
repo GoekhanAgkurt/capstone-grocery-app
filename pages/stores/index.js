@@ -1,9 +1,9 @@
 import StoreList from "@/components/StoreList";
-import { StyledCreateLink } from "@/components/Buttons";
 import Icon from "@/components/Icons";
 import Head from "next/head";
+import { StyledCreateLink } from "@/components/Buttons";
 
-export default function Stores({ stores, onDeleteStore }) {
+export default function Stores() {
   return (
     <main>
       <Head>
@@ -14,7 +14,7 @@ export default function Stores({ stores, onDeleteStore }) {
           key="og-title"
         />
       </Head>
-      <StoreList stores={stores} onDeleteStore={onDeleteStore} />
+      <StoreList />
       <StyledCreateLink href="/stores/create">
         <Icon variant="plus" color="var(--primaryButtonColor)" size="30" />
       </StyledCreateLink>

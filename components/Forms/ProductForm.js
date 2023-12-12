@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { useState } from "react";
-import { uid } from "uid";
 import defaultImageURL from "@/public/images/defaultImageURL";
 import styled from "styled-components";
 import Icon from "@/components/Icons";
-import Loading from "@/components/Loading";
+import LottieFile from "@/components/LottieFile";
 import {
   StyledForm,
   StyledTitleInput,
@@ -18,6 +17,7 @@ import {
   StyledButtonContainer,
   StyledIconButton,
 } from "@/components/Buttons";
+import useSWR from "swr";
 
 const StyledImageUpload = styled.input`
   display: none;
@@ -54,7 +54,6 @@ const StyledErrorMessage = styled.p`
 
 export default function ProductForm({
   product = {},
-  stores,
   currentImageURL,
   onSubmit,
   onSetCurrentImageURL,
@@ -62,6 +61,12 @@ export default function ProductForm({
 }) {
   const [isUploading, setIsUploading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const {
+    data: stores,
+    isLoading: isLoadingStores,
+    error: errorStores,
+  } = useSWR("/api/stores");
   const isCreateProduct = Object.keys(product).length === 0;
 
   function changeImage(event) {
@@ -76,10 +81,10 @@ export default function ProductForm({
     const data = Object.fromEntries(formData);
 
     const productData = {
+      _id: isCreateProduct ? null : product._id,
       name: data.productName,
       note: data.productNote,
-      selectedStore: data.selectedStore,
-      _id: isCreateProduct ? uid() : product._id,
+      selectedStore: data.selectedStore || null,
     };
 
     if (data.productImage.name !== "" && currentImageURL !== defaultImageURL) {
@@ -115,10 +120,18 @@ export default function ProductForm({
 
   if (isUploading)
     return (
-      <Loading>
+      <LottieFile variant="loading">
         {isCreateProduct ? "Uploading product." : "Updating product."}
-      </Loading>
+      </LottieFile>
     );
+  if (isLoadingStores)
+    return (
+      <LottieFile variant="loadingProductsAndStores">
+        Loading Stores...
+      </LottieFile>
+    );
+  if (errorStores)
+    return <LottieFile variant="error">Error loading linked stores</LottieFile>;
   return (
     <StyledForm onSubmit={handleFormSubmit}>
       {errorMessage !== "" && (
@@ -154,7 +167,7 @@ export default function ProductForm({
         name="selectedStore"
         defaultValue={product.selectedStore}
       >
-        <option value="">--Select a store--</option>
+        <option value={""}>--Select a store--</option>
         {stores.map((store) => (
           <option key={store._id} value={store._id}>
             {store.name}
