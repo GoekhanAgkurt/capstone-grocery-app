@@ -57,8 +57,8 @@ export default function ProductDetailsPage({ isEdit, onSetIsEdit }) {
     if (product && product.imageURL) setCurrentImageURL(product.imageURL);
   }, [product]);
 
-  function editProduct(editedProduct) {
-    updateProduct(editedProduct);
+  async function editProduct(editedProduct) {
+    await updateProduct(editedProduct);
     onSetIsEdit();
     mutateProduct();
   }

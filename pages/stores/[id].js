@@ -56,8 +56,8 @@ export default function StoreDetailsPage({ isEdit, onSetIsEdit }) {
 
   const [newAddress, setNewAddress] = useState("");
 
-  function editStore(editedStore) {
-    updateStore(editedStore);
+  async function editStore(editedStore) {
+    await updateStore(editedStore);
     onSetIsEdit();
     mutateStore();
   }
