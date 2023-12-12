@@ -13,9 +13,6 @@ import {
   StyledCancelButton,
   StyledButtonContainer,
 } from "@/components/Buttons";
-import Icon from "@/components/Icons";
-import DeleteConfirmation from "@/components/DeleteConfirmation";
-import StoreForm from "@/components/Forms/StoreForm";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { updateStore } from "@/utils/storesUtils";
