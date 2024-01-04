@@ -3,6 +3,7 @@ import Icon from "../Icons";
 import { StyledIconButton } from "../Buttons";
 import styled from "styled-components";
 import { useRouter } from "next/router";
+import Login from "../Login";
 
 const StyledMenu = styled.menu`
   width: 100%;
@@ -68,15 +69,18 @@ export default function BurgerMenu() {
         />
       </StyledBurgerMenuIcon>
       {showMenu && (
-        <StyledMenu>
-          {menuItems.map((item) => (
-            <li key={item.label}>
-              <StyledMenuButton onClick={() => handleMenuClick(item.path)}>
-                {item.label}
-              </StyledMenuButton>
-            </li>
-          ))}
-        </StyledMenu>
+        <>
+          <StyledMenu>
+            {menuItems.map((item) => (
+              <li key={item.label}>
+                <StyledMenuButton onClick={() => handleMenuClick(item.path)}>
+                  {item.label}
+                </StyledMenuButton>
+              </li>
+            ))}
+            <Login />
+          </StyledMenu>
+        </>
       )}
     </>
   );

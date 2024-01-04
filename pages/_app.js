@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { SWRConfig } from "swr";
+import { SessionProvider } from "next-auth/react";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import GlobalStyle from "@/styles";
@@ -22,7 +23,7 @@ export default function App({ Component, pageProps }) {
   }
 
   return (
-    <>
+    <SessionProvider session={pageProps.session}>
       <GlobalStyle />
       <Header isEdit={isEdit} />
       <SWRConfig value={{ fetcher }}>
@@ -33,6 +34,6 @@ export default function App({ Component, pageProps }) {
         />
       </SWRConfig>
       <Navigation isEdit={isEdit} />
-    </>
+    </SessionProvider>
   );
 }

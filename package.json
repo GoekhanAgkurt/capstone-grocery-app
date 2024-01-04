@@ -19,6 +19,7 @@
     "lottie-react": "^2.4.0",
     "mongoose": "^8.0.3",
     "next": "13.4.8",
+    "next-auth": "^4.24.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",
