@@ -76,7 +76,7 @@ export default function StoreDetailsPage({ isEdit, onSetIsEdit }) {
     store ? newAddressURL : null
   );
 
-  if (!session)
+  if (!session && !isLoadingStore && isReady)
     return (
       <main>
         <LottieFile variant="error" />;

@@ -34,21 +34,24 @@ const lotties = {
 };
 
 export default function LottieFile({ children, variant }) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
+  if (!session && status !== "loading") {
+    return (
+      <StyledLoadingContainer $error={variant === "error"}>
+        <StyledLottie loop={true} animationData={lotties[variant]} />
+        <h2>You{`'`}re not logged in</h2>
+        <StyledSubmitButton onClick={() => signIn()}>
+          <Icon variant="logIn" color="var(--primaryButtonColor)" />
+          Log in
+        </StyledSubmitButton>
+      </StyledLoadingContainer>
+    );
+  }
   return (
     <StyledLoadingContainer $error={variant === "error"}>
       <StyledLottie loop={true} animationData={lotties[variant]} />
-      {session ? (
-        <h2>{children}</h2>
-      ) : (
-        <>
-          <h2>You{`'`}re not logged in</h2>
-          <StyledSubmitButton onClick={() => signIn()}>
-            <Icon variant="logIn" color="var(--primaryButtonColor)" />
-            Log in
-          </StyledSubmitButton>
-        </>
-      )}
+      <h2>{children}</h2>
     </StyledLoadingContainer>
   );
 }

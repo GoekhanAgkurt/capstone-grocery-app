@@ -55,10 +55,10 @@ export default function HomePage() {
     event.preventDefault();
   }
 
-  if (!session)
+  if (!session && !isLoadingProducts)
     return (
       <main>
-        <LottieFile variant="error" />;
+        <LottieFile variant="error" />
       </main>
     );
   if (isLoadingProducts)

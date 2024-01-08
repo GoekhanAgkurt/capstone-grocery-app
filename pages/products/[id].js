@@ -65,7 +65,7 @@ export default function ProductDetailsPage({ isEdit, onSetIsEdit }) {
     mutateProduct();
   }
 
-  if (!session)
+  if (!session && !isLoadingProduct && !isLoadingStores && isReady)
     return (
       <main>
         <LottieFile variant="error" />;

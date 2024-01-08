@@ -15,7 +15,7 @@ export default function ShoppingList() {
   } = useSWR("/api/products");
   const { data: session } = useSession();
 
-  if (!session)
+  if (!session && !isLoadingProducts)
     return (
       <main>
         <LottieFile variant="error" />;
