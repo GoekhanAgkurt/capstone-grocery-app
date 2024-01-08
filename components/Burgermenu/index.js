@@ -78,8 +78,8 @@ export default function BurgerMenu() {
                 </StyledMenuButton>
               </li>
             ))}
-            <Login />
           </StyledMenu>
+          <Login />
         </>
       )}
     </>
