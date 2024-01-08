@@ -9,6 +9,7 @@ const productShema = new Schema({
   imageURL: { type: String },
   onShoppingList: { type: Boolean },
   checkedProduct: { type: Boolean },
+  user: { type: String },
 });
 
 const Product =

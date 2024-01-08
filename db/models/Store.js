@@ -8,6 +8,7 @@ const storeSchema = new Schema({
   address: { type: String },
   lat: { type: Number },
   lon: { type: Number },
+  user: { type: String },
 });
 
 const Store = mongoose.models.Store || mongoose.model("Store", storeSchema);

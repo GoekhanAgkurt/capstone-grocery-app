@@ -11,7 +11,7 @@ export default async function handler(request, response) {
   if (session) {
     if (request.method === "GET") {
       try {
-        const products = await Product.find();
+        const products = await Product.find({ user: session.user.email });
         return response.status(200).json(products);
       } catch (error) {
         response.status(400).json({ error: error.message });
@@ -20,7 +20,10 @@ export default async function handler(request, response) {
     } else if (request.method === "POST") {
       try {
         const productData = request.body;
-        const addedProduct = await Product.create(productData);
+        const addedProduct = await Product.create({
+          ...productData,
+          user: session.user.email,
+        });
         response
           .status(201)
           .json({ product: addedProduct, status: "Product created" });

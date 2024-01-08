@@ -10,7 +10,7 @@ export default async function handler(request, response) {
   if (session) {
     if (request.method === "GET") {
       try {
-        const stores = await Store.find();
+        const stores = await Store.find({ user: session.user.email });
         return response.status(200).json(stores);
       } catch (error) {
         response.status(400).json({ error: error.message });
@@ -19,7 +19,10 @@ export default async function handler(request, response) {
     } else if (request.method === "POST") {
       try {
         const storeData = request.body;
-        const addedStore = await Store.create(storeData);
+        const addedStore = await Store.create({
+          ...storeData,
+          user: session.user.email,
+        });
         response
           .status(201)
           .json({ store: addedStore, status: "Store created" });
