@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import defaultImageURL from "@/public/images/defaultImageURL";
 import styled from "styled-components";
@@ -31,6 +32,7 @@ const StyledDetailTitle = styled.h3`
 `;
 
 export default function ProductDetailsPage({ isEdit, onSetIsEdit }) {
+  const { data: session } = useSession();
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
@@ -63,6 +65,12 @@ export default function ProductDetailsPage({ isEdit, onSetIsEdit }) {
     mutateProduct();
   }
 
+  if (!session)
+    return (
+      <main>
+        <LottieFile variant="error" />;
+      </main>
+    );
   if (isLoadingProduct || isLoadingStores || !isReady)
     return (
       <main>

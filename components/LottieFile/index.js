@@ -3,6 +3,9 @@ import BananaAngry from "@/public/lottiefiles/BananaAngry.json";
 import BananaWalking from "@/public/lottiefiles/BananaWalking.json";
 import LoadingCircle from "@/public/lottiefiles/LoadingCircle.json";
 import styled from "styled-components";
+import Icon from "../Icons";
+import { useSession, signIn } from "next-auth/react";
+import { StyledSubmitButton } from "../Buttons";
 
 const StyledLoadingContainer = styled.div`
   position: absolute;
@@ -17,7 +20,7 @@ const StyledLoadingContainer = styled.div`
   background-color: var(--primaryBackgroundColor);
   color: ${({ $error }) =>
     $error ? "var(--dangerColor)" : "var(--accentColor)"};
-  z-index: 2;
+  /* z-index: 2; */
 `;
 
 const StyledLottie = styled(Lottie)`
@@ -31,10 +34,21 @@ const lotties = {
 };
 
 export default function LottieFile({ children, variant }) {
+  const { data: session } = useSession();
   return (
     <StyledLoadingContainer $error={variant === "error"}>
       <StyledLottie loop={true} animationData={lotties[variant]} />
-      <h2>{children}</h2>
+      {session ? (
+        <h2>{children}</h2>
+      ) : (
+        <>
+          <h2>You{`'`}re not logged in</h2>
+          <StyledSubmitButton onClick={() => signIn()}>
+            <Icon variant="logIn" color="var(--primaryButtonColor)" />
+            Log in
+          </StyledSubmitButton>
+        </>
+      )}
     </StyledLoadingContainer>
   );
 }

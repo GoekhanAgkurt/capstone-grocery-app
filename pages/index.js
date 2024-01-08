@@ -1,12 +1,12 @@
+import { useEffect, useState } from "react";
+import useSWR from "swr";
+import { useSession } from "next-auth/react";
 import ProductsList from "@/components/ProductsList";
 import Icon from "@/components/Icons";
 import { StyledCreateLink } from "@/components/Buttons";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
 import Head from "next/head";
-import useSWR from "swr";
 import LottieFile from "@/components/LottieFile";
-
 
 const StyledSearchForm = styled.form`
   display: flex;
@@ -34,6 +34,7 @@ const StyledSearchInput = styled.input`
 export default function HomePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [foundProducts, setFoundProducts] = useState();
+  const { data: session } = useSession();
   const {
     data: products,
     isLoading: isLoadingProducts,
@@ -50,11 +51,16 @@ export default function HomePage() {
     }
   }, [searchTerm, products]);
 
-
   function submitForm(event) {
     event.preventDefault();
   }
-  
+
+  if (!session)
+    return (
+      <main>
+        <LottieFile variant="error" />;
+      </main>
+    );
   if (isLoadingProducts)
     return (
       <main>

@@ -81,6 +81,7 @@ export const StyledCreateLink = styled(Link)`
   background-color: var(--accentColor);
   border-radius: 50px;
   box-shadow: 0px 1px 3px var(--primaryDarkColor);
+  z-index: 0;
   &:hover {
     bottom: 97.5px;
     right: 47.5px;

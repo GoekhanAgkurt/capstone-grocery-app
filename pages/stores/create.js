@@ -1,16 +1,16 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-
+import { useSession } from "next-auth/react";
 import useSWR from "swr";
-
-import StoreForm from "@/components/Forms/StoreForm";
 import Head from "next/head";
-
 import dynamic from "next/dynamic";
+import StoreForm from "@/components/Forms/StoreForm";
+import LottieFile from "@/components/LottieFile";
 import { addStore } from "@/utils/storesUtils";
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 
 export default function CreateStore() {
+  const { data: session } = useSession();
   const [newAddress, setNewAddress] = useState("");
 
   const newAddressURL = `https://nominatim.openstreetmap.org/search?format=json&limit=3&q=${newAddress}`;
@@ -25,7 +25,12 @@ export default function CreateStore() {
   function handleNewAddress(address) {
     setNewAddress(address);
   }
-
+  if (!session)
+    return (
+      <main>
+        <LottieFile variant="error" />;
+      </main>
+    );
   return (
     <main>
       <Head>

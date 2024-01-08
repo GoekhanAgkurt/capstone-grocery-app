@@ -4,6 +4,7 @@ import DeleteConfirmation from "@/components/DeleteConfirmation";
 import Head from "next/head";
 import LottieFile from "@/components/LottieFile";
 import useSWR from "swr";
+import { useSession } from "next-auth/react";
 
 export default function ShoppingList() {
   const {
@@ -12,6 +13,14 @@ export default function ShoppingList() {
     error: errorProducts,
     mutate: mutateProducts,
   } = useSWR("/api/products");
+  const { data: session } = useSession();
+
+  if (!session)
+    return (
+      <main>
+        <LottieFile variant="error" />;
+      </main>
+    );
   if (isLoadingProducts)
     return (
       <LottieFile variant="loadingProductsAndStores">
